@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/fa.all.css">
 		<style type="text/css">
 			*{
-				border:1px dashed red;
+				/* border:1px dashed red; */
 			}
 			html {
 				background-color:blue;
@@ -28,10 +28,12 @@
 			header {
 				margin: 0 !important;
 				width: 100%;
+				height: 3.8rem;
 				position: fixed;
 				background-color: #fff;
-				box-shadow: 0 2px 5px black;
+				box-shadow: 0 0 10px black;
 				z-index: 100;
+				border-bottom: 1px solid gray
 			}
 
 			header div {
@@ -44,16 +46,125 @@
 			}
 			.sidebar {
 				background-color: #fff;
-				width: 400px;
-				height: 100%;
+				width: 450px;
 				margin: 0 !important;
 				padding: 0 !important;
-				z-index: 99;
+				z-index: 102;
+				position: absolute;
+				box-shadow: 0 13px 0 0 white, 0 -13px 0 0 white, 0 0 10px black ;
+				top: 3.75rem;
+				bottom: 2.18rem;
+				height: auto;
+				/* left: 0; */
+				left: -1000px;
+				border-top: 1px solid gray;
+				border-right: 1px solid gray;
+				border-bottom: 1px solid gray;
+			}
+			footer {
+				margin: 0 !important;
+				padding: 0 !important;
+				bottom: 0;
+				position: fixed;
+				width: 100%;
+				height: 2.2rem;
+				display: table;
+				background-color: #fff;
+				z-index: 100;
+				border-top: 1px solid gray;
+				box-shadow: 0 0 10px black;
+			}
+			.copyright {
+				padding: 0.5rem;
+				display: table-cell;
+				font-size: 0.8rem;
+				font-weight: bold;
+				float: right;
+			}
+			.copyright a {
+				margin: 0 !important;
+				padding: 0 !important;
+				text-decoration: none;
+				color: black;
+			}
+			.selection-box{
+				right: 0;
+				bottom: 2.1rem;
+				/* right: -500px; */
+				/* bottom: -300px; */
+				position: absolute;
+				display: block;
+				width: 400px;
+				min-height: 3.1rem !important;
+				border: 1px solid gray;
+				border-right: none;
+				box-shadow:  0 10px 0 white, 0 0 10px black;
+				background-color: #fff;
+				z-index: 101;
+			}
+			.selection-box .tab {
+				display: block;
+				position: relative;
+			}
+
+			.foot {
+				text-align: center;
+				display: inline;
+			}
+			.tab {
+				width: 100%;
+				display: table;
+			}
+			.tab-header {
+				margin: 0 !important;
+				padding: 0.5rem;
+				border: 1px solid gray;
+				display: table-cell;
+				cursor: pointer;
+				font-weight: bold;
+				font-size: 1.3rem;
+			}
+			.tab-header:hover {
+				background-color: aqua;
+			}
+			.tab .row, .tab-header h4 {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			
+			.tab-content {
+				overflow-y: scroll !important;
+				height: 100%;
+				background-color: #fff;
+			}
+			.tab-content .container {
+				margin: 2rem 0;
+				z-index: 4;
+			}
+
+			.tab-select {
+				height: auto;
+			}
+			.selection-box .container{
+				margin: 1rem 0 !important;
+				width: 100%;
 			}
 
 			@media only screen and (max-width: 720px) {
 				:root{
-					font-size: 24px;
+					font-size: 16px;
+				}
+				.sidebar {
+					width: 100%;
+					box-shadow: none;
+				}
+				.foot {
+					text-align: center;
+					display: inline;
+				}
+				.selection-box {
+					width: 100%;
+					box-shadow: none;
 				}
 			}
 		</style>
@@ -62,18 +173,99 @@
 	<body>
 		<header>
 			<div class="row table" style="padding: 1rem; margin: 0;">
-				<div class="col text-left table-cell"><i class="fa fa-bars"></i></div>
-				<div class="col-10 text-center table-cell">
+				<div class="col-2 text-left table-cell"><i class="fa fa-bars"></i></div>
+				<div class="col-8 text-center table-cell">
 					<h5><b>CIPHYMAGE</b></h5>
 				</div>
-				<div class="col text-right table-cell"><i class="fa fa-bars"></i></div>
+				<div class="col-2 text-right table-cell"><i class="fa fa-bars"></i></div>
 			</div>
 		</header>
 		<div class="sidebar">
-			
+			<div class="tab">
+				<div class="row">
+					<div class="tab-header col-6 text-center"><span>Encrypt</span></div>
+					<div class="tab-header col-6 text-center"><span>Decrypt</span></div>
+				</div>
+			</div>
+			<div class="tab-content encryption" hidden>
+				<div class="container">
+					<div class="form-group">
+						<label for="">sdsdsd</label>
+						<input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+						<small id="helpId" class="text-muted">Help text</small>
+					</div>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+				</div>
+			</div>
+			<div class="tab-content decryption">
+				<div class="container">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
+				</div>
+			</div>
+		</div>
+		<div class="selection-box">
+			<div class="tab-content">
+				<div class="container">
+					<div class="tab-select" id="select-box-1">
+						<div class="row">
+							<div class="input-group col-6">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">x1</span>
+								</div>
+								<input type="number" class="form-control" >
+							</div>
+							<div class="input-group col-6">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">x2</span>
+								</div>
+								<input type="number" class="form-control" >
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-group col-6">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">y1</span>
+								</div>
+								<input type="number" class="form-control" >
+							</div>
+							<div class="input-group col-6">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">y2</span>
+								</div>
+								<input type="number" class="form-control" >
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab">
+				<div class="row">
+					<div class="tab-header col-2 text-center"><span>1</span></div>
+					<div class="tab-header col-2 text-center"><span>2</span></div>
+					<div class="tab-header col-2 text-center"><span>3</span></div>
+					<div class="tab-header col-2 text-center"><span>4</span></div>
+					<div class="tab-header col-2 text-center"><span>5</span></div>
+					<div class="tab-header col-2 text-center"><span><i class="fas fa-sync"></i></span></div>
+				</div>
+			</div>
 		</div>
 		<footer>
-
+			<div class="copyright">
+				<a href="https://www.github.com/arfendodhimas" target="_blank">www.github.com/arfendodhimas</a>
+			</div>
 		</footer>
 	</body>
 	<script src="js/jquery-3.5.1.min.js"></script>
