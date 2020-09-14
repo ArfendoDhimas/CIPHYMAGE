@@ -12,6 +12,9 @@
 			*{
 				/* border:1px dashed red; */
 			}
+			:root {
+				font-size: 14px;
+			}
 			html {
 				background-color:blue;
 			}
@@ -32,7 +35,7 @@
 				position: fixed;
 				background-color: #fff;
 				box-shadow: 0 0 10px black;
-				z-index: 100;
+				z-index: 50;
 				border-bottom: 1px solid gray
 			}
 
@@ -46,20 +49,34 @@
 			}
 			.sidebar {
 				background-color: #fff;
-				width: 450px;
+				width: 30rem;
 				margin: 0 !important;
 				padding: 0 !important;
-				z-index: 102;
+				z-index: 100;
 				position: absolute;
-				box-shadow: 0 13px 0 0 white, 0 -13px 0 0 white, 0 0 10px black ;
+				box-shadow: 4px 4px 10px -4px black ;
 				top: 3.75rem;
-				bottom: 2.18rem;
+				bottom: 2rem;
 				height: auto;
-				/* left: 0; */
-				left: -1000px;
+				left: -100%;
 				border-top: 1px solid gray;
 				border-right: 1px solid gray;
 				border-bottom: 1px solid gray;
+			}
+			.sidebar.active {
+				left: 0;
+			}
+			.sidebar .tab-header {
+				border-right: 1px solid gray;
+				border-bottom: 1px solid gray;
+				background-color: #aaaaaa;
+			}
+			.sidebar .tab-header.active {
+				background-color: white;
+				border-bottom: none;
+			}
+			.sidebar .form-group {
+				margin: 1.5rem 0;
 			}
 			footer {
 				margin: 0 !important;
@@ -67,17 +84,17 @@
 				bottom: 0;
 				position: fixed;
 				width: 100%;
-				height: 2.2rem;
+				height: 2rem;
 				display: table;
 				background-color: #fff;
-				z-index: 100;
+				z-index: 50;
 				border-top: 1px solid gray;
 				box-shadow: 0 0 10px black;
 			}
 			.copyright {
-				padding: 0.5rem;
+				padding: 0.2rem 1rem;
+				font-size: 1rem;
 				display: table-cell;
-				font-size: 0.8rem;
 				font-weight: bold;
 				float: right;
 			}
@@ -89,22 +106,27 @@
 			}
 			.selection-box{
 				right: 0;
-				bottom: 2.1rem;
+				bottom: 2rem;
 				/* right: -500px; */
 				/* bottom: -300px; */
 				position: absolute;
 				display: block;
-				width: 400px;
-				min-height: 3.1rem !important;
-				border: 1px solid gray;
+				width: 25rem;
+				/* height: auto; */
+				min-height: 3rem;
+				/* min-height: 3.1rem !important; */
+				border: 1px solid gray;	
 				border-right: none;
-				box-shadow:  0 10px 0 white, 0 0 10px black;
+				box-shadow:  -5px -5px 10px -5px black;
 				background-color: #fff;
-				z-index: 101;
+				z-index: 98;
 			}
 			.selection-box .tab {
 				display: block;
 				position: relative;
+			}
+			.selection-box .input-group {
+				padding: 4px 0 0 0;
 			}
 
 			.foot {
@@ -116,9 +138,9 @@
 				display: table;
 			}
 			.tab-header {
+				height: 3rem;
 				margin: 0 !important;
 				padding: 0.5rem;
-				border: 1px solid gray;
 				display: table-cell;
 				cursor: pointer;
 				font-weight: bold;
@@ -134,25 +156,129 @@
 			
 			.tab-content {
 				overflow-y: scroll !important;
-				height: 100%;
+				height: 80%;
+				/* height: unset; */
 				background-color: #fff;
 			}
 			.tab-content .container {
-				margin: 2rem 0;
-				z-index: 4;
+				margin: 2rem auto;
+				/* z-index: 4; */
 			}
 
 			.tab-select {
-				height: auto;
+				height: 5.6rem;
 			}
 			.selection-box .container{
-				margin: 1rem 0 !important;
+				margin: 1rem auto !important;
 				width: 100%;
+			}
+			.selection-box .tab-content {
+				overflow: hidden !important;
+			}
+			.selection-box .tab-header {
+				border-top: 1px solid gray;
+				border-right: 1px solid gray;
+			}
+			.selection-box .tab-header.active {
+				background-color: white;
+				border-top: none;
+			}
+			.selection-box .tab-content {
+				display: none;
+			}
+			.selection-box .tab-content.active {
+				display: block;
+			}
+			.panel-select-block .btn-minimize {
+				position: absolute;
+				right: 0;
+				bottom: 5.1rem;
+				font-size: 1.5rem;
+				border: 1px solid gray;
+				padding: 1.2rem 1.2rem;
+				margin: 0 !important;
+				z-index: 99;
+				background-color: white;
+				box-shadow: -3px -3px 10px -3px black;
+				/* border-bottom: none; */
+			}
+			.panel-select-block .btn-minimize:hover {
+				background-color: aqua;
+			}
+			.panel-select-block .btn-minimize.active {
+				bottom: 12.7rem;
+			}
+			.panel-select-block .btn-minimize i.fa-angle-down{
+				display: none !important;
+			}
+			.panel-select-block .btn-minimize i.fa-angle-up{
+				display: block !important;
+			}
+			.panel-select-block .btn-minimize.active i.fa-angle-down{
+				display: block !important;
+			}
+			.panel-select-block .btn-minimize.active i.fa-angle-up{
+				display: none  !important;
+			}
+
+
+
+
+
+			.btn {
+				cursor: pointer;
+			}
+
+			.panel-backgroud {
+				position: absolute;
+				width: 100%;
+				top: 3.7rem;
+				bottom: 1.9rem;
+				height: auto;
+				background-color: aquamarine;
+				z-index: 25;
+			}
+			.panel-backgroud .group-btn-input-custom {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				z-index: 5;
+			}
+			.panel-backgroud .group-btn-input-custom input[type="file"] {
+				display: none;
+			}
+
+			.scroller {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				overflow: scroll;
+				background-color: blue;
+			}
+			.image-section {
+				width: 100%;
+				min-height: 100%;
+				display: table;
+				text-align: center;
+			}
+			.info {
+				display: table-cell;
+				vertical-align: middle;
+				position: relative;
+			}
+
+
+
+			#canvas-input-image {
+				z-index: 0;
+				background-color:red;
+				margin: 1rem;
 			}
 
 			@media only screen and (max-width: 720px) {
 				:root{
-					font-size: 16px;
+					font-size: 12px;
 				}
 				.sidebar {
 					width: 100%;
@@ -164,7 +290,15 @@
 				}
 				.selection-box {
 					width: 100%;
-					box-shadow: none;
+					box-shadow:  -5px -5px 10px -5px black;
+				}
+				.panel-backgroud {
+					position: absolute;
+					width: 100%;
+					top: 3.7rem;
+					bottom: 5rem;
+					height: auto;
+					background-color: aquamarine;
 				}
 			}
 		</style>
@@ -172,99 +306,175 @@
 
 	<body>
 		<header>
-			<div class="row table" style="padding: 1rem; margin: 0;">
-				<div class="col-2 text-left table-cell"><i class="fa fa-bars"></i></div>
+			<div class="row table" style="padding: 1rem; margin: 0; font-size: large;">
+				<div class="col-2 text-left table-cell">
+					<!-- <i class="fa fa-bars"></i>  -->
+					<i class="fas fa-times"></i>
+				</div>
 				<div class="col-8 text-center table-cell">
-					<h5><b>CIPHYMAGE</b></h5>
+					<h5><b><a href="">CIPHYMAGE</a></b></h5>
 				</div>
 				<div class="col-2 text-right table-cell"><i class="fa fa-bars"></i></div>
 			</div>
 		</header>
-		<div class="sidebar">
+		<!-- need to be activate -->
+		<div class="sidebar "> 
 			<div class="tab">
 				<div class="row">
-					<div class="tab-header col-6 text-center"><span>Encrypt</span></div>
-					<div class="tab-header col-6 text-center"><span>Decrypt</span></div>
+					<div class="tab-header col-6 text-center "><span>Encrypt</span></div>
+					<div class="tab-header col-6 text-center active"><span>Decrypt</span></div>
 				</div>
 			</div>
-			<div class="tab-content encryption" hidden>
+			<div class="tab-content encryption">
 				<div class="container">
 					<div class="form-group">
-						<label for="">sdsdsd</label>
-						<input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
-						<small id="helpId" class="text-muted">Help text</small>
+						<label for="input-passphrase-encrypt" class="font-weight-bold">Input Passphrase (Recomended) <i class="fas fa-info-circle"></i> </label>
+						<input type="text" id="input-passphrase-encrypt" class="form-control" maxlength="32">
 					</div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-				</div>
-			</div>
-			<div class="tab-content decryption">
-				<div class="container">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, repellendus eos obcaecati totam non enim accusamus eligendi aspernatur ex mollitia et incidunt cupiditate iure provident quaerat doloribus dolorem sit recusandae?</p>
-				</div>
-			</div>
-		</div>
-		<div class="selection-box">
-			<div class="tab-content">
-				<div class="container">
-					<div class="tab-select" id="select-box-1">
-						<div class="row">
-							<div class="input-group col-6">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1">x1</span>
-								</div>
-								<input type="number" class="form-control" >
-							</div>
-							<div class="input-group col-6">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1">x2</span>
-								</div>
-								<input type="number" class="form-control" >
+					<div class="form-group">
+						<label for="input-key-length" class="font-weight-bold">Select Encryption Mode<i class="fas fa-info-circle"></i></label>
+						<select class="form-control" id="input-key-length">
+							<option value="aes-ecb">AES-ECB</option>
+							<option value="aes-cbc" selected>AES-CBC (Recomended)</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="input-key-length" class="font-weight-bold">Select Key Length <i class="fas fa-info-circle"></i></label>
+						<select class="form-control" id="input-key-length">
+							<option value="128">128 bits</option>
+							<option value="192">192 bits</option>
+							<option value="256" selected>256 bits (Recomended)</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="input-key-encrypt" class="font-weight-bold">Generate Key <i class="fas fa-info-circle"></i></label>
+						<div class="input-group btn-group">
+							<input type="text" id="input-key-encrypt" class="form-control" maxlength="32" readonly>
+							<div class="input-group-prepend">
+								<span class="input-group-text btn btn-primary" id="basic-addon1"><i class="fas fa-copy"></i></span>
+								<span class="input-group-text btn btn-warning" id="basic-addon1"><i class="fa fa-redo"></i></span>
 							</div>
 						</div>
-						<div class="row">
-							<div class="input-group col-6">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1">y1</span>
-								</div>
-								<input type="number" class="form-control" >
-							</div>
-							<div class="input-group col-6">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1">y2</span>
-								</div>
-								<input type="number" class="form-control" >
+					</div>
+					<div class="form-group">
+						<label for="input-iv-encrypt" class="font-weight-bold">Generate Initial Vector <i class="fas fa-info-circle"></i></label>
+						<div class="input-group">
+							<input type="text" id="input-iv-encrypt" class="form-control" maxlength="16" readonly>
+							<div class="input-group-prepend">
+								<span class="input-group-text btn btn-primary" id="basic-addon1"><i class="fas fa-copy"></i></span>
+								<span class="input-group-text btn btn-warning" id="basic-addon1"><i class="fa fa-redo"></i></span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="tab">
-				<div class="row">
-					<div class="tab-header col-2 text-center"><span>1</span></div>
-					<div class="tab-header col-2 text-center"><span>2</span></div>
-					<div class="tab-header col-2 text-center"><span>3</span></div>
-					<div class="tab-header col-2 text-center"><span>4</span></div>
-					<div class="tab-header col-2 text-center"><span>5</span></div>
-					<div class="tab-header col-2 text-center"><span><i class="fas fa-sync"></i></span></div>
+			<div class="tab-content decryption" hidden>
+				<div class="container">
+					<div class="form-group">
+						<label for="input-key-length" class="font-weight-bold">Import JCKEY File <i class="fas fa-info-circle"></i></label>
+						<div class="input-group">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="input-key-file" accept=".jckey">
+								<label for="input-key-file" class="custom-file-label">JSON CIPHYMAGE KEY (*.jckey)</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input-passphrase-decrypt" class="font-weight-bold">Input Passphrase (Optional) <i class="fas fa-info-circle"></i> </label>
+						<div class="input-group">
+							<input type="text" id="input-passphrase-decrypt" class="form-control" maxlength="32">
+							<div class="input-group-prepend">
+								<span class="input-group-text btn btn-success" id="basic-addon1"><i class="fas fa-check"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input-key-decrypt" class="font-weight-bold">Your Key <i class="fas fa-info-circle"></i></label>
+						<input type="text" id="input-key-decrypt" class="form-control" maxlength="32" readonly>
+					</div>
+					<div class="form-group">
+						<label for="input-iv-decrypt" class="font-weight-bold">Your Initial Vector <i class="fas fa-info-circle"></i></label>
+						<input type="text" id="input-iv-decrypt" class="form-control" maxlength="16" readonly>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<section class="panel-backgroud">
+			<div class="group-btn-input-custom">
+				<label for="import-image-button" class="btn btn-primary btn-lg">Choose Image</label>
+				<input type="file" id="import-image-button" class="custom-file-input-button" accept="image/x-png,image/jpeg,image/bmp">
+			</div>
+			<!-- <div class="panel-canvas"> -->
+				<div class="scroller">
+					<div class="image-section" id="image-section">
+						<div id="info" class="info">
+							<canvas id="canvas-input-image" height="400" width="404"></canvas>
+						</div>
+					</div>
+				</div>
+
+			<!-- </div> -->
+		</section>
+
+		<section class="panel-select-block">
+			<div class="btn-minimize ">
+				<i class="fa fa-angle-up"></i>
+				<i class="fa fa-angle-down"></i>
+			</div>
+			<div class="selection-box">
+				<div class="tab-content ">
+					<div class="container">
+						<div class="tab-select" id="select-box-1">
+							<div class="row">
+								<div class="col-6">
+									<div class="input-group col-12">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">x1</span>
+										</div>
+										<input type="number" class="form-control" >
+									</div>
+									<div class="input-group col-12">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">y1</span>
+										</div>
+										<input type="number" class="form-control" >
+									</div>
+								</div>
+								<div class="col-6">
+	
+									<div class="input-group col-12">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">x2</span>
+										</div>
+										<input type="number" class="form-control" >
+									</div>
+									<div class="input-group col-12">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">y2</span>
+										</div>
+										<input type="number" class="form-control" >
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab">
+					<div class="row">
+						<div class="tab-header col-2 text-center "><span>1</span></div>
+						<div class="tab-header col-2 text-center"><span>2</span></div>
+						<div class="tab-header col-2 text-center"><span>3</span></div>
+						<div class="tab-header col-2 text-center"><span>4</span></div>
+						<div class="tab-header col-2 text-center"><span>5</span></div>
+						<div class="tab-header col-2 text-center"><span><i class="fas fa-sync"></i></span></div>
+					</div>
+				</div>
+			</div>
+		</section>
 		<footer>
 			<div class="copyright">
-				<a href="https://www.github.com/arfendodhimas" target="_blank">www.github.com/arfendodhimas</a>
+				<a href="https://www.github.com/arfendodhimas/ciphymage" target="_blank"><i class="fab fa-github"></i> CIPHYMAGE</a>
 			</div>
 		</footer>
 	</body>
