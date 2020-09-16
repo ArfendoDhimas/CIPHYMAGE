@@ -1,11 +1,19 @@
 *{
 	/* border:1px dashed red; */
-	/* color: var(--color-main-text); */
+	color: var(--color-text-2);
 	-moz-user-select: none; 
 	-webkit-user-select: none; 
 	-ms-user-select:none; 
 	user-select:none;
 	-o-user-select:none;
+}
+a {
+	color: var(--color-text-2);
+	text-decoration: none;
+}
+a:hover {
+	color: var(--color-text-2);
+	text-decoration: none;
 }
 :root {
 	font-size: 16px;
@@ -15,14 +23,13 @@
 	--color-border: #000000;
 	--color-main: #1b83f2;
 	--color-main-sec: #5493d6;
-	--color-main-sec: #1b83f2;
+	/* --color-main-sec: #1b83f2; */
 	--color-bg: #6c8197;
 	--color-bg-2: #557ca7 ;
 	--color-acsent-1: #6bc219;
 	--color-acsent-2: #933de3;
 	--color-acsent-3: #d48837;
 	--color-acsent-4: #d72624;
-
 }
 html {
 	/* background-color:blue; */
@@ -36,15 +43,49 @@ body {
 	position:fixed;
 	background-color: var(--color-border);
 }
+#title a{
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+.menu {
+	position: absolute;
+	top: calc(3.8rem - 1px);
+	right: 0;
+	background-color: var(--color-main);
+	width: 16rem;
+	height: fit-content;
+	max-height: 21rem;
+	z-index: 125;
+	border-right: 1px solid var(--color-border);
+	border-left: 1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
+	font-weight: bold;
+	box-shadow: -6px 6px 10px -8px black;
+}
+.menu .menu-list {
+	position: relative;
+	width: 100%;
+	max-height: inherit;
+	overflow: auto;
+	text-align: center;
+}
+.menu .menu-list .item {
+	display: block;
+	padding: 1rem;
+	margin: 0 !important;
+	cursor: pointer;
+}
+.menu .menu-list .item:hover {
+background-color: var(--color-text-1);
+}
 
 header {
 	margin: 0 !important;
 	width: 100%;
 	height: 3.8rem;
 	position: fixed;
-	/* background-color: #fff; */
 	background-color: var(--color-main);
-	color: var(--color-main-text) !important;
 	box-shadow: 0 0 10px black;
 	z-index: 50;
 	border-left: 1px solid var(--color-border);
@@ -52,11 +93,6 @@ header {
 	border-bottom: 1px solid var(--color-border);
 }
 
-#title a{
-	text-decoration: none;
-	color: black;
-	font-weight: bold;
-}
 
 header div {
 	vertical-align: middle;
@@ -97,7 +133,7 @@ header h5 {
 .sidebar .tab-header {
 	/* border-right: 1px solid var(--color-border); */
 	border-bottom: 1px solid var(--color-border);
-	background-color: var(--color-main-sec);
+	background-color: var(--color-main);
 }
 .sidebar .tab-header.active {
 	/* background-color: white; */
@@ -144,7 +180,6 @@ footer {
 	font-size: 1rem;
 	display: table-cell;
 	font-weight: bold;
-	float: right;
 }
 .copyright a {
 	margin: 0 !important;
@@ -210,10 +245,12 @@ footer {
 	/* z-index: 4; */
 }
 .tab-select {
-	height: 5.6rem;
+	height: 7.6rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 .selection-block .container{
-	margin: 1rem auto !important;
+	margin: 0 auto !important;
 	width: 100%;
 }
 .selection-block .tab-content {
@@ -301,10 +338,23 @@ footer {
 	margin: 1rem;
 }
 #btn-sidebar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 3.8rem;
+	width: 3.8rem;
+	/* background-color: white; */
+	font-size: 1.6rem;
 	cursor: pointer;
 }
+#btn-sidebar i{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
 #btn-sidebar:hover {
-	color: var(--color-border);
+	color: var(--color-text-1);
 }
 
 #btn-sidebar i.fa-bars{
@@ -319,10 +369,55 @@ footer {
 #btn-sidebar.active i.fa-times{
 	display: block  !important;
 }
+#btn-menu {
+	position: absolute;
+	/* background-color: var(--color-main); */
+	/* background-color: white; */
+	height: 3.8rem;
+	top: 0rem;
+	right: 0rem;
+	width: 3.8rem;
+	font-size: 2rem;
+	cursor: pointer;
+}
+#btn-menu i {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+#btn-menu i.fa-caret-square-down{
+	display: block !important;
+}
+#btn-menu i.fa-caret-square-up{
+	display: none !important;
+}
+#btn-menu.active i.fa-caret-square-down{
+	display: none !important;
+}
+#btn-menu.active i.fa-caret-square-up{
+	display: block  !important;
+}
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 720px) {
 	:root{
-		font-size: 12px;
+		font-size: 16px;
+	}
+	.menu {
+		background-color: var(--color-text-1);
+		width: 100%;
+		height: calc(100% - 5.8rem + 2px);
+		max-height: 100%;
+		border-top: 1px solid var(--color-border);
+		font-size: 1.6rem;
+		box-shadow: none;
+	}
+	.menu .menu-list {
+		transform: translate(0,-50%);
+		top: 50%;
+	}
+	.menu .item:hover {
+		background-color: var(--color-main) !important;
 	}
 	.sidebar {
 		width: 100%;
@@ -345,6 +440,8 @@ footer {
 		background-color: aquamarine;
 	}
 }
-@media(hover: hover) and (pointer: fine) {
-
+@media only screen and (max-width: 720px) {
+	:root{
+		font-size: 12px;
+	}
 }
