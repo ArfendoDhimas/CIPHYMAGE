@@ -4,8 +4,6 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<title>CIPHYMAGE - Encryption and Decryption on Selected Image Sections with Advanced Encryption Standard (AES)</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-		<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.min.css"> -->
 		<link rel="stylesheet" type="text/css" href="css/fa.all.css">
 		<link rel="stylesheet" type="text/css" href="css/ui.css">
 	</head>
@@ -33,7 +31,7 @@
 				<div class="item" id="item-4">Menu 4</div>
 				<div class="item" id="item-5">Menu 5</div>
 				<div class="item" id="item-5">Menu 6</div>
-				<div class="item" id="item-5">Menu 6</div>
+				<div class="item" id="item-5">Menu 7</div>
 				
 			</div>
 		</div>
@@ -48,18 +46,14 @@
 				<div class="encryption">
 					<div class="container">
 						<div class="form-group">
-							<label for="input-passphrase-encrypt" class="font-weight-bold">Input Passphrase (Recomended) <i class="fas fa-info-circle"></i> </label>
-							<input type="text" id="input-passphrase-encrypt" class="form-control" maxlength="32">
-						</div>
-						<div class="form-group">
-							<label for="input-key-length" class="font-weight-bold">Select Encryption Mode <i class=" btn btn-success fas fa-info-circle"></i></label>
+							<label for="input-key-length" class="font-weight-bold">Select Encryption Mode <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<select class="form-control" id="input-key-length">
 								<option value="aes-ecb">AES-ECB</option>
 								<option value="aes-cbc" selected>AES-CBC (Recomended)</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="input-key-length" class="font-weight-bold">Select Key Length <i class="fas fa-info-circle"></i></label>
+							<label for="input-key-length" class="font-weight-bold">Select Key Length <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<select class="form-control" id="input-key-length">
 								<option value="128">128 bits</option>
 								<option value="192">192 bits</option>
@@ -67,7 +61,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="input-key-encrypt" class="font-weight-bold">Generate Key <i class="fas fa-info-circle"></i></label>
+							<label for="input-key-encrypt" class="font-weight-bold">Generate Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
 								<input type="text" id="input-key-encrypt" class="form-control" maxlength="32" readonly>
 								<div class="input-group-prepend">
@@ -77,7 +71,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="input-iv-encrypt" class="font-weight-bold">Generate Initial Vector <i class="fas fa-info-circle"></i></label>
+							<label for="input-iv-encrypt" class="font-weight-bold">Generate Initial Vector <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
 								<input type="text" id="input-iv-encrypt" class="form-control" maxlength="16" readonly>
 								<div class="input-group-prepend">
@@ -86,12 +80,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="form-group">
+							<label for="input-passphrase-encrypt" class="font-weight-bold">Input Passphrase (Recomended) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
+							<input type="text" id="input-passphrase-encrypt" class="form-control" maxlength="32">
+						</div>
+						<div class="form-group">
+							<button type="button" id="btn-encrypt" class="btn btn-secondary btn-lg btn-block" disabled>Start Encrypt</button>
+						</div>
 					</div>
 				</div>
 				<div class="decryption" style="display:none">
 					<div class="container">
 						<div class="form-group ">
-							<label for="input-key-length" class="font-weight-bold">Import JCKEY File <i class="fas fa-info-circle"></i></label>
+							<label for="input-key-length" class="font-weight-bold">Import JCKEY File <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
 								<div class="custom-file" >
 									<input type="file" class="custom-file-input" id="input-key-file" accept=".jckey" style="cursor: pointer;">
@@ -100,7 +101,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="input-passphrase-decrypt" class="font-weight-bold">Input Passphrase (Optional) <i class="fas fa-info-circle"></i> </label>
+							<label for="input-passphrase-decrypt" class="font-weight-bold">Input Passphrase (Optional) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
 							<div class="input-group ">
 								<input type="text" id="input-passphrase-decrypt" class="form-control" maxlength="32">
 								<div class="input-group-prepend">
@@ -109,12 +110,15 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="input-key-decrypt" class="font-weight-bold">Your Key <i class="fas fa-info-circle"></i></label>
+							<label for="input-key-decrypt" class="font-weight-bold">Your Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<input type="text" id="input-key-decrypt" class="form-control" maxlength="32" readonly>
 						</div>
 						<div class="form-group">
-							<label for="input-iv-decrypt" class="font-weight-bold">Your Initial Vector <i class="fas fa-info-circle"></i></label>
+							<label for="input-iv-decrypt" class="font-weight-bold">Your Initial Vector <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<input type="text" id="input-iv-decrypt" class="form-control" maxlength="16" readonly>
+						</div>
+						<div class="form-group">
+							<button type="button" id="btn-decrypt" class="btn btn-secondary btn-lg btn-block" disabled>Start Decrypt</button>
 						</div>
 					</div>
 				</div>
@@ -332,7 +336,7 @@
 		</footer>
 	</body>
 	<script src="js/jquery-3.5.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<!-- <script src="js/bootstrap.bundle.min.js"></script> -->
 	<script src="js/ui.js"></script>
 </html>
