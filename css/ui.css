@@ -16,7 +16,7 @@ a:hover {
 	text-decoration: none;
 }
 :root {
-	font-size: 16px;
+	font-size: 14px;
 	--color-text-1: #5493d6;
 	--color-text-1: #dadada;
 	--color-text-2: #000000;
@@ -113,22 +113,22 @@ header h5 {
 	top: calc(3.8rem - 1px);
 	bottom: calc(2rem - 1px);
 	height: auto;
-	left: -100%;
+	left: -34rem;
 	border-left: 1px solid var(--color-border);
 	border-right: 1px solid var(--color-border);
 	border-bottom: 1px solid var(--color-border);
 
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 .sidebar.active {
 	left: 0;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 .sidebar .tab-header {
 	/* border-right: 1px solid var(--color-border); */
@@ -166,7 +166,7 @@ footer {
 	bottom: 0;
 	position: fixed;
 	width: 100%;
-	height: calc(2rem + 2px);
+	height: calc(2rem + 1px);
 	display: table;
 	background-color: var(--color-main);
 	z-index: 50;
@@ -176,12 +176,12 @@ footer {
 	box-shadow: 0 0 10px black;
 }
 .copyright {
-	padding: 0.2rem 1rem;
+	padding: 0.2rem 1.6rem;
 	font-size: 1rem;
 	display: table-cell;
 	font-weight: bold;
 }
-.copyright a {
+.copyright * {
 	margin: 0 !important;
 	padding: 0 !important;
 	text-decoration: none;
@@ -190,7 +190,7 @@ footer {
 .selection-block{
 	position: absolute;
 	display: block;
-	right: 0;
+	right: -25rem;
 	bottom: calc(2rem - 1px);
 	width: 25rem;
 	border-left: 1px solid var(--color-border);
@@ -198,6 +198,19 @@ footer {
 	box-shadow:  -6px -6px 10px -6px black;
 	background-color: var(--color-main);
 	z-index: 98;
+
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.selection-block.active{
+	right: 0;
+
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 .selection-block .tab {
 	display: block;
@@ -276,17 +289,17 @@ footer {
 }
 .selection-block .tab-content {
 	display: none;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 .selection-block .tab-content.active {
 	display: block;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 
 .btn {
@@ -296,11 +309,21 @@ footer {
 .panel-backgroud {
 	position: absolute;
 	width: 100%;
+	/* top: calc(3.8rem + 1px); */
 	top: 3.8rem;
-	bottom: 2rem;
+	bottom: calc(2rem + 1px);
 	height: auto;
 	z-index: 25;
 }
+/* , .flipped .panel-canvas  */
+/* .flipped {
+	overflow-x: auto;
+}
+.flipped, .flipped .image-section{
+	transform:rotateX(180deg);
+	-ms-transform:rotateX(180deg);
+	-webkit-transform:rotateX(180deg);
+} */
 .panel-backgroud .group-btn-input-custom {
 	position: absolute;
 	top: 50%;
@@ -312,7 +335,7 @@ footer {
 	display: none;
 }
 
-.scroller {
+.panel-canvas {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -332,11 +355,16 @@ footer {
 	position: relative;
 }
 
-#canvas-image {
+/* #canvas-image {
 	z-index: 0;
-	/* background-color:red; */
 	margin: 1rem;
+} */
+
+#source-image {
+	z-index: 0;
+	margin: 3rem 3rem;
 }
+
 #btn-sidebar {
 	position: absolute;
 	top: 0;
@@ -399,6 +427,66 @@ footer {
 	display: block  !important;
 }
 
+#btn-close-image {
+	display: none;
+	position: absolute;
+	top: 1.2rem;
+	right: 1.2rem;
+	height: 2rem;
+	width: 2rem;
+	border-radius: 2rem;
+	background-color: var(--color-main);
+	border: 0.2rem solid var(--color-border);
+}
+#btn-close-image i {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 1.4rem;
+	color: var(--color-text-2);
+}
+
+.block-overlay {
+	position: absolute;
+}
+
+.group-btn-input-custom .btn-import-image {
+	border: 1px solid black;
+	color: black;
+	box-shadow: 0 0 10px 0 black;
+}
+
+.selection-block #btn-hide {
+	position: absolute;
+	height: 3rem;
+	left: -2rem;
+	bottom: 0;
+	background-color: var(--color-text-1);
+	width: 2rem;
+	border: 1px solid var(--color-border);
+	box-shadow: -3px -3px 10px -3px black;
+}
+.selection-block #btn-hide i{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 1.6rem;
+}
+.selection-block #btn-hide  i.fa-caret-left {
+	display: block !important;
+}
+.selection-block #btn-hide  i.fa-caret-right{
+	display: none !important;
+}
+.selection-block #btn-hide.active i.fa-caret-left {
+	display: none !important;
+}
+.selection-block #btn-hide.active i.fa-caret-right{
+	display: block  !important;
+}
+
 @media only screen and (max-width: 720px) {
 	:root{
 		font-size: 16px;
@@ -429,7 +517,14 @@ footer {
 	}
 	.selection-block {
 		width: 100%;
+		right: 0;
 		box-shadow:  0 -8px 10px -8px black;
+	}
+	.selection-block.active{
+		right: 0;
+	}
+	.selection-block #btn-hide {
+		display: none;
 	}
 	.panel-backgroud {
 		position: absolute;
@@ -438,6 +533,9 @@ footer {
 		bottom: 5rem;
 		height: auto;
 		background-color: aquamarine;
+	}
+	footer {
+		height: calc(2rem + 2px);
 	}
 }
 @media only screen and (max-width: 720px) {

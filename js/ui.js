@@ -111,6 +111,19 @@ $('#btn-sidebar').on('click', function () {
 });
 // END Show/Hide Sidebar
 
+// BEGIN Show/Hide Selection-Block Panel
+$('.selection-block #btn-hide').on('click', function () {
+	if ($('.selection-block #btn-hide').hasClass('active'))
+	{
+		$('.selection-block #btn-hide').removeClass('active');
+		$('.selection-block').removeClass('active');
+	} else {
+		$('.selection-block #btn-hide').addClass('active');
+		$('.selection-block').addClass('active');
+	}
+});
+// END Show/Hide Selection-Block Panel
+
 // BEGIN Show/Hide Panel Encryption/Decryption
 $('.tab-header.encryption').on('click', function () {
 		$('.tab-header.decryption').removeClass('active');

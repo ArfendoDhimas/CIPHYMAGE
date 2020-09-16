@@ -65,7 +65,6 @@
 							<div class="input-group">
 								<input type="text" id="input-key-encrypt" class="form-control" maxlength="32" readonly>
 								<div class="input-group-prepend">
-									<!-- <span class="input-group-text btn btn-primary" id="basic-addon1"><i class="fas fa-copy"></i></span> -->
 									<span class="input-group-text btn btn-warning" id="btn-random-key"><i class="fa fa-redo"></i></span>
 								</div>
 							</div>
@@ -75,7 +74,6 @@
 							<div class="input-group">
 								<input type="text" id="input-iv-encrypt" class="form-control" maxlength="16" readonly>
 								<div class="input-group-prepend">
-									<!-- <span class="input-group-text btn btn-primary" id="basic-addon1"><i class="fas fa-copy"></i></span> -->
 									<span class="input-group-text btn btn-warning" id="btn-random-iv"><i class="fa fa-redo"></i></span>
 								</div>
 							</div>
@@ -125,33 +123,39 @@
 			</div>
 		</div>
 
-		<section class="panel-backgroud">
-			<div class="group-btn-input-custom">
-				<label for="import-image-button" class="btn btn-primary btn-lg">Choose Image</label>
-				<input type="file" id="import-image-button" class="custom-file-input-button" accept="image/x-png,image/jpeg,image/bmp">
-			</div>
-			<!-- <div class="panel-canvas"> -->
-				<div class="scroller">
+		<section class="panel-backgroud ">
+			<div class="panel-canvas">
+				<!-- <div class="flipped"> -->
 					<div class="image-section" id="image-section">
-						<div id="info" class="info">
+						<div id="offset-panel" class="offset-panel">
 							<div id="border-canvas" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; z-index: 997">	</div>
 							<div id="rect-block-1" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #ff07">	</div>
 							<div id="rect-block-2" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #0ff7" >	</div>
 							<div id="rect-block-3" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #f0f7">	</div>
 							<div id="rect-block-4" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #1f37">	</div>
 							<div id="rect-block-5" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #56f7">	</div>
-							<canvas id="canvas-image" width="0" height="0"></canvas>
 							<img id="source-image" hidden>
+							<canvas id="canvas-image" width="0" height="0" hidden></canvas>
 						</div>
 					</div>
-				</div>
-
-			<!-- </div> -->
+				<!-- </div> -->
+			</div>
+			<div type="button" id="btn-close-image">
+				<i class="fas fa-times "></i>
+				<!-- <i class="far fa-times-circle"></i> -->
+			</div>
+			<div class="group-btn-input-custom btn-import-image">
+				<label for="btn-import-image" class="btn btn-primary btn-lg btn-import-image">Choose Image</label>
+				<input type="file" id="btn-import-image" class="custom-file-input-button" accept="image/png,image/jpeg,image/bmp">
+			</div>
 		</section>
 
 		<section class="panel-select-block">
-			
-			<div class="selection-block">
+			<div class="selection-block active">
+				<div id="btn-hide" class="active" type="button">
+					<i class="fas fa-caret-right"></i>
+					<i class="fas fa-caret-left"></i>
+				</div>
 				<div class="tab-content ">
 					<div class="container">
 						<div class="tab-select" id="select-block-1">
@@ -330,7 +334,7 @@
 		</section>
 		<footer>
 			<div class="copyright">
-				<span class="float-left"><b>2020</b></span>
+				<!-- <span class="float-left"><b>2020</b></span> -->
 				<a href="https://www.github.com/arfendodhimas/ciphymage" target="_blank" class="float-right"><i class="fab fa-github"></i> Github</a>
 			</div>
 		</footer>
@@ -339,4 +343,5 @@
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/ui.js"></script>
+	<script src="js/import-image.js"></script>
 </html>
