@@ -21,6 +21,9 @@
 					<i class="far fa-caret-square-down"></i>
 					<i class="far fa-caret-square-up"></i>
 				</div>
+				<div type="button" id="btn-close-image">
+					<i class="fas fa-times "></i>
+				</div>
 			</div>
 		</header>
 		<div class="menu" style="display: none;">
@@ -125,25 +128,22 @@
 
 		<section class="panel-backgroud ">
 			<div class="panel-canvas">
-				<!-- <div class="flipped"> -->
-					<div class="image-section" id="image-section">
-						<div id="offset-panel" class="offset-panel">
+				<div class="image-section" id="image-section">
+					<div id="offset-panel" class="offset-panel">
+						<div class="block">
+							<canvas id="canvas-image" width="0" height="0" hidden></canvas>
+							<img id="source-image" hidden>
 							<div id="border-canvas" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; z-index: 997">	</div>
 							<div id="rect-block-1" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #ff07">	</div>
 							<div id="rect-block-2" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #0ff7" >	</div>
 							<div id="rect-block-3" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #f0f7">	</div>
 							<div id="rect-block-4" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #1f37">	</div>
 							<div id="rect-block-5" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #56f7">	</div>
-							<img id="source-image" hidden>
-							<canvas id="canvas-image" width="0" height="0" hidden></canvas>
 						</div>
 					</div>
-				<!-- </div> -->
+				</div>
 			</div>
-			<div type="button" id="btn-close-image">
-				<i class="fas fa-times "></i>
-				<!-- <i class="far fa-times-circle"></i> -->
-			</div>
+			
 			<div class="group-btn-input-custom btn-import-image">
 				<label for="btn-import-image" class="btn btn-primary btn-lg btn-import-image">Choose Image</label>
 				<input type="file" id="btn-import-image" class="custom-file-input-button" accept="image/png,image/jpeg,image/bmp">
@@ -165,13 +165,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor1-x1">x1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor1-x1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor1-x1">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor1-y1">y1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor1-y1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor1-y1">
 									</div>
 								</div>
 								<div class="col-6">
@@ -179,13 +179,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor1-x2">x2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor1-x2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor1-x2">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor1-y2">y2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor1-y2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor1-y2">
 									</div>
 								</div>
 							</div>
@@ -197,13 +197,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor2-x1">x1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor2-x1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor2-x1">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor2-y1">y1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor2-y1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor2-y1">
 									</div>
 								</div>
 								<div class="col-6">
@@ -211,13 +211,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor2-x2">x2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor2-x2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor2-x2">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor2-y2">y2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor2-y2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor2-y2">
 									</div>
 								</div>
 							</div>
@@ -229,13 +229,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor3-x1">x1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor3-x1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor3-x1">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor3-y1">y1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor3-y1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor3-y1">
 									</div>
 								</div>
 								<div class="col-6">
@@ -243,13 +243,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor3-x2">x2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor3-x2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor3-x2">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor3-y2">y2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor3-y2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor3-y2">
 									</div>
 								</div>
 							</div>
@@ -261,13 +261,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor4-x1">x1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor4-x1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor4-x1">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor4-y1">y1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor4-y1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor4-y1">
 									</div>
 								</div>
 								<div class="col-6">
@@ -275,13 +275,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor4-x2">x2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor4-x2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor4-x2">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor4-y2">y2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor4-y2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor4-y2">
 									</div>
 								</div>
 							</div>
@@ -293,13 +293,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor5-x1">x1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor5-x1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor5-x1">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor5-y1">y1</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor5-y1">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor5-y1">
 									</div>
 								</div>
 								<div class="col-6">
@@ -307,13 +307,13 @@
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor5-x2">x2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor5-x2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor5-x2">
 									</div>
 									<div class="input-group col-12">
 										<div class="input-group-prepend">
 											<label class="input-group-text" for="koor5-y2">y2</label>
 										</div>
-										<input type="number" min=0 max=0 value="0" class="form-control" id="koor5-y2">
+										<input type="number" disabled min=0 max=0 value="0" class="form-control" id="koor5-y2">
 									</div>
 								</div>
 							</div>
@@ -322,12 +322,12 @@
 				</div>
 				<div class="tab">
 					<div class="row">
-						<div class="tab-header col-2 text-center" id="btn-panel-block-1"><input type="radio" name="radio-block" id="radio-block-1" checked><b> 1</b></div>
-						<div class="tab-header col-2 text-center" id="btn-panel-block-2"><input type="radio" name="radio-block" id="radio-block-2"><b> 2</b></div>
-						<div class="tab-header col-2 text-center" id="btn-panel-block-3"><input type="radio" name="radio-block" id="radio-block-3"><b> 3</b></div>
-						<div class="tab-header col-2 text-center" id="btn-panel-block-4"><input type="radio" name="radio-block" id="radio-block-4"><b> 4</b></div>
-						<div class="tab-header col-2 text-center" id="btn-panel-block-5"><input type="radio" name="radio-block" id="radio-block-5"><b> 5</b></div>
-						<div class="tab-header col-2 text-center" id="btn-panel-block-reset"><span><i class="fas fa-sync"></i></span></div>
+						<div class="tab-header col-2 text-center" id="btn-panel-block-1"><input type="radio" name="radio-block" id="radio-block-1" value="1" checked><b> 1 </b></div>
+						<div class="tab-header col-2 text-center" id="btn-panel-block-2"><input type="radio" name="radio-block" id="radio-block-2" value="2"><b> 2 </b></div>
+						<div class="tab-header col-2 text-center" id="btn-panel-block-3"><input type="radio" name="radio-block" id="radio-block-3" value="3"><b> 3 </b></div>
+						<div class="tab-header col-2 text-center" id="btn-panel-block-4"><input type="radio" name="radio-block" id="radio-block-4" value="4"><b> 4 </b></div>
+						<div class="tab-header col-2 text-center" id="btn-panel-block-5"><input type="radio" name="radio-block" id="radio-block-5" value="5"><b> 5 </b></div>
+						<div class="tab-header col-2 text-center" id="btn-reset-curr-block"><span><i class="fas fa-sync"></i></span></div>
 					</div>
 				</div>
 			</div>
@@ -342,6 +342,10 @@
 	<script src="js/jquery-3.5.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/ui.js"></script>
-	<script src="js/import-image.js"></script>
+	<script src="js/aes.js"></script>
+	<script src="js/declaration-var.js"></script>
+	<script src="js/function-ui.js"></script>
+	<script src="js/function-image.js"></script>
+	<script src="js/function-encrypt.js"></script>
+	<script src="js/function-decrypt.js"></script>
 </html>

@@ -22,6 +22,7 @@ $('#btn-close-panel-block').on('click',function(){
 
 // BEGIN Show Panel Block
 $('#btn-panel-block-1').on('click', function () {
+	current_block = 1;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-1').hasClass('active')){
 		$('.selection-block #select-block-1').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -37,6 +38,7 @@ $('#btn-panel-block-1').on('click', function () {
 	}
 });
 $('#btn-panel-block-2').on('click', function () {
+	current_block = 2;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-2').hasClass('active')){
 		$('.selection-block #select-block-2').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -52,6 +54,7 @@ $('#btn-panel-block-2').on('click', function () {
 	}
 });
 $('#btn-panel-block-3').on('click', function () {
+	current_block = 3;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-3').hasClass('active')){
 		$('.selection-block #select-block-3').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -67,6 +70,7 @@ $('#btn-panel-block-3').on('click', function () {
 	}
 });
 $('#btn-panel-block-4').on('click', function () {
+	current_block = 4;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-4').hasClass('active')){
 		$('.selection-block #select-block-4').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -82,6 +86,7 @@ $('#btn-panel-block-4').on('click', function () {
 	}
 });
 $('#btn-panel-block-5').on('click', function () {
+	current_block = 5;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-5').hasClass('active')){
 		$('.selection-block #select-block-5').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -157,3 +162,16 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 // END Tooltips
+
+// BEGIN Reset 
+$('#btn-reset-curr-block').on('click', function () {
+	resetCurrentSelectedBlock();
+	console.log('adsfadfas');
+});
+
+$('#btn-close-image').on('click', function() {
+	$(this).hide();
+	$('.btn-import-image').show()
+	resetAll();
+})
+// END Reset 
