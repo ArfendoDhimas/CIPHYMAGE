@@ -189,6 +189,8 @@ $('#block1-y1').on('change', function () {
 $('#block1-y2').on('change', function () {
 	block1.setY2($(this).val());
 });
+// belum selesai
+// =====================
 // END Change Blocks
 
 // BEGIN Change Block from hover

@@ -59,11 +59,46 @@ var eventImage = {
 	mouseDown : function(mouse) {
 		var relativeX = mouse.clientX - source_image.offset().left;
 		var relativeY = mouse.clientY - source_image.offset().top;
-		this.startX = Math.floor(relativeX * image_w / source_image.width());
-		this.startY = Math.floor(relativeY * image_h / source_image.height());
 		if (this.status_draw) {
+			if (current_block != 1) {
+				if(!this.isValidBlock(block1)) {
+					return;
+				}
+			}
+			if (current_block != 2) {
+				if(!this.isValidBlock(block2)) {
+					return;
+				}
+			}
+			if (current_block != 3) {
+				if(!this.isValidBlock(block3)) {
+					return;
+				}
+			}
+			if (current_block != 4) {
+				if(!this.isValidBlock(block4)) {
+					return;
+				}
+			}
+			if (current_block != 5) {
+				if(!this.isValidBlock(block5)) {
+					return;
+				}
+			}
 			this.status_draw = false;
 		} else {
+			this.startX = Math.floor(relativeX * image_w / source_image.width());
+			this.startY = Math.floor(relativeY * image_h / source_image.height());
+			if (this.startX >= block1.x1 && this.startY >= block1.y1) {
+				if (this.startX <= block1.x2 && this.startY <= block1.y2) {
+					return;
+				}
+			}
+			if (this.endX >= block1.x1 && this.endY >= block1.y1) {
+				if (this.endX <= block1.x2 && this.endY <= block1.y2) {
+					return;
+				}
+			}
 			this.status_draw = true;
 			this.endX = this.startX;
 			this.endY = this.startY;
@@ -151,6 +186,145 @@ var eventImage = {
 						break;
 			}
 		}
+	},
+	isValidBlock : function(block) {
+		// fix block tengah
+		if (
+			this.endX >= block.x1 && 
+			this.endY >= block.y1 && 
+			this.endX <= block.x2 && 
+			this.endY <= block.y2
+		) {
+				return false;
+		}
+		// fix lewat tengah
+		if (
+			this.startX >= block.x1 && 
+			this.endY >= block.y1 && 
+			this.endX <= block.x2  && 
+			this.startY <= block.y2
+		) {
+				return false;
+		}
+		if (
+			this.startX >= block.x1 && 
+			this.startY >= block.y1 && 
+			this.endX <= block.x2  && 
+			this.endY <= block.y2
+		) {
+				return false;
+		}
+		if (
+			this.endX >= block.x2  && 
+			this.startY >= block.y1 && 
+			this.startX <= block.x1  && 
+			this.endY <= block.y2
+		) {
+				return false;
+		}
+		// fix block kiri atas
+		if (
+			block.x1 >= this.startX && 
+			block.y1 >= this.startY && 
+			block.x1 <= this.endX && 
+			block.y1 <= this.endY
+		) {
+			return false;
+		}
+		if (
+			block.x1 >= this.endX && 
+			block.y1 >= this.startY && 
+			block.x1 <= this.startX && 
+			block.y1 <= this.endY
+		) {
+			return false;
+		}
+		if (
+			block.x1 >= this.startX && 
+			block.y1 >= this.endY && 
+			block.x1 <= this.endX && 
+			block.y1 <= this.startY
+		) {
+			return false;
+		}
+		// fix block kanan bawah
+		if (
+			block.x2 >= this.endX && 
+			block.y2 >= this.endY && 
+			block.x2 <= this.startX && 
+			block.y2 <= this.startY
+		) {
+			return false;
+		}
+		if (
+			block.x2 >= this.startX && 
+			block.y2 >= this.endY && 
+			block.x2 <= this.endX && 
+			block.y2 <= this.startY
+		) {
+			return false;
+		}
+		if (
+			block.x2 >= this.endX && 
+			block.y2 >= this.startY && 
+			block.x2 <= this.startX && 
+			block.y2 <= this.endY
+		) {
+			return false;
+		}
+		// fix block kiri bawah
+		if (
+			block.x1 >= this.startX && 
+			block.y2 >= this.endY && 
+			block.x1 <= this.endX && 
+			block.y2 <= this.startY
+		) {
+			return false;
+		}
+		if (
+			block.x1 >= this.endX && 
+			block.y2 >= this.endY && 
+			block.x1 <= this.startX && 
+			block.y2 <= this.startY
+		) {
+			return false;
+		}
+		if (
+			block.x1 >= this.startX && 
+			block.y2 >= this.startY && 
+			block.x1 <= this.endX && 
+			block.y2 <= this.endY
+		) {
+			return false;
+		}
+		// fix block kanan atas
+		if (
+			block.x2 >= this.endX && 
+			block.y1 >= this.startY && 
+			block.x2 <= this.startX && 
+			block.y1 <= this.endY
+		) {
+			return false;
+		}
+		if (
+			block.x2 >= this.endX && 
+			block.y1 >= this.endY && 
+			block.x2 <= this.startX && 
+			block.y1 <= this.startY
+		) {
+			return false;
+		}
+		if (
+			block.x2 >= this.startX && 
+			block.y1 >= this.startY && 
+			block.x2 <= this.endX && 
+			block.y1 <= this.endY
+		) {
+			return false;
+		}
+
+		
+		return true;
 	}
 }
 
@@ -166,7 +340,6 @@ var block1 = {
 	setY1 : function (value) {
 		this.y1 = value;
 		var temp = this.y1 * 100 / image_h;
-		console.log(temp);
 		$('#block1-y1').val(value);
 		$('#rect-block-1').css('top',temp+'%');
 		this.setY2(this.y2);
@@ -180,7 +353,6 @@ var block1 = {
 	setY2 : function (value) {
 		this.y2 = value;
 		var temp = (this.y2 - this.y1) * 100 / image_h;
-		console.log(temp);
 		$('#block1-y2').val(value);
 		$('#rect-block-1').css('height',temp+'%');
 	},
@@ -204,7 +376,6 @@ var block2 = {
 	setY1 : function (value) {
 		this.y1 = value;
 		var temp = this.y1 * 100 / image_h;
-		console.log(temp);
 		$('#block2-y1').val(value);
 		$('#rect-block-2').css('top',temp+'%');
 		this.setY2(this.y2);
@@ -218,7 +389,6 @@ var block2 = {
 	setY2 : function (value) {
 		this.y2 = value;
 		var temp = (this.y2 - this.y1) * 100 / image_h;
-		console.log(temp);
 		$('#block2-y2').val(value);
 		$('#rect-block-2').css('height',temp+'%');
 	},
@@ -242,7 +412,6 @@ var block3 = {
 	setY1 : function (value) {
 		this.y1 = value;
 		var temp = this.y1 * 100 / image_h;
-		console.log(temp);
 		$('#block3-y1').val(value);
 		$('#rect-block-3').css('top',temp+'%');
 		this.setY2(this.y2);
@@ -256,7 +425,6 @@ var block3 = {
 	setY2 : function (value) {
 		this.y2 = value;
 		var temp = (this.y2 - this.y1) * 100 / image_h;
-		console.log(temp);
 		$('#block3-y2').val(value);
 		$('#rect-block-3').css('height',temp+'%');
 	},
@@ -280,7 +448,6 @@ var block4 = {
 	setY1 : function (value) {
 		this.y1 = value;
 		var temp = this.y1 * 100 / image_h;
-		console.log(temp);
 		$('#block4-y1').val(value);
 		$('#rect-block-4').css('top',temp+'%');
 		this.setY2(this.y2);
@@ -294,7 +461,6 @@ var block4 = {
 	setY2 : function (value) {
 		this.y2 = value;
 		var temp = (this.y2 - this.y1) * 100 / image_h;
-		console.log(temp);
 		$('#block4-y2').val(value);
 		$('#rect-block-4').css('height',temp+'%');
 	},
@@ -318,7 +484,6 @@ var block5 = {
 	setY1 : function (value) {
 		this.y1 = value;
 		var temp = this.y1 * 100 / image_h;
-		console.log(temp);
 		$('#block5-y1').val(value);
 		$('#rect-block-5').css('top',temp+'%');
 		this.setY2(this.y2);
@@ -332,7 +497,6 @@ var block5 = {
 	setY2 : function (value) {
 		this.y2 = value;
 		var temp = (this.y2 - this.y1) * 100 / image_h;
-		console.log(temp);
 		$('#block5-y2').val(value);
 		$('#rect-block-5').css('height',temp+'%');
 	},
