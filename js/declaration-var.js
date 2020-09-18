@@ -60,31 +60,6 @@ var eventImage = {
 		var relativeX = mouse.clientX - source_image.offset().left;
 		var relativeY = mouse.clientY - source_image.offset().top;
 		if (this.status_draw) {
-			if (current_block != 1) {
-				if(!this.isValidBlock(block1)) {
-					return;
-				}
-			}
-			if (current_block != 2) {
-				if(!this.isValidBlock(block2)) {
-					return;
-				}
-			}
-			if (current_block != 3) {
-				if(!this.isValidBlock(block3)) {
-					return;
-				}
-			}
-			if (current_block != 4) {
-				if(!this.isValidBlock(block4)) {
-					return;
-				}
-			}
-			if (current_block != 5) {
-				if(!this.isValidBlock(block5)) {
-					return;
-				}
-			}
 			this.status_draw = false;
 		} else {
 			this.startX = Math.floor(relativeX * image_w / source_image.width());
@@ -142,6 +117,31 @@ var eventImage = {
 		this.endX = Math.floor(relativeX * image_w / source_image.width());
 		this.endY = Math.floor(relativeY * image_h / source_image.height());
 		if (this.status_draw) {
+			if (current_block != 1) {
+				if(!this.isValidBlock(block1)) {
+					return;
+				}
+			}
+			if (current_block != 2) {
+				if(!this.isValidBlock(block2)) {
+					return;
+				}
+			}
+			if (current_block != 3) {
+				if(!this.isValidBlock(block3)) {
+					return;
+				}
+			}
+			if (current_block != 4) {
+				if(!this.isValidBlock(block4)) {
+					return;
+				}
+			}
+			if (current_block != 5) {
+				if(!this.isValidBlock(block5)) {
+					return;
+				}
+			}
 			var tempX1, tempX2, tempY1, tempY2;
 			if (this.endX < this.startX) {
 				tempX1 = this.endX; tempX2 = this.startX;
@@ -189,141 +189,59 @@ var eventImage = {
 	},
 	isValidBlock : function(block) {
 		// fix block tengah
-		if (
-			this.endX >= block.x1 && 
-			this.endY >= block.y1 && 
-			this.endX <= block.x2 && 
-			this.endY <= block.y2
-		) {
+		if (this.endX >= block.x1 && this.endY >= block.y1 && this.endX <= block.x2 && this.endY <= block.y2) {
 				return false;
 		}
 		// fix lewat tengah
-		if (
-			this.startX >= block.x1 && 
-			this.endY >= block.y1 && 
-			this.endX <= block.x2  && 
-			this.startY <= block.y2
-		) {
+		if (this.startX >= block.x1 && this.endY >= block.y1 && this.endX <= block.x2 && this.startY <= block.y2) {
 				return false;
 		}
-		if (
-			this.startX >= block.x1 && 
-			this.startY >= block.y1 && 
-			this.endX <= block.x2  && 
-			this.endY <= block.y2
-		) {
+		if (this.startX >= block.x1 && this.startY >= block.y1 && this.endX <= block.x2  && this.endY <= block.y2) {
 				return false;
 		}
-		if (
-			this.endX >= block.x2  && 
-			this.startY >= block.y1 && 
-			this.startX <= block.x1  && 
-			this.endY <= block.y2
-		) {
+		if (this.endX >= block.x2  && this.startY >= block.y1 && this.startX <= block.x1 && this.endY <= block.y2) {
 				return false;
 		}
 		// fix block kiri atas
-		if (
-			block.x1 >= this.startX && 
-			block.y1 >= this.startY && 
-			block.x1 <= this.endX && 
-			block.y1 <= this.endY
-		) {
+		if (block.x1 >= this.startX && block.y1 >= this.startY && block.x1 <= this.endX && block.y1 <= this.endY) {
 			return false;
 		}
-		if (
-			block.x1 >= this.endX && 
-			block.y1 >= this.startY && 
-			block.x1 <= this.startX && 
-			block.y1 <= this.endY
-		) {
+		if (block.x1 >= this.endX && block.y1 >= this.startY && block.x1 <= this.startX && block.y1 <= this.endY) {
 			return false;
 		}
-		if (
-			block.x1 >= this.startX && 
-			block.y1 >= this.endY && 
-			block.x1 <= this.endX && 
-			block.y1 <= this.startY
-		) {
+		if (block.x1 >= this.startX && block.y1 >= this.endY && block.x1 <= this.endX && block.y1 <= this.startY) {
 			return false;
 		}
 		// fix block kanan bawah
-		if (
-			block.x2 >= this.endX && 
-			block.y2 >= this.endY && 
-			block.x2 <= this.startX && 
-			block.y2 <= this.startY
-		) {
+		if (block.x2 >= this.endX && block.y2 >= this.endY && block.x2 <= this.startX && block.y2 <= this.startY) {
 			return false;
 		}
-		if (
-			block.x2 >= this.startX && 
-			block.y2 >= this.endY && 
-			block.x2 <= this.endX && 
-			block.y2 <= this.startY
-		) {
+		if (block.x2 >= this.startX && block.y2 >= this.endY && block.x2 <= this.endX && block.y2 <= this.startY) {
 			return false;
 		}
-		if (
-			block.x2 >= this.endX && 
-			block.y2 >= this.startY && 
-			block.x2 <= this.startX && 
-			block.y2 <= this.endY
-		) {
+		if (block.x2 >= this.endX && block.y2 >= this.startY && block.x2 <= this.startX && block.y2 <= this.endY) {
 			return false;
 		}
 		// fix block kiri bawah
-		if (
-			block.x1 >= this.startX && 
-			block.y2 >= this.endY && 
-			block.x1 <= this.endX && 
-			block.y2 <= this.startY
-		) {
+		if (block.x1 >= this.startX && block.y2 >= this.endY && block.x1 <= this.endX && block.y2 <= this.startY) {
 			return false;
 		}
-		if (
-			block.x1 >= this.endX && 
-			block.y2 >= this.endY && 
-			block.x1 <= this.startX && 
-			block.y2 <= this.startY
-		) {
+		if (block.x1 >= this.endX && block.y2 >= this.endY && block.x1 <= this.startX && block.y2 <= this.startY) {
 			return false;
 		}
-		if (
-			block.x1 >= this.startX && 
-			block.y2 >= this.startY && 
-			block.x1 <= this.endX && 
-			block.y2 <= this.endY
-		) {
+		if (block.x1 >= this.startX && block.y2 >= this.startY && block.x1 <= this.endX && block.y2 <= this.endY) {
 			return false;
 		}
 		// fix block kanan atas
-		if (
-			block.x2 >= this.endX && 
-			block.y1 >= this.startY && 
-			block.x2 <= this.startX && 
-			block.y1 <= this.endY
-		) {
+		if (block.x2 >= this.endX && block.y1 >= this.startY && block.x2 <= this.startX && block.y1 <= this.endY) {
 			return false;
 		}
-		if (
-			block.x2 >= this.endX && 
-			block.y1 >= this.endY && 
-			block.x2 <= this.startX && 
-			block.y1 <= this.startY
-		) {
+		if (block.x2 >= this.endX && block.y1 >= this.endY && block.x2 <= this.startX && block.y1 <= this.startY) {
 			return false;
 		}
-		if (
-			block.x2 >= this.startX && 
-			block.y1 >= this.startY && 
-			block.x2 <= this.endX && 
-			block.y1 <= this.endY
-		) {
+		if (block.x2 >= this.startX && block.y1 >= this.startY && block.x2 <= this.endX && block.y1 <= this.endY) {
 			return false;
-		}
-
-		
+		}		
 		return true;
 	}
 }

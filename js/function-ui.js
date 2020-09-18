@@ -189,8 +189,58 @@ $('#block1-y1').on('change', function () {
 $('#block1-y2').on('change', function () {
 	block1.setY2($(this).val());
 });
-// belum selesai
-// =====================
+
+$('#block2-x1').on('change', function () {
+	block2.setX1($(this).val());
+});
+$('#block2-x2').on('change', function () {
+	block2.setX2($(this).val());
+});
+$('#block2-y1').on('change', function () {
+	block2.setY1($(this).val());
+});
+$('#block2-y2').on('change', function () {
+	block2.setY2($(this).val());
+});
+
+$('#block3-x1').on('change', function () {
+	block3.setX1($(this).val());
+});
+$('#block3-x2').on('change', function () {
+	block3.setX2($(this).val());
+});
+$('#block3-y1').on('change', function () {
+	block3.setY1($(this).val());
+});
+$('#block3-y2').on('change', function () {
+	block3.setY2($(this).val());
+});
+
+$('#block4-x1').on('change', function () {
+	block4.setX1($(this).val());
+});
+$('#block4-x2').on('change', function () {
+	block4.setX2($(this).val());
+});
+$('#block4-y1').on('change', function () {
+	block4.setY1($(this).val());
+});
+$('#block4-y2').on('change', function () {
+	block4.setY2($(this).val());
+});
+
+$('#block5-x1').on('change', function () {
+	block5.setX1($(this).val());
+});
+$('#block5-x2').on('change', function () {
+	block5.setX2($(this).val());
+});
+$('#block5-y1').on('change', function () {
+	block5.setY1($(this).val());
+});
+$('#block5-y2').on('change', function () {
+	block5.setY2($(this).val());
+});
 // END Change Blocks
 
 // BEGIN Change Block from hover
