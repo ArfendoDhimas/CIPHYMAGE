@@ -355,6 +355,8 @@ footer {
 #source-image {
 	z-index: 0;
 	width: 100%;
+	cursor: crosshair;
+	-webkit-user-drag: none;
 }
 
 #btn-sidebar {
@@ -420,7 +422,7 @@ footer {
 }
 
 #btn-close-image {
-	/* display: none; */
+	display: none;
 	position: absolute;
 	top: 4.8rem;
 	right: 1.2rem;
@@ -448,6 +450,7 @@ footer {
 	color: black;
 	box-shadow: 0 0 4px 0 black;
 	z-index: 100%;
+	margin: 0 !important;
 }
 
 .selection-block #btn-hide {

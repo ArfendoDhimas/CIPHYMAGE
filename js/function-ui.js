@@ -175,3 +175,24 @@ $('#btn-close-image').on('click', function() {
 	resetAll();
 })
 // END Reset 
+
+// BEGIN Change Blocks
+$('#koor1-x1').on('change', function () {
+	setK1X1($(this).val());
+});
+$('#koor1-x2').on('change', function () {
+	setK1X2($(this).val());
+});
+$('#koor1-y1').on('change', function () {
+	setK1Y1($(this).val());
+});
+$('#koor1-y2').on('change', function () {
+	setK1Y2($(this).val());
+});
+// END Change Blocks
+
+// BEGIN Change Block from hover
+$('#source-image').on('mouseover', function () {
+	// console.log(111111)
+});
+// END Change Block from hover

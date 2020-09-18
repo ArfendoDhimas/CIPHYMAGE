@@ -2,6 +2,12 @@
 var source_image_canvas;
 var image_h, image_w;
 var current_block;
+
+var k1x1 = 0, k1y1 = 0, k1x2 = 0, k1y2 = 0;
+var k2x1 = 0, k2y1 = 0, k2x2 = 0, k2y2 = 0;
+var k3x1 = 0, k3y1 = 0, k3x2 = 0, k3y2 = 0;
+var k4x1 = 0, k4y1 = 0, k4x2 = 0, k4y2 = 0;
+var k5x1 = 0, k5y1 = 0, k5x2 = 0, k5y2 = 0;
 // END Declaration Variable
 
 // BEGIN Native Function
@@ -37,10 +43,10 @@ function resetPanelDecrypt() {
 	this.val('#input-iv-decrypt','');
 }
 function resetBlock1() {
-	this.val('#koor1-x1',0);
-	this.val('#koor1-y1',0);
-	this.val('#koor1-x2',0);
-	this.val('#koor1-y2',0);
+	this.setK1X1(0);
+	this.setK1Y1(0);
+	this.setK1X2(0);
+	this.setK1Y2(0);
 }
 function resetBlock2() {
 	this.val('#koor2-x1',0);
@@ -109,4 +115,34 @@ function resetImage() {
 	source_image_canvas.height = image_h;
 	source_image_canvas.width = image_w;
 }
+
+
+function setK1X1(val) {
+	this.k1x1 = val;
+	var temp = this.k1x1*100/this.image_w;
+	this.val('#koor1-x1',this.k1x1);
+	$('#rect-block-1').css('left',temp+'%');
+	this.setK1X2(this.k1x2);
+}
+function setK1Y1(val) {
+	this.k1y1 = val;
+	var temp = this.k1y1*100/this.image_h;
+	this.val('#koor1-y1',this.k1y1);
+	$('#rect-block-1').css('top',temp+'%');
+	this.setK1Y2(this.k1y2);
+}
+function setK1X2(val) {
+	this.k1x2 = val;
+	var temp = (this.k1x2-this.k1x1)*100/this.image_w;
+	this.val('#koor1-x2',this.k1x2);
+	$('#rect-block-1').css('width',temp+'%');
+}
+function setK1Y2(val) {
+	this.k1y2 = val;
+	var temp = (this.k1y2-this.k1y1)*100/this.image_h;
+	this.val('#koor1-y2',this.k1y2);
+	$('#rect-block-1').css('height',temp+'%');
+}
+
+
 // END Native Function
