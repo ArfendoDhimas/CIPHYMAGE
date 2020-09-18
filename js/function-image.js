@@ -3,7 +3,7 @@ $('#btn-import-image').on('change',function (files){
 	var file =  files.target.files[0];
 	if (isValidFile(file))
 	{
-		var source_image = $('#source-image');
+		source_image = $('#source-image');
 		var reader = new FileReader();
 		reader.onload = (function(file_input){
 			return (function(e){
@@ -20,10 +20,10 @@ $('#btn-import-image').on('change',function (files){
 $('#source-image').on('load', function () {
 	image_h = $(this)[0].naturalHeight;
 	image_w = $(this)[0].naturalWidth;
-	source_image_canvas = $('#canvas-image')[0];
-	source_image_canvas.height = image_h;
-	source_image_canvas.width = image_w;
-	var context = source_image_canvas.getContext('2d');
+	source_canvas = $('#canvas-image')[0];
+	source_canvas.height = image_h;
+	source_canvas.width = image_w;
+	var context = source_canvas.getContext('2d');
 	context.drawImage($(this)[0],0,0,image_w,image_h);
 	setMaxAllBlock(image_w, image_h);
 });

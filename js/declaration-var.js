@@ -1,148 +1,347 @@
 // BEGIN Declaration Variable
-var source_image_canvas;
+var source_canvas;
+var source_image;
 var image_h, image_w;
-var current_block;
-
-var k1x1 = 0, k1y1 = 0, k1x2 = 0, k1y2 = 0;
-var k2x1 = 0, k2y1 = 0, k2x2 = 0, k2y2 = 0;
-var k3x1 = 0, k3y1 = 0, k3x2 = 0, k3y2 = 0;
-var k4x1 = 0, k4y1 = 0, k4x2 = 0, k4y2 = 0;
-var k5x1 = 0, k5y1 = 0, k5x2 = 0, k5y2 = 0;
+var current_block = 1;
 // END Declaration Variable
 
 // BEGIN Native Function
-function val(selector, val)
-{
-	return $(selector).val(val);
-}
-function max(selector, max) {
-	return $(selector).attr('max',max);
-}
 function resetAll(){
+	block1.reset();
+	block2.reset();
+	block3.reset();
+	block4.reset();
+	block5.reset();
 	this.resetPanelEncrypt();
 	this.resetPanelDecrypt();
-	this.resetBlock1();
-	this.resetBlock2();
-	this.resetBlock3();
-	this.resetBlock4();
-	this.resetBlock5();
 	this.setMaxAllBlock(0,0);
 	this.resetImage();
-	this.val('#btn-import-image',"");
+	$('#btn-import-image').val('');
 	$('.panel-select-block .tab-content [type="number"]').prop('disabled',true);
 }
 function resetPanelEncrypt() {
-	this.val('#input-key-encrypt','');
-	this.val('#input-iv-encrypt','');
-	this.val('#input-passphrase-encrypt','');
+	$('#input-key-encrypt').val('');
+	$('#input-iv-encrypt').val('');
+	$('#input-passphrase-encrypt').val('');
 }
 function resetPanelDecrypt() {
-	this.val('#input-key-file',null);
-	this.val('#input-passphrase-decrypt','');
-	this.val('#input-key-decrypt','');
-	this.val('#input-iv-decrypt','');
-}
-function resetBlock1() {
-	this.setK1X1(0);
-	this.setK1Y1(0);
-	this.setK1X2(0);
-	this.setK1Y2(0);
-}
-function resetBlock2() {
-	this.val('#koor2-x1',0);
-	this.val('#koor2-y1',0);
-	this.val('#koor2-x2',0);
-	this.val('#koor2-y2',0);
-}
-function resetBlock3() {
-	this.val('#koor3-x1',0);
-	this.val('#koor3-y1',0);
-	this.val('#koor3-x2',0);
-	this.val('#koor3-y2',0);
-}
-function resetBlock4() {
-	this.val('#koor4-x1',0);
-	this.val('#koor4-y1',0);
-	this.val('#koor4-x2',0);
-	this.val('#koor4-y2',0);
-}
-function resetBlock5() {
-	this.val('#koor5-x1',0);
-	this.val('#koor5-y1',0);
-	this.val('#koor5-x2',0);
-	this.val('#koor5-y2',0);
+	$('#input-key-file',null);
+	$('#input-passphrase-decrypt').val('');
+	$('#input-key-decrypt').val('');
+	$('#input-iv-decrypt').val('');
 }
 function setMaxAllBlock(max_x, max_y) {
-	this.max('#koor1-x1',max_x);
-	this.max('#koor1-y1',max_y);
-	this.max('#koor1-x2',max_x);
-	this.max('#koor1-y2',max_y);
-
-	this.max('#koor2-x1',max_x);
-	this.max('#koor2-y1',max_y);
-	this.max('#koor2-x2',max_x);
-	this.max('#koor2-y2',max_y);
-
-	this.max('#koor3-x1',max_x);
-	this.max('#koor3-y1',max_y);
-	this.max('#koor3-x2',max_x);
-	this.max('#koor3-y2',max_y);
-
-	this.max('#koor4-x1',max_x);
-	this.max('#koor4-y1',max_y);
-	this.max('#koor4-x2',max_x);
-	this.max('#koor4-y2',max_y);
-
-	this.max('#koor5-x1',max_x);
-	this.max('#koor5-y1',max_y);
-	this.max('#koor5-x2',max_x);
-	this.max('#koor5-y2',max_y);
-
+	$('.input-x').attr('max', max_x);
+	$('.input-y').attr('max', max_y);
 }
 function resetCurrentSelectedBlock() {
 	switch(current_block) {
-		case 1 : this.resetBlock1(); break;
-		case 2 : this.resetBlock2(); break;
-		case 3 : this.resetBlock3(); break;
-		case 4 : this.resetBlock4(); break;
-		case 5 : this.resetBlock5(); break;
+		case 1 : block1.reset(); break;
+		case 2 : block2.reset(); break;
+		case 3 : block3.reset(); break;
+		case 4 : block4.reset(); break;
+		case 5 : block5.reset(); break;
 	}
 }
 function resetImage() {
-	$('#source-image').removeAttr('src');
+	source_image.removeAttr('src');
 	image_h = 0;
 	image_w = 0;
-	source_image_canvas.height = image_h;
-	source_image_canvas.width = image_w;
+	source_canvas.height = image_h;
+	source_canvas.width = image_w;
+	
 }
 
 
-function setK1X1(val) {
-	this.k1x1 = val;
-	var temp = this.k1x1*100/this.image_w;
-	this.val('#koor1-x1',this.k1x1);
-	$('#rect-block-1').css('left',temp+'%');
-	this.setK1X2(this.k1x2);
-}
-function setK1Y1(val) {
-	this.k1y1 = val;
-	var temp = this.k1y1*100/this.image_h;
-	this.val('#koor1-y1',this.k1y1);
-	$('#rect-block-1').css('top',temp+'%');
-	this.setK1Y2(this.k1y2);
-}
-function setK1X2(val) {
-	this.k1x2 = val;
-	var temp = (this.k1x2-this.k1x1)*100/this.image_w;
-	this.val('#koor1-x2',this.k1x2);
-	$('#rect-block-1').css('width',temp+'%');
-}
-function setK1Y2(val) {
-	this.k1y2 = val;
-	var temp = (this.k1y2-this.k1y1)*100/this.image_h;
-	this.val('#koor1-y2',this.k1y2);
-	$('#rect-block-1').css('height',temp+'%');
+var eventImage = {
+	status_draw : false,
+	startX : 0, startY : 0, endX : 0, endY : 0,
+	mouseDown : function(mouse) {
+		var relativeX = mouse.clientX - source_image.offset().left;
+		var relativeY = mouse.clientY - source_image.offset().top;
+		this.startX = Math.floor(relativeX * image_w / source_image.width());
+		this.startY = Math.floor(relativeY * image_h / source_image.height());
+		if (this.status_draw) {
+			this.status_draw = false;
+		} else {
+			this.status_draw = true;
+			this.endX = this.startX;
+			this.endY = this.startY;
+			switch(current_block) {
+				case 1 : 
+						block1.setX1(this.startX);
+						block1.setY1(this.startY);
+						block1.setX2(this.endX);
+						block1.setY2(this.endY);
+						break;
+				case 2 : 
+						block2.setX1(this.startX);
+						block2.setY1(this.startY);
+						block2.setX2(this.endX);
+						block2.setY2(this.endY);
+						break;
+				case 3 : 
+						block3.setX1(this.startX);
+						block3.setY1(this.startY);
+						block3.setX2(this.endX);
+						block3.setY2(this.endY);
+						break;
+				case 4 : 
+						block4.setX1(this.startX);
+						block4.setY1(this.startY);
+						block4.setX2(this.endX);
+						block4.setY2(this.endY);
+						break;
+				case 5 : 
+						block5.setX1(this.startX);
+						block5.setY1(this.startY);
+						block5.setX2(this.endX);
+						block5.setY2(this.endY);
+						break;
+			}
+		}
+	},
+	mouseMove : function(mouse) {
+		var relativeX = mouse.clientX - source_image.offset().left;
+		var relativeY = mouse.clientY - source_image.offset().top;
+		this.endX = Math.floor(relativeX * image_w / source_image.width());
+		this.endY = Math.floor(relativeY * image_h / source_image.height());
+		if (this.status_draw) {
+			var tempX1, tempX2, tempY1, tempY2;
+			if (this.endX < this.startX) {
+				tempX1 = this.endX; tempX2 = this.startX;
+			} else {
+				tempX1 = this.startX; tempX2 = this.endX;
+			}
+			if (this.endY < this.startY) {
+				tempY1 = this.endY; tempY2 = this.startY;
+			} else {
+				tempY1 = this.startY; tempY2 = this.endY;
+			}
+			switch(current_block) {
+				case 1 : 
+						block1.setX1(tempX1);
+						block1.setY1(tempY1);
+						block1.setX2(tempX2);
+						block1.setY2(tempY2);
+						break;
+				case 2 : 
+						block2.setX1(tempX1);
+						block2.setY1(tempY1);
+						block2.setX2(tempX2);
+						block2.setY2(tempY2);
+						break;
+				case 3 : 
+						block3.setX1(tempX1);
+						block3.setY1(tempY1);
+						block3.setX2(tempX2);
+						block3.setY2(tempY2);
+						break;
+				case 4 : 
+						block4.setX1(tempX1);
+						block4.setY1(tempY1);
+						block4.setX2(tempX2);
+						block4.setY2(tempY2);
+						break;
+				case 5 : 
+						block5.setX1(tempX1);
+						block5.setY1(tempY1);
+						block5.setX2(tempX2);
+						block5.setY2(tempY2);
+						break;
+			}
+		}
+	}
 }
 
-
+var block1 = {
+	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
+	setX1 : function(value) {
+		this.x1 = value;
+		var temp = this.x1 * 100 / image_w;
+		$('#block1-x1').val(value);
+		$('#rect-block-1').css('left',temp+'%');
+		this.setX2(this.x2);
+	},
+	setY1 : function (value) {
+		this.y1 = value;
+		var temp = this.y1 * 100 / image_h;
+		console.log(temp);
+		$('#block1-y1').val(value);
+		$('#rect-block-1').css('top',temp+'%');
+		this.setY2(this.y2);
+	},
+	setX2 : function(value) {
+		this.x2 = value;
+		var temp = (this.x2 - this.x1) * 100 / image_w;
+		$('#block1-x2').val(value);
+		$('#rect-block-1').css('width',temp+'%');
+	},
+	setY2 : function (value) {
+		this.y2 = value;
+		var temp = (this.y2 - this.y1) * 100 / image_h;
+		console.log(temp);
+		$('#block1-y2').val(value);
+		$('#rect-block-1').css('height',temp+'%');
+	},
+	reset: function() {
+		this.setX1(0);
+		this.setY1(0);
+		this.setX2(0);
+		this.setY2(0);
+		eventImage.status_draw = false;
+	},
+}
+var block2 = {
+	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
+	setX1 : function(value) {
+		this.x1 = value;
+		var temp = this.x1 * 100 / image_w;
+		$('#block2-x1').val(value);
+		$('#rect-block-2').css('left',temp+'%');
+		this.setX2(this.x2);
+	},
+	setY1 : function (value) {
+		this.y1 = value;
+		var temp = this.y1 * 100 / image_h;
+		console.log(temp);
+		$('#block2-y1').val(value);
+		$('#rect-block-2').css('top',temp+'%');
+		this.setY2(this.y2);
+	},
+	setX2 : function(value) {
+		this.x2 = value;
+		var temp = (this.x2 - this.x1) * 100 / image_w;
+		$('#block2-x2').val(value);
+		$('#rect-block-2').css('width',temp+'%');
+	},
+	setY2 : function (value) {
+		this.y2 = value;
+		var temp = (this.y2 - this.y1) * 100 / image_h;
+		console.log(temp);
+		$('#block2-y2').val(value);
+		$('#rect-block-2').css('height',temp+'%');
+	},
+	reset: function() {
+		this.setX1(0);
+		this.setY1(0);
+		this.setX2(0);
+		this.setY2(0);
+		eventImage.status_draw = false;
+	},
+}
+var block3 = {
+	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
+	setX1 : function(value) {
+		this.x1 = value;
+		var temp = this.x1 * 100 / image_w;
+		$('#block3-x1').val(value);
+		$('#rect-block-3').css('left',temp+'%');
+		this.setX2(this.x2);
+	},
+	setY1 : function (value) {
+		this.y1 = value;
+		var temp = this.y1 * 100 / image_h;
+		console.log(temp);
+		$('#block3-y1').val(value);
+		$('#rect-block-3').css('top',temp+'%');
+		this.setY2(this.y2);
+	},
+	setX2 : function(value) {
+		this.x2 = value;
+		var temp = (this.x2 - this.x1) * 100 / image_w;
+		$('#block3-x2').val(value);
+		$('#rect-block-3').css('width',temp+'%');
+	},
+	setY2 : function (value) {
+		this.y2 = value;
+		var temp = (this.y2 - this.y1) * 100 / image_h;
+		console.log(temp);
+		$('#block3-y2').val(value);
+		$('#rect-block-3').css('height',temp+'%');
+	},
+	reset: function() {
+		this.setX1(0);
+		this.setY1(0);
+		this.setX2(0);
+		this.setY2(0);
+		eventImage.status_draw = false;
+	},
+}
+var block4 = {
+	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
+	setX1 : function(value) {
+		this.x1 = value;
+		var temp = this.x1 * 100 / image_w;
+		$('#block4-x1').val(value);
+		$('#rect-block-4').css('left',temp+'%');
+		this.setX2(this.x2);
+	},
+	setY1 : function (value) {
+		this.y1 = value;
+		var temp = this.y1 * 100 / image_h;
+		console.log(temp);
+		$('#block4-y1').val(value);
+		$('#rect-block-4').css('top',temp+'%');
+		this.setY2(this.y2);
+	},
+	setX2 : function(value) {
+		this.x2 = value;
+		var temp = (this.x2 - this.x1) * 100 / image_w;
+		$('#block4-x2').val(value);
+		$('#rect-block-4').css('width',temp+'%');
+	},
+	setY2 : function (value) {
+		this.y2 = value;
+		var temp = (this.y2 - this.y1) * 100 / image_h;
+		console.log(temp);
+		$('#block4-y2').val(value);
+		$('#rect-block-4').css('height',temp+'%');
+	},
+	reset: function() {
+		this.setX1(0);
+		this.setY1(0);
+		this.setX2(0);
+		this.setY2(0);
+		eventImage.status_draw = false;
+	},
+}
+var block5 = {
+	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
+	setX1 : function(value) {
+		this.x1 = value;
+		var temp = this.x1 * 100 / image_w;
+		$('#block5-x1').val(value);
+		$('#rect-block-5').css('left',temp+'%');
+		this.setX2(this.x2);
+	},
+	setY1 : function (value) {
+		this.y1 = value;
+		var temp = this.y1 * 100 / image_h;
+		console.log(temp);
+		$('#block5-y1').val(value);
+		$('#rect-block-5').css('top',temp+'%');
+		this.setY2(this.y2);
+	},
+	setX2 : function(value) {
+		this.x2 = value;
+		var temp = (this.x2 - this.x1) * 100 / image_w;
+		$('#block5-x2').val(value);
+		$('#rect-block-5').css('width',temp+'%');
+	},
+	setY2 : function (value) {
+		this.y2 = value;
+		var temp = (this.y2 - this.y1) * 100 / image_h;
+		console.log(temp);
+		$('#block5-y2').val(value);
+		$('#rect-block-5').css('height',temp+'%');
+	},
+	reset: function() {
+		this.setX1(0);
+		this.setY1(0);
+		this.setX2(0);
+		this.setY2(0);
+		eventImage.status_draw = false;
+	},
+}
 // END Native Function
