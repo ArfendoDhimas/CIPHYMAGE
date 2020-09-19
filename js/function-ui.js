@@ -22,7 +22,7 @@ $('#btn-close-panel-block').on('click',function(){
 
 // BEGIN Show Panel Block
 $('#btn-panel-block-1').on('click', function () {
-	current_block = 1;
+	blocks.curr = 0;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-1').hasClass('active')){
 		$('.selection-block #select-block-1').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -38,7 +38,7 @@ $('#btn-panel-block-1').on('click', function () {
 	}
 });
 $('#btn-panel-block-2').on('click', function () {
-	current_block = 2;
+	blocks.curr = 1;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-2').hasClass('active')){
 		$('.selection-block #select-block-2').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -54,7 +54,7 @@ $('#btn-panel-block-2').on('click', function () {
 	}
 });
 $('#btn-panel-block-3').on('click', function () {
-	current_block = 3;
+	blocks.curr = 2;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-3').hasClass('active')){
 		$('.selection-block #select-block-3').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -70,7 +70,7 @@ $('#btn-panel-block-3').on('click', function () {
 	}
 });
 $('#btn-panel-block-4').on('click', function () {
-	current_block = 4;
+	blocks.curr = 3;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-4').hasClass('active')){
 		$('.selection-block #select-block-4').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -86,7 +86,7 @@ $('#btn-panel-block-4').on('click', function () {
 	}
 });
 $('#btn-panel-block-5').on('click', function () {
-	current_block = 5;
+	blocks.curr = 4;
 	if ($('.selection-block .tab-content').hasClass('active') && $('#btn-panel-block-5').hasClass('active')){
 		$('.selection-block #select-block-5').slideUp(300,function(){
 			$('.selection-block .tab-content').removeClass('active');
@@ -166,80 +166,79 @@ $(function () {
 // BEGIN Reset 
 $('#btn-reset-curr-block').on('click', function () {
 	resetCurrentSelectedBlock();
-	console.log('adsfadfas');
 });
 
 $('#btn-close-image').on('click', function() {
+	resetAll();
 	$(this).hide();
 	$('.btn-import-image').show()
-	resetAll();
 })
 // END Reset 
 
 // BEGIN Change Blocks
 $('#block1-x1').on('change', function () {
-	block1.setX1($(this).val());
+	blocks.data[0].setX1(parseInt($(this).val()));
 });
 $('#block1-x2').on('change', function () {
-	block1.setX2($(this).val());
+	blocks.data[0].setX2(parseInt($(this).val()));
 });
 $('#block1-y1').on('change', function () {
-	block1.setY1($(this).val());
+	blocks.data[0].setY1(parseInt($(this).val()));
 });
 $('#block1-y2').on('change', function () {
-	block1.setY2($(this).val());
+	blocks.data[0].setY2(parseInt($(this).val()));
 });
 
 $('#block2-x1').on('change', function () {
-	block2.setX1($(this).val());
+	blocks.data[1].setX1(parseInt($(this).val()));
 });
 $('#block2-x2').on('change', function () {
-	block2.setX2($(this).val());
+	blocks.data[1].setX2(parseInt($(this).val()));
 });
 $('#block2-y1').on('change', function () {
-	block2.setY1($(this).val());
+	blocks.data[1].setY1(parseInt($(this).val()));
 });
 $('#block2-y2').on('change', function () {
-	block2.setY2($(this).val());
+	blocks.data[1].setY2(parseInt($(this).val()));
 });
 
 $('#block3-x1').on('change', function () {
-	block3.setX1($(this).val());
+	blocks.data[2].setX1(parseInt($(this).val()));
 });
 $('#block3-x2').on('change', function () {
-	block3.setX2($(this).val());
+	blocks.data[2].setX2(parseInt($(this).val()));
 });
 $('#block3-y1').on('change', function () {
-	block3.setY1($(this).val());
+	blocks.data[2].setY1(parseInt($(this).val()));
 });
 $('#block3-y2').on('change', function () {
-	block3.setY2($(this).val());
+	blocks.data[2].setY2(parseInt($(this).val()));
 });
 
 $('#block4-x1').on('change', function () {
-	block4.setX1($(this).val());
+	blocks.data[3].setX1(parseInt($(this).val()));
 });
 $('#block4-x2').on('change', function () {
-	block4.setX2($(this).val());
+	blocks.data[3].setX2(parseInt($(this).val()));
 });
 $('#block4-y1').on('change', function () {
-	block4.setY1($(this).val());
+	blocks.data[3].setY1(parseInt($(this).val()));
 });
 $('#block4-y2').on('change', function () {
-	block4.setY2($(this).val());
+	blocks.data[3].setY2(parseInt($(this).val()));
 });
 
 $('#block5-x1').on('change', function () {
-	block5.setX1($(this).val());
+	blocks.data[4].setX1(parseInt($(this).val()));
 });
 $('#block5-x2').on('change', function () {
-	block5.setX2($(this).val());
+	blocks.data[4].setX2(parseInt($(this).val()));
 });
 $('#block5-y1').on('change', function () {
-	block5.setY1($(this).val());
+	blocks.data[4].setY1(parseInt($(this).val()));
 });
 $('#block5-y2').on('change', function () {
-	block5.setY2($(this).val());
+	blocks.data[4].setY2(parseInt($(this).val()));
 });
 // END Change Blocks
 
