@@ -117,31 +117,31 @@ var eventImage = {
 		this.endX = Math.floor(relativeX * image_w / source_image.width());
 		this.endY = Math.floor(relativeY * image_h / source_image.height());
 		if (this.status_draw) {
-			if (current_block != 1) {
-				if(!this.isValidBlock(block1)) {
-					return;
-				}
-			}
-			if (current_block != 2) {
-				if(!this.isValidBlock(block2)) {
-					return;
-				}
-			}
-			if (current_block != 3) {
-				if(!this.isValidBlock(block3)) {
-					return;
-				}
-			}
-			if (current_block != 4) {
-				if(!this.isValidBlock(block4)) {
-					return;
-				}
-			}
-			if (current_block != 5) {
-				if(!this.isValidBlock(block5)) {
-					return;
-				}
-			}
+			// if (current_block != 1) {
+			// 	if(!this.isValidBlock(block1)) {
+			// 		return;
+			// 	}
+			// }
+			// if (current_block != 2) {
+			// 	if(!this.isValidBlock(block2)) {
+			// 		return;
+			// 	}
+			// }
+			// if (current_block != 3) {
+			// 	if(!this.isValidBlock(block3)) {
+			// 		return;
+			// 	}
+			// }
+			// if (current_block != 4) {
+			// 	if(!this.isValidBlock(block4)) {
+			// 		return;
+			// 	}
+			// }
+			// if (current_block != 5) {
+			// 	if(!this.isValidBlock(block5)) {
+			// 		return;
+			// 	}
+			// }
 			var tempX1, tempX2, tempY1, tempY2;
 			if (this.endX < this.startX) {
 				tempX1 = this.endX; tempX2 = this.startX;
@@ -246,33 +246,130 @@ var eventImage = {
 	}
 }
 
+var input = {
+	isValidBlock : function(block) {
+		var blocks = [block1, block2, block3, block4, block5];
+		var a = block;
+		for (var i = 0; i < blocks.length; i++) {
+			if (current_block == i+1) {
+				continue;
+			}
+			var b = blocks[i];
+			if (a.x1 < b.x1) {
+				if (a.y1 < b.y1) {
+					if (a.x2 > b.x1) {
+						if (a.y2 > b.y1) {
+							return false;
+						}
+					}
+				} else {
+					if (a.x2 > b.x1) {
+						if (a.y2 <= b.y2) {
+							return false;
+						}
+					}
+				}
+				if (a.y1 < b.y2) {
+					if (a.x2 > b.x1) {
+						if (a.y2 > b.y2) {
+							return false;
+						}
+					}
+				}
+			} else {
+				if (a.y1 < b.y1) {
+					if (a.x2 <= b.x2) {
+						if (a.y2 > b.y1) {
+							return false;
+						}
+					}
+				}
+				if (a.y1 < b.y2) {
+					if (a.x2 <= b.x2) {
+						if (a.y2 > b.y2) {
+							return false;
+						}
+					}
+				}
+			}
+			if (a.x1 < b.x2) {
+				if (a.y1 < b.y1) {
+					if (a.x2 > b.x2) {
+						if (a.y2 > b.y1) {
+							return false;
+						}
+					}
+				} else {
+					if (a.x2 > b.x2) {
+						if (a.y2 < b.y2) {
+							return false;
+						}
+					}
+				}
+				if (a.y1 < b.y2) {
+					if (a.x2 > b.x2) {
+						if (a.y2 > b.y2) {
+							return false;
+						}
+					}
+				}
+				
+			}
+
+			return true;
+		}
+	}
+}
+
 var block1 = {
 	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
 	setX1 : function(value) {
+		var temp = this.x1;
 		this.x1 = value;
-		var temp = this.x1 * 100 / image_w;
-		$('#block1-x1').val(value);
-		$('#rect-block-1').css('left',temp+'%');
 		this.setX2(this.x2);
+		if (input.isValidBlock(this)) {
+			temp = this.x1 * 100 / image_w;
+			$('#block1-x1').val(value);
+			$('#rect-block-1').css('left',temp+'%');
+		} else {
+			this.x1 = temp;
+			this.setX2(this.x2);
+		}
 	},
 	setY1 : function (value) {
+		var temp = this.y1;
 		this.y1 = value;
-		var temp = this.y1 * 100 / image_h;
-		$('#block1-y1').val(value);
-		$('#rect-block-1').css('top',temp+'%');
 		this.setY2(this.y2);
+		if (input.isValidBlock(this)) {
+			temp = this.y1 * 100 / image_h;
+			$('#block1-y1').val(value);
+			$('#rect-block-1').css('top',temp+'%');
+		} else {
+			this.y1 = temp;
+			this.setY1(this.y1);
+		}
 	},
 	setX2 : function(value) {
+		var temp = this.x2;
 		this.x2 = value;
-		var temp = (this.x2 - this.x1) * 100 / image_w;
-		$('#block1-x2').val(value);
-		$('#rect-block-1').css('width',temp+'%');
+		if (input.isValidBlock(this)) {
+			temp = (this.x2 - this.x1) * 100 / image_w;
+			$('#block1-x2').val(value);
+			$('#rect-block-1').css('width',temp+'%');
+		} else {
+			this.x2 = temp;
+		}
 	},
 	setY2 : function (value) {
+		var temp = this.y2;
 		this.y2 = value;
-		var temp = (this.y2 - this.y1) * 100 / image_h;
-		$('#block1-y2').val(value);
-		$('#rect-block-1').css('height',temp+'%');
+		if (input.isValidBlock(this)) {
+			temp = (this.y2 - this.y1) * 100 / image_h;
+			$('#block1-y2').val(value);
+			$('#rect-block-1').css('height',temp+'%');
+		} else {
+			this.y2 = temp;
+		}
 	},
 	reset: function() {
 		this.setX1(0);
@@ -285,30 +382,52 @@ var block1 = {
 var block2 = {
 	x1 : 0, y1 : 0, x2 : 0, y2 : 0,
 	setX1 : function(value) {
+		var temp = this.x1;
 		this.x1 = value;
-		var temp = this.x1 * 100 / image_w;
-		$('#block2-x1').val(value);
-		$('#rect-block-2').css('left',temp+'%');
 		this.setX2(this.x2);
+		if (input.isValidBlock(this)) {
+			temp = this.x1 * 100 / image_w;
+			$('#block2-x1').val(value);
+			$('#rect-block-2').css('left',temp+'%');
+		} else {
+			this.x1 = temp;
+			this.setX2(this.x2);
+		}
 	},
 	setY1 : function (value) {
+		var temp = this.y1;
 		this.y1 = value;
-		var temp = this.y1 * 100 / image_h;
-		$('#block2-y1').val(value);
-		$('#rect-block-2').css('top',temp+'%');
 		this.setY2(this.y2);
+		if (input.isValidBlock(this)) {
+			temp = this.y1 * 100 / image_h;
+			$('#block2-y1').val(value);
+			$('#rect-block-2').css('top',temp+'%');
+		} else {
+			this.y1 = temp;
+			this.setY2(this.y2);
+		}
 	},
 	setX2 : function(value) {
+		var temp = this.x2;
 		this.x2 = value;
-		var temp = (this.x2 - this.x1) * 100 / image_w;
-		$('#block2-x2').val(value);
-		$('#rect-block-2').css('width',temp+'%');
+		if (input.isValidBlock(this)) {
+			temp = (this.x2 - this.x1) * 100 / image_w;
+			$('#block2-x2').val(value);
+			$('#rect-block-2').css('width',temp+'%');
+		} else {
+			this.x2 = temp;
+		}
 	},
 	setY2 : function (value) {
+		var temp = this.y2;
 		this.y2 = value;
-		var temp = (this.y2 - this.y1) * 100 / image_h;
-		$('#block2-y2').val(value);
-		$('#rect-block-2').css('height',temp+'%');
+		if (input.isValidBlock(this)) {
+			temp = (this.y2 - this.y1) * 100 / image_h;
+			$('#block2-y2').val(value);
+			$('#rect-block-2').css('height',temp+'%');
+		} else {
+			this.y2 = temp;
+		}
 	},
 	reset: function() {
 		this.setX1(0);
