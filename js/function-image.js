@@ -12,19 +12,13 @@ $('#btn-import-image').on('change',function (files){
 		})(file);
 		reader.readAsDataURL(file);
 		source_image.prop('hidden',false);	
-		$('.btn-import-image').hide();
-		$('#btn-close-image').show();
+		$('.panel-content').addClass('active');
 		$('.panel-select-block .tab-content [type="number"]').prop('disabled',false);
 	}
 })
 $('#source-image').on('load', function () {
 	image_h = $(this)[0].naturalHeight;
 	image_w = $(this)[0].naturalWidth;
-	source_canvas = $('#canvas-image')[0];
-	source_canvas.height = image_h;
-	source_canvas.width = image_w;
-	var context = source_canvas.getContext('2d');
-	context.drawImage($(this)[0],0,0,image_w,image_h);
 	setMaxAllBlock(image_w, image_h);
 });
 

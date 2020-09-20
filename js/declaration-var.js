@@ -1,10 +1,19 @@
 // BEGIN Declaration Variable
-var source_canvas;
 var source_image;
 var image_h, image_w;
 // END Declaration Variable
 
 // BEGIN Native Function
+function updateProgressBar(value) {
+	document.getElementsByClassName('progress-bar')[0].setAttribute('aria-valuenow',value);
+	document.getElementsByClassName('progress-bar')[0].style.width = value+'%';
+	document.getElementsByClassName('progress-bar')[0].innerHTML += value+'%';
+
+	// $('.progress-bar').attr('aria-valuenow', value);
+	// $('.progress-bar').css('width', value+'%');
+	// $('.progress-bar').html(value+'%');
+	console.log('tttttttttt')
+}
 function resetAll(){
 	for (var i = 0 ; i < blocks.data.length; i++) {
 		blocks.data[i].reset();
@@ -38,8 +47,6 @@ function resetImage() {
 	source_image.removeAttr('src');
 	image_h = 0;
 	image_w = 0;
-	source_canvas.height = image_h;
-	source_canvas.width = image_w;
 }
 
 var eventImage = {

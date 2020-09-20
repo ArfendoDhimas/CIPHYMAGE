@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="css/ui.css">
 	</head>
 	<body>
+		
 		<header>
 			<div class="row table" style="padding: 1rem; margin: 0; font-size: large;">
 				<div id="title" class="col-12 text-center table-cell">
@@ -20,9 +21,6 @@
 				<a href="#" id="btn-sidebar">
 					<i class="fa fa-bars"></i>
 					<i class="fas fa-times"></i>
-				</a>
-				<a href="#" type="button" id="btn-close-image">
-					<i class="fas fa-times "></i>
 				</a>
 			</div>
 		</header>
@@ -80,7 +78,7 @@
 							<input type="text" id="input-passphrase-encrypt" class="form-control" maxlength="32">
 						</div>
 						<div class="form-group">
-							<button type="button" id="btn-encrypt" class="btn btn-secondary btn-lg btn-block" disabled>Start Encrypt</button>
+							<button type="button" id="btn-encrypt" class="btn btn-secondary btn-lg btn-block" >Start Encrypt</button>
 						</div>
 					</div>
 				</div>
@@ -120,12 +118,15 @@
 			</div>
 		</div>
 
-		<section class="panel-backgroud ">
+		<section class="panel-background ">
+			<a href="#" class="group-btn-input-custom btn-import-image">
+				<label for="btn-import-image" class="btn btn-primary btn-lg btn-import-image">Choose Image</label>
+				<input type="file" id="btn-import-image" class="custom-file-input-button" accept="image/png,image/jpeg,image/bmp">
+			</a>
 			<div class="panel-content">
 				<div class="image-section" id="image-section">
 					<div id="offset" class="offset">
 						<div class="block">
-							<canvas id="canvas-image" width="0" height="0" hidden></canvas>
 							<img id="source-image" hidden>
 							<div id="border-canvas" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; z-index: 997">	</div>
 							<div id="rect-block-1" class="block-overlay" style="top:0; left:0; width: 0; height: 0; border: 1px solid black; background-color: #ff07">	</div>
@@ -136,12 +137,30 @@
 						</div>
 					</div>
 				</div>
+				<a href="#" type="button" id="btn-close-panel-content" class="btn-close">
+					<i class="fas fa-times "></i>
+				</a>
 			</div>
-			
-			<a href="#" class="group-btn-input-custom btn-import-image">
-				<label for="btn-import-image" class="btn btn-primary btn-lg btn-import-image">Choose Image</label>
-				<input type="file" id="btn-import-image" class="custom-file-input-button" accept="image/png,image/jpeg,image/bmp">
-			</a>
+			<div class="panel-loading">
+				<div class="progress" style="height: 1.2rem;">
+					<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+				</div>
+				<div class="">
+
+				</div>
+			</div>
+			<div class="panel-result">
+				<div class="image-section" id="image-section">
+					<div id="offset" class="offset">
+						<div class="block">
+							<img src="" id="result-image">	
+						</div>
+					</div>
+				</div>
+				<a href="#" type="button" id="btn-close-panel-result" class="btn-close">
+					<i class="fas fa-times "></i>
+				</a>
+			</div>
 		</section>
 
 		<section class="panel-select-block">

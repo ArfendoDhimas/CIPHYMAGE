@@ -168,10 +168,13 @@ $('#btn-reset-curr-block').on('click', function () {
 	resetCurrentSelectedBlock();
 });
 
-$('#btn-close-image').on('click', function() {
+$('#btn-close-panel-content').on('click', function() {
 	resetAll();
-	$(this).hide();
-	$('.btn-import-image').show()
+	$('.panel-content').removeClass('active');
+})
+$('#btn-close-panel-result').on('click', function() {
+	$('.panel-result').removeClass('active');
+	$('.panel-select-block .tab-content [type="number"]').prop('disabled',false);
 })
 // END Reset 
 

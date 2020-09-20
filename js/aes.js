@@ -79,21 +79,21 @@ var utils = {
 }
 
 class AES{
-	#Nb;
-	#key; #Nr; #expansion_key;
-	#mode; #initial_vector;
-	#notif;
-	#typeof_source_data; #cache_length;
+	Nb;
+	key; Nr; expansion_key;
+	mode; initial_vector;
+	notif;
+	typeof_source_data; cache_length;
 
 	
 	// Supported mode 					: "ECB" or "CBC"
 	// Length of key 						: 16, 24 or 32 chars of String or elements Array one dimension
 	// Length of initial_vector : 16 chars of String or elements Array one dimension
-	constructor(mode = 'ECB', key = '!@#qwe1234567890', initial_vector = '!@#qwe1234567890')
+	constructor(mode = 'CBC', key = '!@#qwe1234567890', initial_vector = '!@#qwe1234567890')
 	{
-		this.#notif = {status : false, msg : ''};
-		this.#cache_length = [];
-		this.#Nb = 4;
+		this.notif = {status : false, msg : ''};
+		this.cache_length = [];
+		this.Nb = 4;
 		this.setMode(mode);
 		this.setKey(key);
 		if (mode == 'CBC')
@@ -104,7 +104,7 @@ class AES{
 
 	getNotification()
 	{
-		return this.#notif;
+		return this.notif;
 	}
 
 	setKey(key)
@@ -144,41 +144,41 @@ class AES{
 			{
 				throw 'Unsupported Key.';
 			}
-			this.#key = temp_key;
-			this.#setNumberRotation(temp_key);
-			this.#setExpansionKey(temp_key);
+			this.key = temp_key;
+			this.setNumberRotation(temp_key);
+			this.setExpansionKey(temp_key);
 
-			this.#notif.ststus = true;
-			this.#notif.msg = 'Success set the Key.';
-			console.log(this.#notif.msg);
-			return this.#notif.status;
+			this.notif.ststus = true;
+			this.notif.msg = 'Success set the Key.';
+			console.log(this.notif.msg);
+			return this.notif.status;
 		}
 		catch(error)
 		{
-			this.#notif.status = false;
-			this.#notif.msg = error;
-			console.error(this.#notif.msg);
-			return this.#notif.status;
+			this.notif.status = false;
+			this.notif.msg = error;
+			console.error(this.notif.msg);
+			return this.notif.status;
 		}		
 	}
 
 	getKey()
 	{
-		return this.#key;
+		return this.key;
 	}
 
-	#setNumberRotation(key)
+	setNumberRotation(key)
 	{
 		switch (key.length)
 		{
-			case 16 : this.#Nr = 10; break;
-			case 24 : this.#Nr = 12; break;
-			case 32 : this.#Nr = 14; break;
-			default : this.#Nr = 0; break;
+			case 16 : this.Nr = 10; break;
+			case 24 : this.Nr = 12; break;
+			case 32 : this.Nr = 14; break;
+			default : this.Nr = 0; break;
 		}
 	}
 
-	#setExpansionKey(key)
+	setExpansionKey(key)
 	{
 		const Nk = Math.floor(key.length/4);
 		var expansion_key = [];
@@ -199,27 +199,27 @@ class AES{
 
 		// continue generate expansion_key
 		i = Nk;
-		while (i < this.#Nb * (this.#Nr + 1))
+		while (i < this.Nb * (this.Nr + 1))
 		{
 			key_schadule = utils.copyArray(expansion_key[i-1]);
 
 			if (i % Nk == 0) 
 			{
-				this.#tRotWord(key_schadule);
-				this.#tSubWord(key_schadule);
-				this.#tXOR(key_schadule, RINJDAEL_PRESET.RCON(Math.floor(i/Nk)-1));
+				this.tRotWord(key_schadule);
+				this.tSubWord(key_schadule);
+				this.tXOR(key_schadule, RINJDAEL_PRESET.RCON(Math.floor(i/Nk)-1));
 			}
 			else if (Nk > 6 && i % Nk == 4)
 			{
-				this.#tSubWord(key_schadule);
+				this.tSubWord(key_schadule);
 			}
 
-			this.#tXOR(key_schadule, expansion_key[i-Nk]);
+			this.tXOR(key_schadule, expansion_key[i-Nk]);
 			expansion_key.push(key_schadule);
 			key_schadule = [];
 			i++;
 		}
-		this.#expansion_key = expansion_key;
+		this.expansion_key = expansion_key;
 	}
 
 	setMode(mode)
@@ -229,27 +229,27 @@ class AES{
 			switch (mode)
 			{
 				case 'ECB' : case 'CBC' :
-						this.#mode = mode;
-						this.#notif.status = true;
-						this.#notif.msg = 'Success set the Mode.';
-						console.log(this.#notif.msg);
-						return this.#notif.status;
+						this.mode = mode;
+						this.notif.status = true;
+						this.notif.msg = 'Success set the Mode.';
+						console.log(this.notif.msg);
+						return this.notif.status;
 				default :
 						throw '\"'+mode+'\" is not supported Mode. Please select Mode : \"ECB\" or \"CBC\"!';
 			}			
 		}
 		catch(error)
 		{
-			this.#notif.status = false;
-			this.#notif.msg = error;
-			console.error(this.#notif.msg);
-			return this.#notif.status;
+			this.notif.status = false;
+			this.notif.msg = error;
+			console.error(this.notif.msg);
+			return this.notif.status;
 		}
 	}
 
 	getMode()
 	{
-		return this.#mode;
+		return this.mode;
 	}
 
 	setInitialVector(initial_vector)
@@ -261,7 +261,7 @@ class AES{
 			{
 				throw 'Your selected Mode (\"'+this.getMode()+'\") doesn\'t need Initial Vector';
 			}
-			if (initial_vector.length != 4*this.#Nb)
+			if (initial_vector.length != 4*this.Nb)
 			{
 				throw 'Length of Initial Vector must be 16 char String or elements of Array!';
 			}
@@ -293,36 +293,36 @@ class AES{
 			{
 				throw 'Unsupported Initial Vector.';
 			}
-			this.#initial_vector = temp_initial_vector;
-			this.#notif.status = true;
-			this.#notif.msg = 'Success set the Initial Vector';
-			console.log(this.#notif.msg);
-			return this.#notif.status;
+			this.initial_vector = temp_initial_vector;
+			this.notif.status = true;
+			this.notif.msg = 'Success set the Initial Vector';
+			console.log(this.notif.msg);
+			return this.notif.status;
 		}
 		catch(error)
 		{
-			this.#notif.status = false;
-			this.#notif.msg = error;
-			console.error(this.#notif.msg);
-			return this.#notif.status;
+			this.notif.status = false;
+			this.notif.msg = error;
+			console.error(this.notif.msg);
+			return this.notif.status;
 		}
 	}
 
 	getInitialVector()
 	{
-		return this.#initial_vector;
+		return this.initial_vector;
 	}
 	
-	#getAllStateFrom(source_data){
+	getAllStateFrom(source_data){
 		var all_state = [];
 		var state = [];
 		var x = 0, y = 0;
-		if(this.#typeof_source_data == 'object' || this.#typeof_source_data == 'string')
+		if(this.typeof_source_data == 'object' || this.typeof_source_data == 'string')
 		{
 			for (var i = 0; i < source_data.length; i++) 
 			{
 				// This is for rebulid as original Array
-				this.#cache_length[i] = source_data[i].length;
+				this.cache_length[i] = source_data[i].length;
 
 				for (var j = 0; j < source_data[i].length; j++)
 				{					
@@ -343,7 +343,7 @@ class AES{
 						throw 'Invalid Source Data.';
 					}
 
-					if (y == (this.#Nb * 4))
+					if (y == (this.Nb * 4))
 					{
 						all_state.push(state);
 						state = [];
@@ -363,10 +363,10 @@ class AES{
 		return all_state;
 	}
 
-	#rebuild(all_state)
+	rebuild(all_state)
 	{
 		var result;
-		if (this.#typeof_source_data == 'object')
+		if (this.typeof_source_data == 'object')
 		{
 			result = [];
 			var row = [];
@@ -375,7 +375,7 @@ class AES{
 			for (var i = 0; i < all_state.length; i++) {
 				for (var j = 0; j < all_state[i].length; j++) {
 					row.push(all_state[i][j]); n++;
-					if (n == this.#cache_length[m]) {
+					if (n == this.cache_length[m]) {
 						result.push(row); m++;
 						row = [];
 						n = 0;
@@ -383,7 +383,7 @@ class AES{
 				}
 			}
 		}
-		else if (this.#typeof_source_data == 'string')
+		else if (this.typeof_source_data == 'string')
 		{
 			result = "";
 			for (var i = 0; i < all_state.length; i++) {
@@ -402,13 +402,13 @@ class AES{
 	encrypt(source_data)
 	{
 		try{
-			this.#typeof_source_data = typeof source_data;
-			if (this.#typeof_source_data == 'string')
+			this.typeof_source_data = typeof source_data;
+			if (this.typeof_source_data == 'string')
 			{
-				source_data = this.#addPadding(source_data);
+				source_data = this.addPadding(source_data);
 			}
 			// console.log(source_data);
-			const all_state = this.#getAllStateFrom(source_data);
+			const all_state = this.getAllStateFrom(source_data);
 			var state = [];
 			var cipher_blocks = [];
 
@@ -416,12 +416,12 @@ class AES{
 			for (var i = 0; i < all_state.length; i++) 
 			{
 				state = utils.copyArray(all_state[i]);
-				if (all_state[i].length ==  (this.#Nb*4))
+				if (all_state[i].length ==  (this.Nb*4))
 				{
 					switch(this.getMode())
 					{
 						case 'ECB' :
-								this.#encryptModeECB(state);
+								this.encryptModeECB(state);
 								break;
 
 						case 'CBC' :
@@ -433,7 +433,7 @@ class AES{
 									default :
 											vector = cipher_blocks[i-1]; break;
 								}
-								this.#encryptModeCBC(state,vector);
+								this.encryptModeCBC(state,vector);
 								break;
 
 						default :
@@ -447,77 +447,77 @@ class AES{
 				}
 			}
 			var result;
-			if (this.#typeof_source_data == 'string')
+			if (this.typeof_source_data == 'string')
 			{
-				result = this.#rebuild(cipher_blocks);
+				result = this.rebuild(cipher_blocks);
 				result = btoa(result); // Encode to base64
 			}
-			else if (this.#typeof_source_data == 'object')
+			else if (this.typeof_source_data == 'object')
 			{
-				result = this.#rebuild(cipher_blocks);
+				result = this.rebuild(cipher_blocks);
 			}
 			else{
 				throw 'Invalid Source Data.'
 			}
-			this.#notif.status = true;
-			this.#notif.msg = 'Success Encrypt Source Data.';
-			console.log(this.#notif.msg);
+			this.notif.status = true;
+			this.notif.msg = 'Success Encrypt Source Data.';
+			console.log(this.notif.msg);
 			return result;
 		}
 		catch(error)
 		{
-			this.#notif.status = false;
-			this.#notif.msg = error;
-			console.error(this.#notif.msg);
-			return this.#notif.status;
+			this.notif.status = false;
+			this.notif.msg = error;
+			console.error(this.notif.msg);
+			return this.notif.status;
 		}
 	}
 
 	// Encrypt Mode ECB (Electronic Code Book)
-	#encryptModeECB(state)
+	encryptModeECB(state)
 	{
 		var r = 0;
-		this.#tAddRoundKey(state,r);
-		for (r = 1; r < this.#Nr; r++) 
+		this.tAddRoundKey(state,r);
+		for (r = 1; r < this.Nr; r++) 
 		{
-			this.#tSubByte(state);
-			this.#tShiftRows(state);
-			this.#tMixColumn(state);
-			this.#tAddRoundKey(state,r);
+			this.tSubByte(state);
+			this.tShiftRows(state);
+			this.tMixColumn(state);
+			this.tAddRoundKey(state,r);
 		}
-		this.#tSubByte(state);
-		this.#tShiftRows(state);
-		this.#tAddRoundKey(state,r);
+		this.tSubByte(state);
+		this.tShiftRows(state);
+		this.tAddRoundKey(state,r);
 	}
 
 	// Encrypt Mode CBC (Cipher Block Chaining)
-	#encryptModeCBC(state, vector)
+	encryptModeCBC(state, vector)
 	{
 		var r = 0;
-		this.#tXOR(state,vector);
-		this.#tAddRoundKey(state,r);
-		for (r = 1; r < this.#Nr; r++) 
+		this.tXOR(state,vector);
+		this.tAddRoundKey(state,r);
+		for (r = 1; r < this.Nr; r++) 
 		{
-			this.#tSubByte(state);
-			this.#tShiftRows(state);
-			this.#tMixColumn(state);
-			this.#tAddRoundKey(state,r);
+			this.tSubByte(state);
+			this.tShiftRows(state);
+			this.tMixColumn(state);
+			this.tAddRoundKey(state,r);
 		}
-		this.#tSubByte(state);
-		this.#tShiftRows(state);
-		this.#tAddRoundKey(state,r);
+		this.tSubByte(state);
+		this.tShiftRows(state);
+		this.tAddRoundKey(state,r);
 	}
 
 	decrypt(source_data)
 	{
 		try
 		{
-			this.#typeof_source_data = typeof source_data ;
-			if (this.#typeof_source_data == 'string')
+			this.typeof_source_data = typeof source_data ;
+			if (this.typeof_source_data == 'string')
 			{
 				source_data = atob(source_data); // Decode from base64
 			}
-			const all_state = this.#getAllStateFrom(source_data);
+			const all_state = this.getAllStateFrom(source_data);
 			var state;
 			var decipher_blocks = [];
 
@@ -525,12 +525,12 @@ class AES{
 			for (var i = 0; i < all_state.length; i++) 
 			{
 				state = utils.copyArray(all_state[i]);
-				if (all_state[i].length == (this.#Nb*4))
+				if (all_state[i].length == (this.Nb*4))
 				{
-					switch(this.#mode)
+					switch(this.mode)
 					{
 						case 'ECB' :
-								this.#decryptModeECB(state);
+								this.decryptModeECB(state);
 								break;
 
 						case 'CBC' :
@@ -542,7 +542,7 @@ class AES{
 									default :
 											vector = all_state[i-1]; break;
 								}
-								this.#decryptModeCBC(state,vector);
+								this.decryptModeCBC(state,vector);
 								break;
 
 						default :
@@ -556,119 +556,119 @@ class AES{
 				}
 			}
 			var result;
-			if (this.#typeof_source_data == 'string')
+			if (this.typeof_source_data == 'string')
 			{
-				result = this.#removePadding(this.#rebuild(decipher_blocks));
+				result = this.removePadding(this.rebuild(decipher_blocks));
 			}
-			else if (this.#typeof_source_data == 'object')
+			else if (this.typeof_source_data == 'object')
 			{
-				result = this.#rebuild(decipher_blocks);
+				result = this.rebuild(decipher_blocks);
 			}
 			else{
 				throw 'Invalid Source Data.'
 			}
-			this.#notif.status = true;
-			this.#notif.msg = 'Success Decrypt Source Data.';
-			console.log(this.#notif.msg);
+			this.notif.status = true;
+			this.notif.msg = 'Success Decrypt Source Data.';
+			console.log(this.notif.msg);
 			return result;
 		}
 		catch(error)
 		{
-			this.#notif.status = false;
-			this.#notif.msg = error;
-			console.error(this.#notif.msg);
-			return this.#notif.status;
+			this.notif.status = false;
+			this.notif.msg = error;
+			console.error(this.notif.msg);
+			return this.notif.status;
 		}
 	}
 
 	// Decrypt Mode ECB (Electronic Code Book)
-	#decryptModeECB(state)
+	decryptModeECB(state)
 	{
-		var r = this.#Nr;
-		this.#tAddRoundKey(state,r);
-		for (r = this.#Nr-1; r > 0 ; r--) 
+		var r = this.Nr;
+		this.tAddRoundKey(state,r);
+		for (r = this.Nr-1; r > 0 ; r--) 
 		{
-			this.#tInversShiftRows(state);
-			this.#tInversSubByte(state);
-			this.#tAddRoundKey(state,r);
-			this.#tInversMixColumn(state);
+			this.tInversShiftRows(state);
+			this.tInversSubByte(state);
+			this.tAddRoundKey(state,r);
+			this.tInversMixColumn(state);
 		}
-		this.#tInversShiftRows(state);
-		this.#tInversSubByte(state);
-		this.#tAddRoundKey(state,r);
+		this.tInversShiftRows(state);
+		this.tInversSubByte(state);
+		this.tAddRoundKey(state,r);
 	}
 
 	// Decrypt Mode CBC (Cipher Block Chaining)
-	#decryptModeCBC(state,vector)
+	decryptModeCBC(state,vector)
 	{
-		var r = this.#Nr;
-		this.#tAddRoundKey(state,r);
-		for (r = this.#Nr-1; r > 0 ; r--) 
+		var r = this.Nr;
+		this.tAddRoundKey(state,r);
+		for (r = this.Nr-1; r > 0 ; r--) 
 		{
-			this.#tInversShiftRows(state);
-			this.#tInversSubByte(state);
-			this.#tAddRoundKey(state,r);
-			this.#tInversMixColumn(state);
+			this.tInversShiftRows(state);
+			this.tInversSubByte(state);
+			this.tAddRoundKey(state,r);
+			this.tInversMixColumn(state);
 		}
-		this.#tInversShiftRows(state);
-		this.#tInversSubByte(state);
-		this.#tAddRoundKey(state,r);
-		this.#tXOR(state,vector);
+		this.tInversShiftRows(state);
+		this.tInversSubByte(state);
+		this.tAddRoundKey(state,r);
+		this.tXOR(state,vector);
 	}
 
-	#tAddRoundKey(state, r)
+	tAddRoundKey(state, r)
 	{
 		var j = 0;
 		for (var i = 0; i < state.length; i++) {
-			state[i] = state[i] ^ this.#expansion_key[r*4+Math.floor(i/4)][j++%4];
+			state[i] = state[i] ^ this.expansion_key[r*4+Math.floor(i/4)][j++%4];
 		}
 	}	
 
-	#tSubByte(state)
+	tSubByte(state)
 	{
 		for (var i = 0; i < state.length; i++) {
 			state[i] = RINJDAEL_PRESET.SBOX(state[i]);
 		}
 	}
 
-	#tInversSubByte(state)
+	tInversSubByte(state)
 	{
 		for (var i = 0; i < state.length; i++) {
 			state[i] = RINJDAEL_PRESET.INVERS_SBOX(state[i]);
 		}
 	}
 
-	#tShiftRows(state)
+	tShiftRows(state)
 	{
 		var temp = 0;
-		for (var i = 1; i < this.#Nb; i++) {
+		for (var i = 1; i < this.Nb; i++) {
 			for (var j = 0; j < i; j++) {
 				var k = 0;
-				temp = state[i+k*this.#Nb];
-				for (k = 0; k < this.#Nb-1; k++) {
-					state[i+k*this.#Nb] = state[i+(k+1)*4];
+				temp = state[i+k*this.Nb];
+				for (k = 0; k < this.Nb-1; k++) {
+					state[i+k*this.Nb] = state[i+(k+1)*4];
 				}
-				state[i+k*this.#Nb] = temp;
+				state[i+k*this.Nb] = temp;
 			}
 		}
 	}
 
-	#tInversShiftRows(state)
+	tInversShiftRows(state)
 	{
 		var temp_value = 0;
-		for (var i = 1; i < this.#Nb; i++) {
+		for (var i = 1; i < this.Nb; i++) {
 			for (var j = 0; j < i; j++) {
-				var k = this.#Nb-1;
-				temp_value = state[i+k*this.#Nb];
-				for (k = this.#Nb-1; k > 0; k--) {
-					state[i+k*this.#Nb] = state[i+(k-1)*this.#Nb];
+				var k = this.Nb-1;
+				temp_value = state[i+k*this.Nb];
+				for (k = this.Nb-1; k > 0; k--) {
+					state[i+k*this.Nb] = state[i+(k-1)*this.Nb];
 				}
-				state[i+k*this.#Nb] = temp_value;
+				state[i+k*this.Nb] = temp_value;
 			}
 		}
 	}
 
-	#tMixColumn(state)
+	tMixColumn(state)
 	{
 		var result = [];
 		var k = 0;
@@ -696,7 +696,7 @@ class AES{
 		}
 	}
 
-	#tInversMixColumn(state)
+	tInversMixColumn(state)
 	{
 		var result = [];
 		var k = 0;
@@ -740,7 +740,7 @@ class AES{
 		}
 	}
 
-	#tRotWord(key_schadule)
+	tRotWord(key_schadule)
 	{
 		var temp = key_schadule[0];
 		var i = 0;
@@ -752,12 +752,12 @@ class AES{
 		key_schadule[i] = temp;
 	}
 
-	#tSubWord(key_schadule)
+	tSubWord(key_schadule)
 	{
-		this.#tSubByte(key_schadule);
+		this.tSubByte(key_schadule);
 	}
 
-	#tXOR(array0, array1)
+	tXOR(array0, array1)
 	{
 		if (array0.length == array1.length)
 		{
@@ -772,13 +772,13 @@ class AES{
 		}
 	}
 
-	#addPadding(text)
+	addPadding(text)
 	{
 		if (typeof text != 'string')
 		{
 			return null;
 		}
-		var x = this.#Nb*4-(text.length%(this.#Nb*4));
+		var x = this.Nb*4-(text.length%(this.Nb*4));
 		for (var i = 0; i < x; i++)
 		{
 			text += String.fromCharCode(x);
@@ -786,7 +786,7 @@ class AES{
 		return text;
 	}
 
-	#removePadding(text)
+	removePadding(text)
 	{
 		if (typeof text != 'string')
 		{
