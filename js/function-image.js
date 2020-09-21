@@ -12,6 +12,8 @@ $('#btn-import-image').on('change',function (files){
 		})(file);
 		reader.readAsDataURL(file);
 		source_image.prop('hidden',false);	
+		enableFormEncrypt();
+		enableFormDecrypt();
 		$('.panel-content').addClass('active');
 		$('.panel-select-block .tab-content [type="number"]').prop('disabled',false);
 	}

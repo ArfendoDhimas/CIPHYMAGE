@@ -245,12 +245,34 @@ $('#block5-y2').on('change', function () {
 });
 // END Change Blocks
 
-// BEGIN Change Block from hover
+// BEGIN Selection Blocks
 $('.panel-content .block').on('mousedown', function (mouse) {
 	eventImage.mouseDown(mouse);
 });
 $('.panel-content .block').on('mousemove', function (mouse) {
 	eventImage.mouseMove(mouse);
 });
+// END Selection Blocks
 
-// END Change Block from hover
+// BEGIN Download Result Image
+$('#download-result-image').on('click', function () {
+	var a = document.createElement('a');
+	a.href = result_image.attr('src');
+	a.download = timestamp+'_Cipher_Image.png';
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+});
+// BEGIN Download Result Image
+
+// BEGIN Download JCKEY
+$('#download-jckey').on('click', function () {
+	var blob_jckey = new Blob([jckey],{type: 'text/plain'});
+	var a = document.createElement('a');
+	a.href = window.URL.createObjectURL(blob_jckey);
+	a.download = timestamp+'_File.jckey';
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+});
+// END Download JCKEY

@@ -94,9 +94,9 @@ class AES{
 		this.notif = {status : false, msg : ''};
 		this.cache_length = [];
 		this.Nb = 4;
-		this.setMode(mode);
+		this.setMode(mode.toUpperCase());
 		this.setKey(key);
-		if (mode == 'CBC')
+		if (mode.toUpperCase() == 'CBC')
 		{
 			this.setInitialVector(initial_vector);
 		}
@@ -226,10 +226,11 @@ class AES{
 	{
 		try
 		{
-			switch (mode)
+			switch (mode.toUpperCase())
 			{
 				case 'ECB' : case 'CBC' :
-						this.mode = mode;
+						this.mode = mode.toUpperCase();
+						console.log(this.mode);
 						this.notif.status = true;
 						this.notif.msg = 'Success set the Mode.';
 						console.log(this.notif.msg);

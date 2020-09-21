@@ -350,6 +350,23 @@ footer {
 	top: 0;
 	display: block;
 }
+.panel-loading .full {
+	position: relative;
+	height: calc(100% - 1.2rem);
+	width: 100%;
+}
+.panel-loading .full .info {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+	font-weight: bold;
+}
+.panel-loading .full img {
+	display: block;
+}
 .image-section {
 	width: 100%;
 	min-height: 100%;
@@ -498,6 +515,14 @@ footer {
 }
 .selection-block #btn-hide.active i.fa-caret-right{
 	display: block  !important;
+}
+
+.download {
+	margin: 1rem;
+}
+.download a {
+	margin: 0.5rem;
+	width: 12rem;
 }
 
 @media only screen and (max-width: 720px) {

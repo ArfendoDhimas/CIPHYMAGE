@@ -41,15 +41,15 @@
 				<div class="encryption">
 					<div class="container">
 						<div class="form-group">
-							<label for="input-key-length" class="font-weight-bold">Select Encryption Mode <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
-							<select class="form-control" id="input-key-length">
+							<label for="input-mode-encrypt" class="font-weight-bold">Select Encryption Mode <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+							<select class="form-control" id="input-mode-encrypt" disabled>
 								<option value="aes-ecb">AES-ECB</option>
 								<option value="aes-cbc" selected>AES-CBC (Recomended)</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="input-key-length" class="font-weight-bold">Select Key Length <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
-							<select class="form-control" id="input-key-length">
+							<select class="form-control" id="input-key-length" disabled>
 								<option value="128">128 bits</option>
 								<option value="192">192 bits</option>
 								<option value="256" selected>256 bits (Recomended)</option>
@@ -58,16 +58,16 @@
 						<div class="form-group">
 							<label for="input-key-encrypt" class="font-weight-bold">Generate Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
-								<input type="text" id="input-key-encrypt" class="form-control" maxlength="32" readonly>
+								<input type="text" id="input-key-encrypt" class="form-control" value="8UsmBVHiWTnYMugg6geMP0BPAPlUtlA3KZlGJdsJem8=" readonly>
 								<div class="input-group-prepend">
 									<span class="input-group-text btn btn-warning" id="btn-random-key"><i class="fa fa-redo"></i></span>
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="input-iv-group">
 							<label for="input-iv-encrypt" class="font-weight-bold">Generate Initial Vector <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
-								<input type="text" id="input-iv-encrypt" class="form-control" maxlength="16" readonly>
+								<input type="text" id="input-iv-encrypt" class="form-control" value="IayWPHfWiaylHJ13vJwA/A==" readonly>
 								<div class="input-group-prepend">
 									<span class="input-group-text btn btn-warning" id="btn-random-iv"><i class="fa fa-redo"></i></span>
 								</div>
@@ -75,43 +75,49 @@
 						</div>
 						<div class="form-group">
 							<label for="input-passphrase-encrypt" class="font-weight-bold">Input Passphrase (Recomended) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
-							<input type="text" id="input-passphrase-encrypt" class="form-control" maxlength="32">
+							<input type="password" id="input-passphrase-encrypt" class="form-control" maxlength="32" disabled>
 						</div>
 						<div class="form-group">
-							<button type="button" id="btn-encrypt" class="btn btn-secondary btn-lg btn-block" >Start Encrypt</button>
+							<button type="button" id="btn-encrypt" class="btn btn-secondary btn-lg btn-block" disabled>Start Encrypt</button>
 						</div>
 					</div>
 				</div>
 				<div class="decryption" style="display:none">
 					<div class="container">
 						<div class="form-group ">
-							<label for="input-key-length" class="font-weight-bold">Import JCKEY File <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+							<label for="input-jckey-file" class="font-weight-bold">Import JCKEY File <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
 								<div class="custom-file" >
-									<input type="file" class="custom-file-input" id="input-key-file" accept=".jckey" style="cursor: pointer;">
+									<input type="file" class="custom-file-input" id="input-jckey-file" accept=".jckey" style="cursor: pointer;" disabled>
 									<label for="input-key-file" class="custom-file-label" >Json Ciphymage Key File (*.jckey)</label>
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="input-passphrase-group" style="display: none;">
 							<label for="input-passphrase-decrypt" class="font-weight-bold">Input Passphrase (Optional) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
 							<div class="input-group ">
-								<input type="text" id="input-passphrase-decrypt" class="form-control" maxlength="32">
+								<input type="text" id="input-passphrase-decrypt" class="form-control" maxlength="32" disabled>
 								<div class="input-group-prepend">
 									<span class="input-group-text btn btn-primary" id="btn-passphrase-process">Process</span>
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label for="input-key-decrypt" class="font-weight-bold">Your Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
-							<input type="text" id="input-key-decrypt" class="form-control" maxlength="32" readonly>
-						</div>
-						<div class="form-group">
-							<label for="input-iv-decrypt" class="font-weight-bold">Your Initial Vector <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
-							<input type="text" id="input-iv-decrypt" class="form-control" maxlength="16" readonly>
-						</div>
-						<div class="form-group">
-							<button type="button" id="btn-decrypt" class="btn btn-secondary btn-lg btn-block" disabled>Start Decrypt</button>
+						<div id="form-decrypt-group" style="display: none;">
+							<div class="form-group">
+								<label for="input-key-decrypt" class="font-weight-bold">Mode <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+								<input type="text" id="input-mode-decrypt" class="form-control" readonly>
+							</div>
+							<div class="form-group">
+								<label for="input-key-decrypt" class="font-weight-bold">Your Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+								<input type="text" id="input-key-decrypt" class="form-control" maxlength="32" readonly>
+							</div>
+							<div class="form-group" id="input-iv-group">
+								<label for="input-iv-decrypt" class="font-weight-bold">Your Initial Vector <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+								<input type="text" id="input-iv-decrypt" class="form-control" maxlength="16" readonly>
+							</div>
+							<div class="form-group">
+								<button type="button" id="btn-decrypt" class="btn btn-secondary btn-lg btn-block" disabled>Start Decrypt</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -141,19 +147,26 @@
 					<i class="fas fa-times "></i>
 				</a>
 			</div>
-			<div class="panel-loading">
+			<div class="panel-loading ">
 				<div class="progress" style="height: 1.2rem;">
 					<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
 				</div>
-				<div class="">
-
+				<div class="full">
+					<div class="info">
+						<img src="images/loading.gif">
+						<h3>TEST</h3>
+					</div>
 				</div>
 			</div>
 			<div class="panel-result">
 				<div class="image-section" id="image-section">
 					<div id="offset" class="offset">
 						<div class="block">
-							<img src="" id="result-image">	
+							<div class="download">
+								<a href="#" id="download-result-image" class="btn btn-primary">Download Image</a>
+								<a href="#" id="download-jckey" class="btn btn-primary">Download JCKEY</a>
+							</div>
+							<img src="" id="result-image">
 						</div>
 					</div>
 				</div>

@@ -1,18 +1,21 @@
 // BEGIN Declaration Variable
 var source_image;
+var result_image, jckey, timestamp;
 var image_h, image_w;
 // END Declaration Variable
 
 // BEGIN Native Function
+function getRandomString(length) {
+	var random = '';
+	for (var i = 0; i < length; i++) {
+		random += String.fromCharCode(Math.floor(Math.random()*256));
+	}
+	return random;
+}
 function updateProgressBar(value) {
-	document.getElementsByClassName('progress-bar')[0].setAttribute('aria-valuenow',value);
-	document.getElementsByClassName('progress-bar')[0].style.width = value+'%';
-	document.getElementsByClassName('progress-bar')[0].innerHTML += value+'%';
-
 	// $('.progress-bar').attr('aria-valuenow', value);
 	// $('.progress-bar').css('width', value+'%');
 	// $('.progress-bar').html(value+'%');
-	console.log('tttttttttt')
 }
 function resetAll(){
 	for (var i = 0 ; i < blocks.data.length; i++) {
@@ -26,15 +29,45 @@ function resetAll(){
 	$('.panel-select-block .tab-content [type="number"]').prop('disabled',true);
 }
 function resetPanelEncrypt() {
+	$('#input-mode-encrypt').val('aes-cbc');
+	$('#input-key-length').val('128');
 	$('#input-key-encrypt').val('');
 	$('#input-iv-encrypt').val('');
 	$('#input-passphrase-encrypt').val('');
+
+	$('#input-mode-encrypt').prop('disabled',true);
+	$('#input-key-length').prop('disabled',true);
+	$('#input-key-encrypt').prop('disabled',true);
+	$('#input-iv-encrypt').prop('disabled',true);
+	$('#input-passphrase-encrypt').prop('disabled',true);
+	$('#btn-encrypt').prop('disabled',true);
+}
+function enableFormEncrypt() {
+	$('#input-mode-encrypt').prop('disabled',false);
+	$('#input-key-length').prop('disabled',false);
+	$('#input-key-encrypt').prop('disabled',false);
+	$('#input-iv-encrypt').prop('disabled',false);
+	$('#input-passphrase-encrypt').prop('disabled',false);
+	$('#btn-encrypt').prop('disabled',false);
 }
 function resetPanelDecrypt() {
 	$('#input-key-file',null);
 	$('#input-passphrase-decrypt').val('');
 	$('#input-key-decrypt').val('');
 	$('#input-iv-decrypt').val('');
+
+	$('#input-jckey-file').prop('disabled',true);
+	$('#input-passphrase-decrypt').prop('disabled',true);
+	$('#input-key-decrypt').prop('disabled',true);
+	$('#input-iv-decrypt').prop('disabled',true);
+	$('#btn-decrypt').prop('disabled',true);
+}
+function enableFormDecrypt() {
+	$('#input-jckey-file').prop('disabled',false);
+	$('#input-passphrase-decrypt').prop('disabled',false);
+	$('#input-key-decrypt').prop('disabled',false);
+	$('#input-iv-decrypt').prop('disabled',false);
+	$('#btn-decrypt').prop('disabled',false);
 }
 function setMaxAllBlock(max_x, max_y) {
 	$('.input-x').attr('max', max_x);
@@ -452,11 +485,15 @@ var blocks = {
 	isValidWith : function(block) {
 		var a = block;
 		for (var i = 0; i < blocks.data.length; i++) {
+			if (a.x1)
 			if (blocks.curr == i) {
 				continue;
 			}
 			var b = blocks.data[i];
-			if (a.x1 < 0 || a.y1 < 0 || a.x2 < 0 || a.y2 < 0) {
+			if (
+				a.x1 < 0 || image_w < a.x1 || a.y1 < 0 || image_h < a.y1 ||
+				a.x2 < 0 || image_w < a.x2 || a.y2 < 0 || image_h < a.y2
+			) {
 				return false;
 			}
 			if (
@@ -521,6 +558,7 @@ var blocks = {
 			}
 		}
 		return true;
-	}
+	},
+
 }
 // END Native Function
