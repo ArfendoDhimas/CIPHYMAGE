@@ -44,7 +44,6 @@ $('#btn-decrypt').on('click', function () {
 		$('.panel-select-block .tab-content [type="number"]').prop('disabled',true);
 	},1000);
 });
-
 $('#input-jckey-file').on('change', function (files) {
 	$('#input-passphrase-group').hide();
 	$('#form-decrypt-group').hide();
@@ -77,6 +76,11 @@ $('#input-jckey-file').on('change', function (files) {
 		}
 	}
 });
+$('#input-passphrase-decrypt').on('keydown', function (event) {
+	if (event.which == 13) {
+		$('#btn-passphrase-process')[0].click();
+	}
+});
 $('#btn-passphrase-process').on('click', function () {
 	var passphrase = $('#input-passphrase-decrypt').val();
 	if (passphrase != '') {
@@ -105,5 +109,17 @@ $('#btn-passphrase-process').on('click', function () {
 		$('#form-decrypt-group').show();
 	} else {
 		console.error('Wrong Passphrase');
+	}
+});
+$('#btn-passphrase-decrypt-eye').on('click', function () {
+	if (source_image.attr('src') == '') {
+		return;
+	}
+	if ($(this).hasClass('active')) {
+		$(this).removeClass('active');
+		$('#input-passphrase-decrypt').attr('type','password');
+	} else {
+		$(this).addClass('active');
+		$('#input-passphrase-decrypt').attr('type','text');
 	}
 });

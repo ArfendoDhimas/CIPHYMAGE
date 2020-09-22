@@ -230,7 +230,6 @@ class AES{
 			{
 				case 'ECB' : case 'CBC' :
 						this.mode = mode.toUpperCase();
-						console.log(this.mode);
 						this.notif.status = true;
 						this.notif.msg = 'Success set the Mode.';
 						console.log(this.notif.msg);

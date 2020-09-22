@@ -60,7 +60,7 @@
 							<div class="input-group">
 								<input type="text" id="input-key-encrypt" class="form-control" readonly>
 								<div class="input-group-prepend">
-									<span class="input-group-text btn btn-warning" id="btn-random-key"><i class="fa fa-redo"></i></span>
+									<span class="input-group-text btn btn-primary" id="btn-random-key"><i class="fa fa-redo"></i></span>
 								</div>
 							</div>
 						</div>
@@ -69,13 +69,22 @@
 							<div class="input-group">
 								<input type="text" id="input-iv-encrypt" class="form-control" readonly>
 								<div class="input-group-prepend">
-									<span class="input-group-text btn btn-warning" id="btn-random-iv"><i class="fa fa-redo"></i></span>
+									<span class="input-group-text btn btn-primary" id="btn-random-iv"><i class="fa fa-redo"></i></span>
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="input-passphrase-encrypt" class="font-weight-bold">Input Passphrase (Recomended) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
-							<input type="password" id="input-passphrase-encrypt" class="form-control" maxlength="32" disabled>
+							<div class="input-group ">
+								<input type="password" id="input-passphrase-encrypt" class="form-control" maxlength="32" disabled>
+								<div class="input-group-prepend">
+									<a href="#" class="input-group-text btn btn-primary" id="btn-passphrase-encrypt-eye">
+										<i class="fas fa-eye"></i>
+										<i class="fas fa-eye-slash"></i>
+									</a>
+								</div>
+							</div>
+							<!-- <input type="password" id="input-passphrase-encrypt" class="form-control" maxlength="32" disabled> -->
 						</div>
 						<div class="form-group">
 							<button type="button" id="btn-encrypt" class="btn btn-primary btn-lg btn-block" disabled>Start Encrypt</button>
@@ -98,6 +107,10 @@
 							<div class="input-group ">
 								<input type="password" id="input-passphrase-decrypt" class="form-control" maxlength="32" disabled>
 								<div class="input-group-prepend">
+									<a href="#" class="input-group-text btn btn-primary" id="btn-passphrase-decrypt-eye">
+										<i class="fas fa-eye"></i>
+										<i class="fas fa-eye-slash"></i>
+									</a>
 									<a href="#" class="input-group-text btn btn-primary" id="btn-passphrase-process">Process</a>
 								</div>
 							</div>

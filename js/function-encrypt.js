@@ -106,7 +106,7 @@ $('#btn-random-key').on('click', function () {
 			)
 		)
 	);
-})
+});
 $('#btn-random-iv').on('click', function () {
 	if (source_image.attr('src') == '') {
 		return;
@@ -116,4 +116,16 @@ $('#btn-random-iv').on('click', function () {
 			getRandomString(16)
 		)
 	);
-})
+});
+$('#btn-passphrase-encrypt-eye').on('click', function () {
+	if (source_image.attr('src') == '') {
+		return;
+	}
+	if ($(this).hasClass('active')) {
+		$(this).removeClass('active');
+		$('#input-passphrase-encrypt').attr('type','password');
+	} else {
+		$(this).addClass('active');
+		$('#input-passphrase-encrypt').attr('type','text');
+	}
+});
