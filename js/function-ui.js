@@ -1,8 +1,5 @@
 // BEGIN Init
-// $('.tab-header.decryption').removeClass('active');
-// $('.decryption-content').hide();
-// $('.tab-header.encryption').addClass('active');
-// $('.encryption-content').show();
+init();
 // END Init
 
 // BEGIN Button Minimize Panel Block
@@ -157,11 +154,11 @@ $('#btn-menu').on('click', function () {
 });
 // END Show/Hide Panel Menu
 
-// BEGIN Tooltips
+// BEGIN Enable Tooltips
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
-// END Tooltips
+// END Enable Tooltips
 
 // BEGIN Reset 
 $('#btn-reset-curr-block').on('click', function () {
@@ -173,6 +170,8 @@ $('#btn-close-panel-content').on('click', function() {
 	$('.panel-content').removeClass('active');
 })
 $('#btn-close-panel-result').on('click', function() {
+	$('.header-result-encryption').hide();
+	$('.header-result-decryption').hide();
 	$('.panel-result').removeClass('active');
 	$('.panel-select-block .tab-content [type="number"]').prop('disabled',false);
 })
@@ -246,16 +245,16 @@ $('#block5-y2').on('change', function () {
 // END Change Blocks
 
 // BEGIN Selection Blocks
-$('.panel-content .block').on('mousedown', function (mouse) {
-	eventImage.mouseDown(mouse);
+$('.panel-content .block').on('mousedown', function (event) {
+	eventImage.mouseDown(event);
 });
-$('.panel-content .block').on('mousemove', function (mouse) {
-	eventImage.mouseMove(mouse);
+$('.panel-content .block').on('mousemove', function (event) {
+	eventImage.mouseMove(event);
 });
 // END Selection Blocks
 
-// BEGIN Download Result Image
-$('#download-result-image').on('click', function () {
+// BEGIN Download Cipher Image
+$('.header-result-encryption #download-result-image').on('click', function () {
 	var a = document.createElement('a');
 	a.href = result_image.attr('src');
 	a.download = timestamp+'_Cipher_Image.png';
@@ -263,10 +262,10 @@ $('#download-result-image').on('click', function () {
 	a.click();
 	document.body.removeChild(a);
 });
-// BEGIN Download Result Image
+// BEGIN Download Cipher Image
 
 // BEGIN Download JCKEY
-$('#download-jckey').on('click', function () {
+$('.header-result-encryption  #download-jckey').on('click', function () {
 	var blob_jckey = new Blob([jckey],{type: 'text/plain'});
 	var a = document.createElement('a');
 	a.href = window.URL.createObjectURL(blob_jckey);
@@ -276,3 +275,14 @@ $('#download-jckey').on('click', function () {
 	document.body.removeChild(a);
 });
 // END Download JCKEY
+
+// BEGIN Download Result Image
+$('.header-result-decryption #download-result-image').on('click', function () {
+	var a = document.createElement('a');
+	a.href = result_image.attr('src');
+	a.download = timestamp+'_Decipher_Image.png';
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+});
+// BEGIN Download Result Image

@@ -366,6 +366,7 @@ footer {
 }
 .panel-loading .full img {
 	display: block;
+	width: 10rem;
 }
 .image-section {
 	width: 100%;
@@ -518,11 +519,16 @@ footer {
 }
 
 .download {
-	margin: 1rem;
+	margin-bottom: 1rem;
 }
 .download a {
 	margin: 0.5rem;
 	width: 12rem;
+	box-shadow: 0 0 8px 2px var(--color-border);
+}
+
+.header-result-encryption, .header-result-decryption {
+	display: none;
 }
 
 @media only screen and (max-width: 720px) {

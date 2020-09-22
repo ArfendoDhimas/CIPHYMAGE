@@ -3,7 +3,6 @@ $('#btn-import-image').on('change',function (files){
 	var file =  files.target.files[0];
 	if (isValidFile(file))
 	{
-		source_image = $('#source-image');
 		var reader = new FileReader();
 		reader.onload = (function(file_input){
 			return (function(e){

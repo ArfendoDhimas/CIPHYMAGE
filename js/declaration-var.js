@@ -5,6 +5,15 @@ var image_h, image_w;
 // END Declaration Variable
 
 // BEGIN Native Function
+function init() {
+	source_image = $('#source-image');
+	result_image = $('#result-image');
+	jckey = {};
+	timestamp = 0;
+	image_h = 0;
+	image_w = 0;
+	resetAll();
+}
 function getRandomString(length) {
 	var random = '';
 	for (var i = 0; i < length; i++) {
@@ -18,55 +27,47 @@ function updateProgressBar(value) {
 	// $('.progress-bar').html(value+'%');
 }
 function resetAll(){
-	for (var i = 0 ; i < blocks.data.length; i++) {
-		blocks.data[i].reset();
-	}
-	this.resetPanelEncrypt();
-	this.resetPanelDecrypt();
-	this.setMaxAllBlock(0,0);
-	this.resetImage();
-	$('#btn-import-image').val('');
-	$('.panel-select-block .tab-content [type="number"]').prop('disabled',true);
+	resetSelectionBlock();
+	setMaxAllBlock(0,0);
+	resetSidebar();
+	resetPanelEncrypt();
+	resetPanelDecrypt();
+	resetImage();
 }
 function resetPanelEncrypt() {
-	$('#input-mode-encrypt').val('aes-cbc');
-	$('#input-key-length').val('128');
-	$('#input-key-encrypt').val('');
-	$('#input-iv-encrypt').val('');
+	$('#input-mode-encrypt').val('AES-CBC');
+	$('#input-key-length').val('256');
+	$('#input-key-encrypt').val(btoa(getRandomString(parseInt($('#input-key-length').val())/8)));
+	$('#input-iv-encrypt').val(btoa(getRandomString(16)));
+	$('#input-iv-group').show();
 	$('#input-passphrase-encrypt').val('');
 
 	$('#input-mode-encrypt').prop('disabled',true);
 	$('#input-key-length').prop('disabled',true);
-	$('#input-key-encrypt').prop('disabled',true);
-	$('#input-iv-encrypt').prop('disabled',true);
 	$('#input-passphrase-encrypt').prop('disabled',true);
 	$('#btn-encrypt').prop('disabled',true);
 }
 function enableFormEncrypt() {
 	$('#input-mode-encrypt').prop('disabled',false);
 	$('#input-key-length').prop('disabled',false);
-	$('#input-key-encrypt').prop('disabled',false);
-	$('#input-iv-encrypt').prop('disabled',false);
 	$('#input-passphrase-encrypt').prop('disabled',false);
 	$('#btn-encrypt').prop('disabled',false);
 }
 function resetPanelDecrypt() {
-	$('#input-key-file',null);
+	$('#input-jckey-file').val('');
+	$('#input-passphrase-group').hide();
 	$('#input-passphrase-decrypt').val('');
+	$('#form-decrypt-group').hide();
 	$('#input-key-decrypt').val('');
 	$('#input-iv-decrypt').val('');
 
 	$('#input-jckey-file').prop('disabled',true);
 	$('#input-passphrase-decrypt').prop('disabled',true);
-	$('#input-key-decrypt').prop('disabled',true);
-	$('#input-iv-decrypt').prop('disabled',true);
 	$('#btn-decrypt').prop('disabled',true);
 }
 function enableFormDecrypt() {
 	$('#input-jckey-file').prop('disabled',false);
 	$('#input-passphrase-decrypt').prop('disabled',false);
-	$('#input-key-decrypt').prop('disabled',false);
-	$('#input-iv-decrypt').prop('disabled',false);
 	$('#btn-decrypt').prop('disabled',false);
 }
 function setMaxAllBlock(max_x, max_y) {
@@ -77,17 +78,69 @@ function resetCurrentSelectedBlock() {
 	blocks.data[blocks.curr].reset();
 }
 function resetImage() {
-	source_image.removeAttr('src');
+	$('#btn-import-image').val('');
+	source_image.attr('src','');
+	result_image.attr('src','');
 	image_h = 0;
 	image_w = 0;
+}
+function resetSidebar() {
+	$('.sidebar').removeClass('active');
+	$('#btn-sidebar').removeClass('active');
+	$('.tab-header.encryption')[0].click();
+}
+function resetSelectionBlock() {
+	blocks.curr = 0;
+	for (var i in blocks.data) {
+		blocks.data[i].reset();
+	}
+	$('.selection-block .tab-content').removeClass('active');
+	$('.selection-block .tab-header').removeClass('active');
+	$('.selection-block #radio-block-1').prop('checked',true);
+	$('.panel-select-block .tab-content [type="number"]').prop('disabled',true);
+}
+
+function rebuildBlockImageData(image_data, red, green, blue) {
+	var r = 0, g = 0, b = 0;
+	for (var i = 0; i < image_data.data.length; i++) {
+		if (i % 4 == 0) {
+			// Rebuild Red Channel
+			image_data.data[i] = red[r++];
+		} else if (i % 4 == 1) {
+			// Rebuild Green Channel
+			image_data.data[i] = green[g++];
+		} else if (i % 4 == 2) {
+			// Rebuild Blue Channel
+			image_data.data[i] = blue[b++];
+		} 
+	}
+}
+function getChannel(channel,image_data) {
+	var result = [];
+	// Only use channel 0,1,2 (rgb), channel 3 (alpha) will not use
+	if ( channel < 0 && 3 < channel) {
+		return result;
+	}
+	while (channel < image_data.data.length) {
+		result.push(image_data.data[channel]);
+		channel += 4;
+	}
+	return result;
+}
+function paddingPassphrase(passphrase) {
+	var length = 32 - passphrase.length;
+	while (passphrase.length < 32) {
+		passphrase += String.fromCharCode(length);
+	}
+	return passphrase;
 }
 
 var eventImage = {
 	status_draw : false,
 	startX : 0, startY : 0, endX : 0, endY : 0,
-	mouseDown : function(mouse) {
-		var relativeX = mouse.clientX - source_image.offset().left;
-		var relativeY = mouse.clientY - source_image.offset().top;
+	mouseDown : function(event) {
+		var relativeX = event.clientX - source_image.offset().left;
+		var relativeY = event.clientY - source_image.offset().top;
 		if (this.status_draw) {
 			this.status_draw = false;
 		} else {
@@ -113,9 +166,9 @@ var eventImage = {
 			blocks.data[blocks.curr].setY2(this.endY);
 		}
 	},
-	mouseMove : function(mouse) {
-		var relativeX = mouse.clientX - source_image.offset().left;
-		var relativeY = mouse.clientY - source_image.offset().top;
+	mouseMove : function(event) {
+		var relativeX = event.clientX - source_image.offset().left;
+		var relativeY = event.clientY - source_image.offset().top;
 		this.endX = Math.floor(relativeX * image_w / source_image.width());
 		this.endY = Math.floor(relativeY * image_h / source_image.height());
 		if (this.status_draw) {
@@ -181,6 +234,10 @@ var blocks = {
 				temp = (this.x2 - this.x1) * 100 / image_w;
 				$('#block1-x2').val(this.x2);
 				$('#rect-block-1').css('width',temp+'%');
+				if (this.x2 < this.x1) {
+					this.x1 = this.x2;
+					this.setX1(this.x1);
+				}
 			},
 			setY2 : function (value) {
 				var temp = this.y2;
@@ -191,6 +248,10 @@ var blocks = {
 				temp = (this.y2 - this.y1) * 100 / image_h;
 				$('#block1-y2').val(this.y2);
 				$('#rect-block-1').css('height',temp+'%');
+					if (this.y2 < this.y1) {
+						this.y1 = this.y2;
+						this.setY1(this.y1);
+					}
 			},
 			reset: function() {
 				this.x1 = this.y1 = this.x2 = this.y2 = 0;
@@ -211,7 +272,7 @@ var blocks = {
 		},
 		// block 2
 		{
-			x1 : 1, y1 : 1, x2 : 1, y2 : 1,
+			x1 : 0, y1 : 0, x2 : 0, y2 : 0,
 			setX1 : function(value) {
 				var temp = this.x1;
 				this.x1 = value;
@@ -249,6 +310,10 @@ var blocks = {
 				temp = (this.x2 - this.x1) * 100 / image_w;
 				$('#block2-x2').val(this.x2);
 				$('#rect-block-2').css('width',temp+'%');
+				if (this.x2 < this.x1) {
+					this.x1 = this.x2;
+					this.setX1(this.x1);
+				}
 			},
 			setY2 : function (value) {
 				var temp = this.y2;
@@ -259,9 +324,13 @@ var blocks = {
 				temp = (this.y2 - this.y1) * 100 / image_h;
 				$('#block2-y2').val(this.y2);
 				$('#rect-block-2').css('height',temp+'%');
+					if (this.y2 < this.y1) {
+						this.y1 = this.y2;
+						this.setY1(this.y1);
+					}
 			},
 			reset: function() {
-				this.x1 = this.y1 = this.x2 = this.y2 = 1;
+				this.x1 = this.y1 = this.x2 = this.y2 = 0;
 				var temp = this.x1 * 100 / image_w;
 				$('#block2-x1').val(this.x1);
 				$('#rect-block-2').css('left',temp+'%');
@@ -279,7 +348,7 @@ var blocks = {
 		},
 		// block 3
 		{
-			x1 : 2, y1 : 2, x2 : 2, y2 : 2,
+			x1 : 0, y1 : 0, x2 : 0, y2 : 0,
 			setX1 : function(value) {
 				var temp = this.x1;
 				this.x1 = value;
@@ -317,6 +386,10 @@ var blocks = {
 				temp = (this.x2 - this.x1) * 100 / image_w;
 				$('#block3-x2').val(this.x2);
 				$('#rect-block-3').css('width',temp+'%');
+				if (this.x2 < this.x1) {
+					this.x1 = this.x2;
+					this.setX1(this.x1);
+				}
 			},
 			setY2 : function (value) {
 				var temp = this.y2;
@@ -327,9 +400,13 @@ var blocks = {
 				temp = (this.y2 - this.y1) * 100 / image_h;
 				$('#block3-y2').val(this.y2);
 				$('#rect-block-3').css('height',temp+'%');
+					if (this.y2 < this.y1) {
+						this.y1 = this.y2;
+						this.setY1(this.y1);
+					}
 			},
 			reset: function() {
-				this.x1 = this.y1 = this.x2 = this.y2 = 2;
+				this.x1 = this.y1 = this.x2 = this.y2 = 0;
 				var temp = this.x1 * 100 / image_w;
 				$('#block3-x1').val(this.x1);
 				$('#rect-block-3').css('left',temp+'%');
@@ -347,7 +424,7 @@ var blocks = {
 		},
 		// block 4
 		{
-			x1 : 3, y1 : 3, x2 : 3, y2 : 3,
+			x1 : 0, y1 : 0, x2 : 0, y2 : 0,
 			setX1 : function(value) {
 				var temp = this.x1;
 				this.x1 = value;
@@ -385,6 +462,10 @@ var blocks = {
 				temp = (this.x2 - this.x1) * 100 / image_w;
 				$('#block4-x2').val(this.x2);
 				$('#rect-block-4').css('width',temp+'%');
+				if (this.x2 < this.x1) {
+					this.x1 = this.x2;
+					this.setX1(this.x1);
+				}
 			},
 			setY2 : function (value) {
 				var temp = this.y2;
@@ -395,9 +476,13 @@ var blocks = {
 				temp = (this.y2 - this.y1) * 100 / image_h;
 				$('#block4-y2').val(this.y2);
 				$('#rect-block-4').css('height',temp+'%');
+					if (this.y2 < this.y1) {
+						this.y1 = this.y2;
+						this.setY1(this.y1);
+					}
 			},
 			reset: function() {
-				this.x1 = this.y1 = this.x2 = this.y2 = 3;
+				this.x1 = this.y1 = this.x2 = this.y2 = 0;
 				var temp = this.x1 * 100 / image_w;
 				$('#block4-x1').val(this.x1);
 				$('#rect-block-4').css('left',temp+'%');
@@ -415,7 +500,7 @@ var blocks = {
 		},
 		// block 5
 		{
-			x1 : 4, y1 : 4, x2 : 4, y2 : 4,
+			x1 : 0, y1 : 0, x2 : 0, y2 : 0,
 			setX1 : function(value) {
 				var temp = this.x1;
 				this.x1 = value;
@@ -453,6 +538,10 @@ var blocks = {
 				temp = (this.x2 - this.x1) * 100 / image_w;
 				$('#block5-x2').val(this.x2);
 				$('#rect-block-5').css('width',temp+'%');
+				if (this.x2 < this.x1) {
+					this.x1 = this.x2;
+					this.setX1(this.x1);
+				}
 			},
 			setY2 : function (value) {
 				var temp = this.y2;
@@ -463,9 +552,13 @@ var blocks = {
 				temp = (this.y2 - this.y1) * 100 / image_h;
 				$('#block5-y2').val(this.y2);
 				$('#rect-block-5').css('height',temp+'%');
+					if (this.y2 < this.y1) {
+						this.y1 = this.y2;
+						this.setY1(this.y1);
+					}
 			},
 			reset: function() {
-				this.x1 = this.y1 = this.x2 = this.y2 = 4;
+				this.x1 = this.y1 = this.x2 = this.y2 = 0;
 				var temp = this.x1 * 100 / image_w;
 				$('#block5-x1').val(this.x1);
 				$('#rect-block-5').css('left',temp+'%');
@@ -494,69 +587,89 @@ var blocks = {
 				a.x1 < 0 || image_w < a.x1 || a.y1 < 0 || image_h < a.y1 ||
 				a.x2 < 0 || image_w < a.x2 || a.y2 < 0 || image_h < a.y2
 			) {
+				// console.log(1)
 				return false;
 			}
 			if (
 				(a.x1 > b.x1 && a.y1 > b.y1) && (a.x1 > b.x1 && a.y1 < b.y2) &&
 				(a.x1 < b.x2 && a.y1 < b.y2) &&	(a.x1 < b.x2 && a.y1 > b.y1)
 			) {
+				// console.log(2)
 				return false;
 			}
 			if (
 				(a.x1 > b.x1 && a.y2 > b.y1) && (a.x1 > b.x1 && a.y2 < b.y2) &&
 				(a.x1 < b.x2 && a.y2 < b.y2) && (a.x1 < b.x2 && a.y2 > b.y1)
 			) {
+				// console.log(3)
 				return false;
 			}
 			if (
 				(a.x2 > b.x1 && a.y2 > b.y1) && (a.x2 > b.x1 && a.y2 < b.y2) &&
 				(a.x2 < b.x2 && a.y2 < b.y2) &&	(a.x2 < b.x2 && a.y2 > b.y1)
 			) {
+				// console.log(4)
 				return false;
 			}
 			if (
 				(a.x2 > b.x1 && a.y1 > b.y1) &&	(a.x2 > b.x1 && a.y1 < b.y2) &&
 				(a.x2 < b.x2 && a.y1 < b.y2) && (a.x2 < b.x2 && a.y1 > b.y1)
 			) {
+				// console.log(5)
 				return false;
 			}
 			if (
 				(b.x1 > a.x1 && b.y1 > a.y1) && (b.x1 > a.x1 && b.y1 < a.y2) &&
 				(b.x1 < a.x2 && b.y1 < a.y2) &&	(b.x1 < a.x2 && b.y1 > a.y1)
 			) {
+				// console.log(6)
 				return false;
 			}
 			if (
 				(b.x1 > a.x1 && b.y2 > a.y1) &&	(b.x1 > a.x1 && b.y2 < a.y2) &&
 				(b.x1 < a.x2 && b.y2 < a.y2) &&	(b.x1 < a.x2 && b.y2 > a.y1)
 			) {
+				// console.log(7)
 				return false;
 			}
 			if (
 				(b.x2 > a.x1 && b.y2 > a.y1) &&	(b.x2 > a.x1 && b.y2 < a.y2) &&
 				(b.x2 < a.x2 && b.y2 < a.y2) &&	(b.x2 < a.x2 && b.y2 > a.y1)
 			) {
+				// console.log(8)
 				return false;
 			}
 			if (
 				(b.x2 > a.x1 && b.y1 > a.y1) &&	(b.x2 > a.x1 && b.y1 < a.y2) &&
 				(b.x2 < a.x2 && b.y1 < a.y2) &&	(b.x2 < a.x2 && b.y1 > a.y1)
 			) {
+				// console.log(9)
 				return false;
 			}
 			if (
 				(a.x2 >= b.x2 && a.y2 >= b.y1) && (a.x2 >= b.x2 && a.y2 <= b.y2) &&
 				(a.x1 <= b.x1 && a.y1 <= b.y2) &&	(a.x1 <= b.x1 && a.y1 >= b.y1)
 			) {
+				if (a.x1 == b.x2 || a.y1 == b.y2 || a.x2 == b.x1 || a.y2 == b.y1) {
+					// console.log(12)
+					return true;
+				}
+				// console.log(10)
 				return false;
 			}
 			if (
 				(a.x2 >= b.x1 && a.y2 >= b.y2) &&	(a.x2 >= b.x1 && a.y1 <= b.y1) &&
 				(a.x1 <= b.x2 && a.y1 <= b.y1) &&	(a.x1 <= b.x2 && a.y2 >= b.y2)
 			) {
+				if (a.x1 == b.x2 || a.y1 == b.y2 || a.x2 == b.x1 || a.y2 == b.y1) {
+					// console.log(13)
+					return true;
+				}
+				// console.log(11)
 				return false;
 			}
 		}
+		// console.log(14);
 		return true;
 	},
 
