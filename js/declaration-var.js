@@ -2,6 +2,12 @@
 var source_image, image_metadata;
 var result_image, ciphymage_json, timestamp;
 var image_h, image_w;
+
+var supported_image_type = ['image/png','image/jpeg','image/bmp'];
+var supported_algo = ['AES'];
+var supported_mode = ['ECB','CBC'];
+var supported_key_length = [16,24,32];
+var supported_iv_length = [16];
 // END Declaration Variable
 
 // BEGIN Native Function
@@ -152,7 +158,6 @@ function isSupportedJSON(json_obj) {
 		// console.log(4);
 		return false;
 	}
-	var supported_image_type = ['image/png', 'image/jpeg', 'image/bmp'];
 	if (!supported_image_type.includes(json_obj.image.type.toLowerCase())) {
 		// console.log(4);
 		return false;
@@ -161,17 +166,14 @@ function isSupportedJSON(json_obj) {
 		// console.log(5);
 		return false;
 	}
-	var supported_algo = ['AES']
 	if (!supported_algo.includes(json_obj.algo.toUpperCase())) {
 		// console.log(6);
 		return false;
 	}
-
 	if (json_obj.mode == null || json_obj.mode == '') {
 		// console.log(7);
 		return false;
 	}
-	var supported_mode = ['ECB', 'CBC'];
 	if (!supported_mode.includes(json_obj.mode.toUpperCase())) {
 		// console.log(8);
 		return false;
@@ -180,7 +182,6 @@ function isSupportedJSON(json_obj) {
 		// console.log(9);
 		return false;
 	}
-	var supported_key_length = [16, 24, 32];
 	if (!supported_key_length.includes(atob(json_obj.key).length)) {
 		// console.log(10);
 		return false;
@@ -190,7 +191,6 @@ function isSupportedJSON(json_obj) {
 		// console.log(11);
 		return false;
 		}
-		var supported_iv_length = [16];
 		if (!supported_iv_length.includes(atob(json_obj.iv).length)) {
 		// console.log(12);
 		return false;

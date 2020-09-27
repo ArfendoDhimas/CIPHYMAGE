@@ -35,8 +35,8 @@ $('#btn-decrypt').on('click', function () {
 			rebuildBlockImageData(block_image_data,decipher_r[0],decipher_g[0],decipher_b[0]);
 			result_ctx.putImageData(block_image_data,x,y);
 		}
-		// Default to the original image file type for Decrypted Image (*.jpg will be *.jpeg)
-		// Default compress ratio is 0.92 for lossy compression file type (*.jpeg)
+		// Unsupported image type on toDataURL() will be 'image/png' image type as default. 
+		// Example : 'image/bmp' -> 'image/png'
 		result_image.attr('src', result_canvas.toDataURL(ciphymage_json.image.type));
 		// END Decrypt Image
 
