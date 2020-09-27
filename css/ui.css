@@ -535,29 +535,29 @@ footer {
 	display: none;
 }
 
-#btn-passphrase-encrypt-eye .fa-eye{
+#btn-optional-key-encrypt-eye .fa-eye{
 	display: none;
 }
-#btn-passphrase-encrypt-eye.active .fa-eye{
+#btn-optional-key-encrypt-eye.active .fa-eye{
 	display: block;
 }
-#btn-passphrase-encrypt-eye .fa-eye-slash{
+#btn-optional-key-encrypt-eye .fa-eye-slash{
 	display: block;
 }
-#btn-passphrase-encrypt-eye.active .fa-eye-slash{
+#btn-optional-key-encrypt-eye.active .fa-eye-slash{
 	display: none;
 }
 
-#btn-passphrase-decrypt-eye .fa-eye{
+#btn-optional-key-decrypt-eye .fa-eye{
 	display: none;
 }
-#btn-passphrase-decrypt-eye.active .fa-eye{
+#btn-optional-key-decrypt-eye.active .fa-eye{
 	display: block;
 }
-#btn-passphrase-decrypt-eye .fa-eye-slash{
+#btn-optional-key-decrypt-eye .fa-eye-slash{
 	display: block;
 }
-#btn-passphrase-decrypt-eye.active .fa-eye-slash{
+#btn-optional-key-decrypt-eye.active .fa-eye-slash{
 	display: none;
 }
 

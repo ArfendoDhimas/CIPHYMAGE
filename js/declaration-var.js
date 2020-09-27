@@ -40,34 +40,34 @@ function resetPanelEncrypt() {
 	$('#input-key-encrypt').val(btoa(getRandomString(parseInt($('#input-key-length').val())/8)));
 	$('#input-iv-encrypt').val(btoa(getRandomString(16)));
 	$('#input-iv-group').show();
-	$('#input-passphrase-encrypt').val('');
+	$('#input-optional-key-encrypt').val('');
 
 	$('#input-mode-encrypt').prop('disabled',true);
 	$('#input-key-length').prop('disabled',true);
-	$('#input-passphrase-encrypt').prop('disabled',true);
+	$('#input-optional-key-encrypt').prop('disabled',true);
 	$('#btn-encrypt').prop('disabled',true);
 }
 function enableFormEncrypt() {
 	$('#input-mode-encrypt').prop('disabled',false);
 	$('#input-key-length').prop('disabled',false);
-	$('#input-passphrase-encrypt').prop('disabled',false);
+	$('#input-optional-key-encrypt').prop('disabled',false);
 	$('#btn-encrypt').prop('disabled',false);
 }
 function resetPanelDecrypt() {
 	$('#input-jckey-file').val('');
-	$('#input-passphrase-group').hide();
-	$('#input-passphrase-decrypt').val('');
+	$('#input-optional-key-group').hide();
+	$('#input-optional-key-decrypt').val('');
 	$('#form-decrypt-group').hide();
 	$('#input-key-decrypt').val('');
 	$('#input-iv-decrypt').val('');
 
 	$('#input-jckey-file').prop('disabled',true);
-	$('#input-passphrase-decrypt').prop('disabled',true);
+	$('#input-optional-key-decrypt').prop('disabled',true);
 	$('#btn-decrypt').prop('disabled',true);
 }
 function enableFormDecrypt() {
 	$('#input-jckey-file').prop('disabled',false);
-	$('#input-passphrase-decrypt').prop('disabled',false);
+	$('#input-optional-key-decrypt').prop('disabled',false);
 	$('#btn-decrypt').prop('disabled',false);
 }
 function setMaxAllBlock(max_x, max_y) {
@@ -127,12 +127,12 @@ function getChannel(channel,image_data) {
 	}
 	return result;
 }
-function paddingPassphrase(passphrase) {
-	var length = 32 - passphrase.length;
-	while (passphrase.length < 32) {
-		passphrase += String.fromCharCode(length);
+function paddingOptionalKey(optional_key) {
+	var length = 32 - optional_key.length;
+	while (optional_key.length < 32) {
+		optional_key += String.fromCharCode(length);
 	}
-	return passphrase;
+	return optional_key;
 }
 
 var eventImage = {

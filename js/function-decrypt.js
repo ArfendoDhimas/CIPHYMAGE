@@ -45,7 +45,7 @@ $('#btn-decrypt').on('click', function () {
 	},1000);
 });
 $('#input-jckey-file').on('change', function (files) {
-	$('#input-passphrase-group').hide();
+	$('#input-optional-key-group').hide();
 	$('#form-decrypt-group').hide();
 	var file = files.target.files[0];
 	if (file == null) {
@@ -71,22 +71,22 @@ $('#input-jckey-file').on('change', function (files) {
 				}
 				$('#form-decrypt-group').show();
 			} else {
-				$('#input-passphrase-group').show();
+				$('#input-optional-key-group').show();
 			}
 		}
 	}
 });
-$('#input-passphrase-decrypt').on('keydown', function (event) {
+$('#input-optional-key-decrypt').on('keydown', function (event) {
 	if (event.which == 13) {
-		$('#btn-passphrase-process')[0].click();
+		$('#btn-optional-key-process')[0].click();
 	}
 });
-$('#btn-passphrase-process').on('click', function () {
-	var passphrase = $('#input-passphrase-decrypt').val();
-	if (passphrase != '') {
-		passphrase = paddingPassphrase(passphrase);
+$('#btn-optional-key-process').on('click', function () {
+	var optional_key = $('#input-optional-key-decrypt').val();
+	if (optional_key != '') {
+		optional_key = paddingOptionalKey(optional_key);
 	}
-	var decipher_jckey = new AES('ECB',passphrase).decrypt(jckey);
+	var decipher_jckey = new AES('ECB',optional_key).decrypt(jckey);
 	var temp;
 	try {
 		temp = JSON.parse(decipher_jckey);
@@ -111,15 +111,15 @@ $('#btn-passphrase-process').on('click', function () {
 		console.error('Wrong Passphrase');
 	}
 });
-$('#btn-passphrase-decrypt-eye').on('click', function () {
+$('#btn-optional-key-decrypt-eye').on('click', function () {
 	if (source_image.attr('src') == '') {
 		return;
 	}
 	if ($(this).hasClass('active')) {
 		$(this).removeClass('active');
-		$('#input-passphrase-decrypt').attr('type','password');
+		$('#input-optional-key-decrypt').attr('type','password');
 	} else {
 		$(this).addClass('active');
-		$('#input-passphrase-decrypt').attr('type','text');
+		$('#input-optional-key-decrypt').attr('type','text');
 	}
 });

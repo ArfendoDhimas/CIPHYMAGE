@@ -6,9 +6,9 @@ $('#btn-encrypt').on('click', function () {
 		var mode = $('#input-mode-encrypt').val().split('-')[1].toUpperCase();
 		var key = $('#input-key-encrypt').val();
 		var iv = $('#input-iv-encrypt').val();
-		var passphrase = $('#input-passphrase-encrypt').val();
-		if (passphrase != '') {
-			passphrase = paddingPassphrase(passphrase);
+		var optional_key = $('#input-optional-key-encrypt').val();
+		if (optional_key != '') {
+			optional_key = paddingOptionalKey(optional_key);
 		}
 		var blocks_profile = [];
 		
@@ -58,8 +58,8 @@ $('#btn-encrypt').on('click', function () {
 			key_profile.iv = iv;
 		}
 		var string_key_profile = JSON.stringify(key_profile);
-		if (passphrase != '') {
-			var cipher_key_profile = new AES('ECB',passphrase).encrypt(string_key_profile);
+		if (optional_key != '') {
+			var cipher_key_profile = new AES('ECB',optional_key).encrypt(string_key_profile);
 			jckey = JSON.stringify(cipher_key_profile);
 		} else {
 			jckey = string_key_profile;
@@ -117,15 +117,15 @@ $('#btn-random-iv').on('click', function () {
 		)
 	);
 });
-$('#btn-passphrase-encrypt-eye').on('click', function () {
+$('#btn-optional-key-encrypt-eye').on('click', function () {
 	if (source_image.attr('src') == '') {
 		return;
 	}
 	if ($(this).hasClass('active')) {
 		$(this).removeClass('active');
-		$('#input-passphrase-encrypt').attr('type','password');
+		$('#input-optional-key-encrypt').attr('type','password');
 	} else {
 		$(this).addClass('active');
-		$('#input-passphrase-encrypt').attr('type','text');
+		$('#input-optional-key-encrypt').attr('type','text');
 	}
 });
