@@ -1,6 +1,6 @@
 // BEGIN Declaration Variable
 var source_image;
-var result_image, jckey, timestamp;
+var result_image, json_profile, timestamp;
 var image_h, image_w;
 // END Declaration Variable
 
@@ -8,7 +8,7 @@ var image_h, image_w;
 function init() {
 	source_image = $('#source-image');
 	result_image = $('#result-image');
-	jckey = {};
+	json_profile = {};
 	timestamp = 0;
 	image_h = 0;
 	image_w = 0;
@@ -54,19 +54,19 @@ function enableFormEncrypt() {
 	$('#btn-encrypt').prop('disabled',false);
 }
 function resetPanelDecrypt() {
-	$('#input-jckey-file').val('');
+	$('#import-json-file').val('');
 	$('#input-optional-key-group').hide();
 	$('#input-optional-key-decrypt').val('');
 	$('#form-decrypt-group').hide();
 	$('#input-key-decrypt').val('');
 	$('#input-iv-decrypt').val('');
 
-	$('#input-jckey-file').prop('disabled',true);
+	$('#import-json-file').prop('disabled',true);
 	$('#input-optional-key-decrypt').prop('disabled',true);
 	$('#btn-decrypt').prop('disabled',true);
 }
 function enableFormDecrypt() {
-	$('#input-jckey-file').prop('disabled',false);
+	$('#import-json-file').prop('disabled',false);
 	$('#input-optional-key-decrypt').prop('disabled',false);
 	$('#btn-decrypt').prop('disabled',false);
 }

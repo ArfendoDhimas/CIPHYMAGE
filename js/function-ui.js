@@ -257,30 +257,30 @@ $('.panel-content .block').on('mousemove', function (event) {
 $('.header-result-encryption #download-result-image').on('click', function () {
 	var a = document.createElement('a');
 	a.href = result_image.attr('src');
-	a.download = timestamp+'_Cipher_Image.png';
+	a.download = timestamp+'_Cipher_Image';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
 });
 // BEGIN Download Cipher Image
 
-// BEGIN Download JCKEY
-$('.header-result-encryption  #download-jckey').on('click', function () {
-	var blob_jckey = new Blob([jckey],{type: 'text/plain'});
+// BEGIN Download JSON
+$('.header-result-encryption  #download-json').on('click', function () {
+	var blob_json_profile = new Blob([json_profile],{type: 'application/json'});
 	var a = document.createElement('a');
-	a.href = window.URL.createObjectURL(blob_jckey);
-	a.download = timestamp+'_File.jckey';
+	a.href = URL.createObjectURL(blob_json_profile);
+	a.download = timestamp+'_File';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
 });
-// END Download JCKEY
+// END Download JSON
 
 // BEGIN Download Result Image
 $('.header-result-decryption #download-result-image').on('click', function () {
 	var a = document.createElement('a');
 	a.href = result_image.attr('src');
-	a.download = timestamp+'_Decipher_Image.png';
+	a.download = timestamp+'_Decipher_Image';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);

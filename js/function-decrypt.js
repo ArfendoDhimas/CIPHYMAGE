@@ -3,10 +3,10 @@ $('#btn-decrypt').on('click', function () {
 	$('.panel-loading').addClass('active');
 
 	setTimeout(function() { 
-		var algo = jckey.algo.toUpperCase();
-		var mode = jckey.mode.toUpperCase();
-		var key = jckey.key;
-		var iv = jckey.iv;
+		var algo = json_profile.algo.toUpperCase();
+		var mode = json_profile.mode.toUpperCase();
+		var key = json_profile.key;
+		var iv = json_profile.iv;
 		
 		var result_canvas = document.createElement('canvas');
 		result_canvas.width = image_w;
@@ -22,8 +22,8 @@ $('#btn-decrypt').on('click', function () {
 				algo_object.setInitialVector(atob(iv));
 			}
 		}
-		for(var i in jckey.blocks) {
-			var block = jckey.blocks[i];
+		for(var i in json_profile.blocks) {
+			var block = json_profile.blocks[i];
 			var x = block.x1, y = block.y1;
 			var w = block.x2 - block.x1, h = block.y2 - block.y1;
 			if (w == 0 || h == 0) continue;
@@ -44,27 +44,29 @@ $('#btn-decrypt').on('click', function () {
 		$('.panel-select-block .tab-content [type="number"]').prop('disabled',true);
 	},1000);
 });
-$('#input-jckey-file').on('change', function (files) {
+$('#import-json-file').on('change', function (files) {
 	$('#input-optional-key-group').hide();
 	$('#form-decrypt-group').hide();
 	var file = files.target.files[0];
+	console.log(file.type);
 	if (file == null) {
 		return;
 	}
-	if (file.name.split('.').pop().toLowerCase() == 'jckey')  {
+	// file.name.split('.').pop().toLowerCase() == 'json' || 
+	if (file.type == 'application/json')  {
 		var reader = new FileReader();
 		reader.readAsText(file);
 		reader.onload = function(e) {
-			jckey = JSON.parse(e.target.result);
-			if (jckey.timestamp != null) {
-				timestamp = jckey.timestamp;
+			json_profile = JSON.parse(e.target.result);
+			if (json_profile.timestamp != null) {
+				timestamp = json_profile.timestamp;
 				console.log(timestamp);
 				$('#input-mode-decrypt').val(
-					jckey.algo.toUpperCase()+'-'+jckey.mode.toUpperCase()
+					json_profile.algo.toUpperCase()+'-'+json_profile.mode.toUpperCase()
 				);
-				$('#input-key-decrypt').val(jckey.key);
-				$('#input-iv-decrypt').val(jckey.iv);
-				if (jckey.mode.toUpperCase() == 'CBC') {
+				$('#input-key-decrypt').val(json_profile.key);
+				$('#input-iv-decrypt').val(json_profile.iv);
+				if (json_profile.mode.toUpperCase() == 'CBC') {
 					$('#input-iv-decrypt-group').show();
 				} else {
 					$('#input-iv-decrypt-group').hide();
@@ -86,22 +88,22 @@ $('#btn-optional-key-process').on('click', function () {
 	if (optional_key != '') {
 		optional_key = paddingOptionalKey(optional_key);
 	}
-	var decipher_jckey = new AES('ECB',optional_key).decrypt(jckey);
+	var decipher_json_profile = new AES('ECB',optional_key).decrypt(json_profile);
 	var temp;
 	try {
-		temp = JSON.parse(decipher_jckey);
+		temp = JSON.parse(decipher_json_profile);
 	} catch(error) {
 		console.error(error);
 	}
 	if (temp.timestamp != null) {
-		jckey = temp;
-		timestamp = jckey.timestamp;
+		json_profile = temp;
+		timestamp = json_profile.timestamp;
 		$('#input-mode-decrypt').val(
-			jckey.algo.toUpperCase()+'-'+jckey.mode.toUpperCase()
+			json_profile.algo.toUpperCase()+'-'+json_profile.mode.toUpperCase()
 		);
-		$('#input-key-decrypt').val(jckey.key);
-		$('#input-iv-decrypt').val(jckey.iv);
-		if (jckey.mode == 'CBC') {
+		$('#input-key-decrypt').val(json_profile.key);
+		$('#input-iv-decrypt').val(json_profile.iv);
+		if (json_profile.mode == 'CBC') {
 			$('#input-iv-decrypt-group').show();
 		} else {
 			$('#input-iv-decrypt-group').hide();

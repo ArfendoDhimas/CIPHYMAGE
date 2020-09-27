@@ -46,8 +46,8 @@ $('#btn-encrypt').on('click', function () {
 
 		timestamp = new Date().getTime();
 
-		// BEGIN JCKEY
-		var key_profile = {
+		// BEGIN JSON
+		var profile = {
 			timestamp : timestamp,
 			algo : algo,
 			mode : mode,
@@ -55,16 +55,16 @@ $('#btn-encrypt').on('click', function () {
 			blocks : blocks_profile,
 		}
 		if (mode == 'CBC') {
-			key_profile.iv = iv;
+			profile.iv = iv;
 		}
-		var string_key_profile = JSON.stringify(key_profile);
+		var string_profile = JSON.stringify(profile);
 		if (optional_key != '') {
-			var cipher_key_profile = new AES('ECB',optional_key).encrypt(string_key_profile);
-			jckey = JSON.stringify(cipher_key_profile);
+			var cipher_profile = new AES('ECB',optional_key).encrypt(string_profile);
+			json_profile = JSON.stringify(cipher_profile);
 		} else {
-			jckey = string_key_profile;
+			json_profile = string_profile;
 		}
-		// END JCKEY
+		// END JSON
 
 		$('.panel-loading').removeClass('active');
 		$('#btn-sidebar').removeClass('active');
