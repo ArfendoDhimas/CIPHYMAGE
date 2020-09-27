@@ -337,7 +337,7 @@ footer {
 .panel-loading {
 	z-index: 10;
 	display: none;
-	background-color: rgba(221,221,221,80%);
+	background-color: rgba(221,221,221,85%);
 }
 .panel-result {
 	z-index: 15;
@@ -345,6 +345,7 @@ footer {
 }
 .panel-result img {
 	width: 100%;
+	box-shadow: 0 0 10px 2px black;
 }
 .panel-content.active, .panel-result.active, .panel-loading.active {
 	top: 0;
@@ -352,7 +353,7 @@ footer {
 }
 .panel-loading .full {
 	position: relative;
-	height: calc(100% - 1.2rem);
+	height: calc(100% - 2px);
 	width: 100%;
 }
 .panel-loading .full .info {
@@ -380,7 +381,7 @@ footer {
 	text-align: center;
 }
 .offset .block {
-	margin: 3rem;
+	margin: 3.5rem 3rem;
 	width: fit-content;
 	height: fit-content;
 	display: inline-block;
@@ -391,6 +392,7 @@ footer {
 	width: 100%;
 	cursor: crosshair;
 	-webkit-user-drag: none;
+	box-shadow: 0 0 10px 2px black;
 }
 
 #btn-sidebar {
@@ -523,12 +525,12 @@ footer {
 }
 
 .download {
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 .download a {
 	margin: 0.5rem;
 	width: 12rem;
-	box-shadow: 0 0 8px 2px var(--color-border);
+	box-shadow: 0 0 6px 1px var(--color-border);
 }
 
 .header-result-encryption, .header-result-decryption {
