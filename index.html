@@ -98,7 +98,7 @@
 							<div class="input-group">
 								<div class="custom-file" >
 									<input type="file" class="custom-file-input" id="import-json-file" accept="application/json" style="cursor: pointer;" disabled>
-									<label for="input-key-file" class="custom-file-label" >JSON File (*.json)</label>
+									<label for="input-key-file" class="custom-file-label" id="json-filename">JSON File (*.json)</label>
 								</div>
 							</div>
 						</div>
@@ -378,8 +378,12 @@
 		</section>
 		<footer>
 			<div class="copyright">
-				<!-- <span class="float-left"><b>2020</b></span> -->
-				<a href="https://www.github.com/arfendodhimas/ciphymage" target="_blank" class="float-right"><i class="fab fa-github"></i> Github</a>
+				<div class="row">
+					<div class="col" >
+						<b><span id="image-filename"></span></b>
+					</div>
+					<a href="https://www.github.com/arfendodhimas/ciphymage" target="_blank" class="text-right col-2"><i class="fab fa-github"></i> Github</a>
+				</div>
 			</div>
 		</footer>
 	</body>

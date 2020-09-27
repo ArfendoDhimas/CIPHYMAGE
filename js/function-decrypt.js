@@ -55,6 +55,7 @@ $('#import-json-file').on('change', function (files) {
 		return;
 	}
 	if (file.type == 'application/json')  {
+		$('#json-filename').html(properFilename(file.name,'json'));
 		var reader = new FileReader();
 		reader.readAsText(file);
 		reader.onload = function(e) {

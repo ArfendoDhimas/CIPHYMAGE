@@ -1,8 +1,9 @@
 // BEGIN Input Image
 $('#btn-import-image').on('change',function (files){
 	var file =  files.target.files[0];
-	if (!supported_image_type.includes(file.type))
+	if (supported_image_type.includes(file.type))
 	{
+		$('#image-filename').html(properFilename(file.name,'image'));
 		image_metadata = {
 			name : file.name.split('.').slice(0,-1).join('.'),
 			type : file.type,

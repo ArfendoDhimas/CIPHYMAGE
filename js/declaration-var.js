@@ -61,6 +61,7 @@ function enableFormEncrypt() {
 	$('#btn-encrypt').prop('disabled',false);
 }
 function resetPanelDecrypt() {
+	$('#json-filename').html('JSON File (*.json)');
 	$('#import-json-file').val('');
 	$('#input-optional-key-group').hide();
 	$('#input-optional-key-decrypt').val('');
@@ -85,6 +86,7 @@ function resetCurrentSelectedBlock() {
 	blocks.data[blocks.curr].reset();
 }
 function resetImage() {
+	$('#image-filename').html('');
 	$('#btn-import-image').val('');
 	source_image.attr('src','');
 	result_image.attr('src','');
@@ -214,6 +216,24 @@ function isSupportedJSON(json_obj) {
 		}
 	}
 	return true;
+}
+function properFilename(filename,type = 'image') {
+	var result = '';
+	console.log(filename)
+	if (filename.length > 40) {
+		if (type == 'image') {
+			result = filename.substr(0,10);
+			result += '...';
+			result += filename.substr(filename.length-27,filename.length);
+		} else if (type == 'json') {
+			result = filename.substr(0,15);
+			result += '...';
+			result += filename.substr(filename.length-22,filename.length);
+		}
+	} else {
+		result = filename;
+	}
+	return result;
 }
 
 var eventImage = {
