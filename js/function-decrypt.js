@@ -59,7 +59,7 @@ $('#import-json-file').on('change', function (files) {
 		reader.readAsText(file);
 		reader.onload = function(e) {
 			ciphymage_json = JSON.parse(e.target.result);
-			if (ciphymage_json.timestamp != null) {
+			if (isSupportedJSON(ciphymage_json)) {
 				timestamp = ciphymage_json.timestamp;
 				console.log(timestamp);
 				$('#input-mode-decrypt').val(
@@ -73,8 +73,10 @@ $('#import-json-file').on('change', function (files) {
 					$('#input-iv-decrypt-group').hide();
 				}
 				$('#form-decrypt-group').show();
-			} else {
+			} else if (typeof ciphymage_json == 'string') {
 				$('#input-optional-key-group').show();
+			} else {
+				console.log('Unsupported JSON');
 			}
 		}
 	}
@@ -96,7 +98,7 @@ $('#btn-optional-key-process').on('click', function () {
 	} catch(error) {
 		console.error(error);
 	}
-	if (temp.timestamp != null) {
+	if (isSupportedJSON(temp)) {
 		ciphymage_json = temp;
 		timestamp = ciphymage_json.timestamp;
 		$('#input-mode-decrypt').val(

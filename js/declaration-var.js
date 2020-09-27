@@ -135,6 +135,86 @@ function paddingOptionalKey(optional_key) {
 	}
 	return optional_key;
 }
+function isSupportedJSON(json_obj) {
+	if (json_obj.timestamp == null || json_obj.timestamp == '') {
+		// console.log(1);
+		return false;
+	}
+	if (json_obj.image == null || json_obj.image == '') {
+		// console.log(2);
+		return false;
+	}
+	if (json_obj.image.name == null || json_obj.image.name == '') {
+		// console.log(3);
+		return false;
+	}
+	if (json_obj.image.type == null || json_obj.image.type == '') {
+		// console.log(4);
+		return false;
+	}
+	var supported_image_type = ['image/png', 'image/jpeg', 'image/bmp'];
+	if (!supported_image_type.includes(json_obj.image.type.toLowerCase())) {
+		// console.log(4);
+		return false;
+	}
+	if (json_obj.algo == null || json_obj.algo == '') {
+		// console.log(5);
+		return false;
+	}
+	var supported_algo = ['AES']
+	if (!supported_algo.includes(json_obj.algo.toUpperCase())) {
+		// console.log(6);
+		return false;
+	}
+
+	if (json_obj.mode == null || json_obj.mode == '') {
+		// console.log(7);
+		return false;
+	}
+	var supported_mode = ['ECB', 'CBC'];
+	if (!supported_mode.includes(json_obj.mode.toUpperCase())) {
+		// console.log(8);
+		return false;
+	}
+	if (json_obj.key == null || json_obj.key == '') {
+		// console.log(9);
+		return false;
+	}
+	var supported_key_length = [16, 24, 32];
+	if (!supported_key_length.includes(atob(json_obj.key).length)) {
+		// console.log(10);
+		return false;
+	}
+	if (json_obj.mode.toUpperCase() == 'CBC') {
+		if (json_obj.iv == null || json_obj.iv == '') {
+		// console.log(11);
+		return false;
+		}
+		var supported_iv_length = [16];
+		if (!supported_iv_length.includes(atob(json_obj.iv).length)) {
+		// console.log(12);
+		return false;
+		}
+	}
+	if (json_obj.blocks == null || json_obj.blocks == '') {
+		// console.log(13);
+		return false;
+	}
+	if (typeof json_obj.blocks == 'object' && json_obj.blocks.length > 0) {
+		for (var i in json_obj.blocks) {
+			var block = json_obj.blocks[i];
+			if (block.x1 < 0 || block.y1 < 0) {
+				// console.log(14);
+				return false;
+			}
+			if (block.x2 < block.x1 || block.y2 < block.y1) {
+				// console.log(15);
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 var eventImage = {
 	status_draw : false,
@@ -579,7 +659,6 @@ var blocks = {
 	isValidWith : function(block) {
 		var a = block;
 		for (var i = 0; i < blocks.data.length; i++) {
-			if (a.x1)
 			if (blocks.curr == i) {
 				continue;
 			}

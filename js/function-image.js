@@ -1,14 +1,12 @@
 // BEGIN Input Image
 $('#btn-import-image').on('change',function (files){
 	var file =  files.target.files[0];
-	console.log(file);
 	if (isSupportedImageFile(file))
 	{
 		image_metadata = {
 			name : file.name.split('.').slice(0,-1).join('.'),
 			type : file.type,
 		};
-	console.log(image_metadata);
 	var reader = new FileReader();
 		reader.onload = (function(file_input){
 			return (function(e){
