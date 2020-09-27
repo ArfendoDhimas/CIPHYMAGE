@@ -475,6 +475,10 @@ footer {
 	color: var(--color-text-2);
 }
 
+#btn-decrypt, #btn-encrypt {
+	width: 60%;
+}
+
 .block-overlay {
 	position: absolute;
 	cursor: crosshair;
