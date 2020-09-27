@@ -1,9 +1,15 @@
 // BEGIN Input Image
 $('#btn-import-image').on('change',function (files){
 	var file =  files.target.files[0];
-	if (isValidFile(file))
+	console.log(file);
+	if (isSupportedImageFile(file))
 	{
-		var reader = new FileReader();
+		image_metadata = {
+			name : file.name.split('.').slice(0,-1).join('.'),
+			type : file.type,
+		};
+	console.log(image_metadata);
+	var reader = new FileReader();
 		reader.onload = (function(file_input){
 			return (function(e){
 				source_image.attr('src',e.target.result);
@@ -23,7 +29,7 @@ $('#source-image').on('load', function () {
 	setMaxAllBlock(image_w, image_h);
 });
 
-function isValidFile(file)
+function isSupportedImageFile(file)
 {
 	if (file.type != 'image/png' && file.type != 'image/jpeg' && file.type != 'image/bmp')
 	{

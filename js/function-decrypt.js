@@ -1,12 +1,13 @@
 $('#btn-decrypt').on('click', function () {
 	$('.sidebar').removeClass('active');
 	$('.panel-loading').addClass('active');
-
+	$('.selection-block .tab-content').removeClass('active');
+	$('.selection-block .tab-header').removeClass('active');
 	setTimeout(function() { 
-		var algo = json_profile.algo.toUpperCase();
-		var mode = json_profile.mode.toUpperCase();
-		var key = json_profile.key;
-		var iv = json_profile.iv;
+		var algo = ciphymage_json.algo.toUpperCase();
+		var mode = ciphymage_json.mode.toUpperCase();
+		var key = ciphymage_json.key;
+		var iv = ciphymage_json.iv;
 		
 		var result_canvas = document.createElement('canvas');
 		result_canvas.width = image_w;
@@ -22,8 +23,8 @@ $('#btn-decrypt').on('click', function () {
 				algo_object.setInitialVector(atob(iv));
 			}
 		}
-		for(var i in json_profile.blocks) {
-			var block = json_profile.blocks[i];
+		for(var i in ciphymage_json.blocks) {
+			var block = ciphymage_json.blocks[i];
 			var x = block.x1, y = block.y1;
 			var w = block.x2 - block.x1, h = block.y2 - block.y1;
 			if (w == 0 || h == 0) continue;
@@ -34,7 +35,9 @@ $('#btn-decrypt').on('click', function () {
 			rebuildBlockImageData(block_image_data,decipher_r[0],decipher_g[0],decipher_b[0]);
 			result_ctx.putImageData(block_image_data,x,y);
 		}
-		result_image.attr('src', result_canvas.toDataURL());
+		// Default to the original image file type for Decrypted Image (*.jpg will be *.jpeg)
+		// Default compress ratio is 0.92 for lossy compression file type (*.jpeg)
+		result_image.attr('src', result_canvas.toDataURL(ciphymage_json.image.type));
 		// END Decrypt Image
 
 		$('.panel-loading').removeClass('active');
@@ -48,25 +51,23 @@ $('#import-json-file').on('change', function (files) {
 	$('#input-optional-key-group').hide();
 	$('#form-decrypt-group').hide();
 	var file = files.target.files[0];
-	console.log(file.type);
 	if (file == null) {
 		return;
 	}
-	// file.name.split('.').pop().toLowerCase() == 'json' || 
 	if (file.type == 'application/json')  {
 		var reader = new FileReader();
 		reader.readAsText(file);
 		reader.onload = function(e) {
-			json_profile = JSON.parse(e.target.result);
-			if (json_profile.timestamp != null) {
-				timestamp = json_profile.timestamp;
+			ciphymage_json = JSON.parse(e.target.result);
+			if (ciphymage_json.timestamp != null) {
+				timestamp = ciphymage_json.timestamp;
 				console.log(timestamp);
 				$('#input-mode-decrypt').val(
-					json_profile.algo.toUpperCase()+'-'+json_profile.mode.toUpperCase()
+					ciphymage_json.algo.toUpperCase()+'-'+ciphymage_json.mode.toUpperCase()
 				);
-				$('#input-key-decrypt').val(json_profile.key);
-				$('#input-iv-decrypt').val(json_profile.iv);
-				if (json_profile.mode.toUpperCase() == 'CBC') {
+				$('#input-key-decrypt').val(ciphymage_json.key);
+				$('#input-iv-decrypt').val(ciphymage_json.iv);
+				if (ciphymage_json.mode.toUpperCase() == 'CBC') {
 					$('#input-iv-decrypt-group').show();
 				} else {
 					$('#input-iv-decrypt-group').hide();
@@ -88,7 +89,7 @@ $('#btn-optional-key-process').on('click', function () {
 	if (optional_key != '') {
 		optional_key = paddingOptionalKey(optional_key);
 	}
-	var decipher_json_profile = new AES('ECB',optional_key).decrypt(json_profile);
+	var decipher_json_profile = new AES('ECB',optional_key).decrypt(ciphymage_json);
 	var temp;
 	try {
 		temp = JSON.parse(decipher_json_profile);
@@ -96,14 +97,14 @@ $('#btn-optional-key-process').on('click', function () {
 		console.error(error);
 	}
 	if (temp.timestamp != null) {
-		json_profile = temp;
-		timestamp = json_profile.timestamp;
+		ciphymage_json = temp;
+		timestamp = ciphymage_json.timestamp;
 		$('#input-mode-decrypt').val(
-			json_profile.algo.toUpperCase()+'-'+json_profile.mode.toUpperCase()
+			ciphymage_json.algo.toUpperCase()+'-'+ciphymage_json.mode.toUpperCase()
 		);
-		$('#input-key-decrypt').val(json_profile.key);
-		$('#input-iv-decrypt').val(json_profile.iv);
-		if (json_profile.mode == 'CBC') {
+		$('#input-key-decrypt').val(ciphymage_json.key);
+		$('#input-iv-decrypt').val(ciphymage_json.iv);
+		if (ciphymage_json.mode == 'CBC') {
 			$('#input-iv-decrypt-group').show();
 		} else {
 			$('#input-iv-decrypt-group').hide();

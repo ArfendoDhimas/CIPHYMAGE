@@ -257,7 +257,7 @@ $('.panel-content .block').on('mousemove', function (event) {
 $('.header-result-encryption #download-result-image').on('click', function () {
 	var a = document.createElement('a');
 	a.href = result_image.attr('src');
-	a.download = timestamp+'_Cipher_Image';
+	a.download = image_metadata.name+'_'+timestamp+'-ENCRYPTED';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
@@ -266,10 +266,10 @@ $('.header-result-encryption #download-result-image').on('click', function () {
 
 // BEGIN Download JSON
 $('.header-result-encryption  #download-json').on('click', function () {
-	var blob_json_profile = new Blob([json_profile],{type: 'application/json'});
+	var blob_json_profile = new Blob([ciphymage_json],{type: 'application/json'});
 	var a = document.createElement('a');
 	a.href = URL.createObjectURL(blob_json_profile);
-	a.download = timestamp+'_File';
+	a.download = image_metadata.name+'_'+timestamp+'-KEY';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
@@ -280,7 +280,7 @@ $('.header-result-encryption  #download-json').on('click', function () {
 $('.header-result-decryption #download-result-image').on('click', function () {
 	var a = document.createElement('a');
 	a.href = result_image.attr('src');
-	a.download = timestamp+'_Decipher_Image';
+	a.download = ciphymage_json.image.name+'_'+timestamp+'-DECRYPTED';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);

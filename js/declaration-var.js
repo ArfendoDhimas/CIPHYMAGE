@@ -1,14 +1,15 @@
 // BEGIN Declaration Variable
-var source_image;
-var result_image, json_profile, timestamp;
+var source_image, image_metadata;
+var result_image, ciphymage_json, timestamp;
 var image_h, image_w;
 // END Declaration Variable
 
 // BEGIN Native Function
 function init() {
 	source_image = $('#source-image');
+	image_metadata = {};
 	result_image = $('#result-image');
-	json_profile = {};
+	ciphymage_json = {};
 	timestamp = 0;
 	image_h = 0;
 	image_w = 0;
