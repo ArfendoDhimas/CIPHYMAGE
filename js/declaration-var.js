@@ -687,89 +687,39 @@ var blocks = {
 				a.x1 < 0 || image_w < a.x1 || a.y1 < 0 || image_h < a.y1 ||
 				a.x2 < 0 || image_w < a.x2 || a.y2 < 0 || image_h < a.y2
 			) {
-				// console.log(1)
 				return false;
 			}
-			if (
-				(a.x1 > b.x1 && a.y1 > b.y1) && (a.x1 > b.x1 && a.y1 < b.y2) &&
-				(a.x1 < b.x2 && a.y1 < b.y2) &&	(a.x1 < b.x2 && a.y1 > b.y1)
-			) {
-				// console.log(2)
+
+			// Block A relatif terhadap Block B
+			if ( (a.x2 > b.x1 && a.y2 > b.y1) && (a.x2 < b.x2 && a.y2 < b.y2) )
 				return false;
-			}
-			if (
-				(a.x1 > b.x1 && a.y2 > b.y1) && (a.x1 > b.x1 && a.y2 < b.y2) &&
-				(a.x1 < b.x2 && a.y2 < b.y2) && (a.x1 < b.x2 && a.y2 > b.y1)
-			) {
-				// console.log(3)
+			if ( (a.x1 > b.x1 && a.y2 > b.y1) && (a.x1 < b.x2 && a.y2 < b.y2) )
 				return false;
-			}
-			if (
-				(a.x2 > b.x1 && a.y2 > b.y1) && (a.x2 > b.x1 && a.y2 < b.y2) &&
-				(a.x2 < b.x2 && a.y2 < b.y2) &&	(a.x2 < b.x2 && a.y2 > b.y1)
-			) {
-				// console.log(4)
+			if ( (a.x2 > b.x1 && a.y1 > b.y1) && (a.x2 < b.x2 && a.y1 < b.y2) )
 				return false;
-			}
-			if (
-				(a.x2 > b.x1 && a.y1 > b.y1) &&	(a.x2 > b.x1 && a.y1 < b.y2) &&
-				(a.x2 < b.x2 && a.y1 < b.y2) && (a.x2 < b.x2 && a.y1 > b.y1)
-			) {
-				// console.log(5)
+			if ( (a.x1 > b.x1 && a.y1 > b.y1) && (a.x1 < b.x2 && a.y1 < b.y2) )
 				return false;
-			}
-			if (
-				(b.x1 > a.x1 && b.y1 > a.y1) && (b.x1 > a.x1 && b.y1 < a.y2) &&
-				(b.x1 < a.x2 && b.y1 < a.y2) &&	(b.x1 < a.x2 && b.y1 > a.y1)
-			) {
-				// console.log(6)
+			
+			// Block B relatif terhadap Block A
+			if ( (b.x2 > a.x1 && b.y2 > a.y1) && (b.x2 < a.x2 && b.y2 < a.y2) )
 				return false;
-			}
-			if (
-				(b.x1 > a.x1 && b.y2 > a.y1) &&	(b.x1 > a.x1 && b.y2 < a.y2) &&
-				(b.x1 < a.x2 && b.y2 < a.y2) &&	(b.x1 < a.x2 && b.y2 > a.y1)
-			) {
-				// console.log(7)
+			if ( (b.x1 > a.x1 && b.y2 > a.y1) && (b.x1 < a.x2 && b.y2 < a.y2) )
 				return false;
-			}
-			if (
-				(b.x2 > a.x1 && b.y2 > a.y1) &&	(b.x2 > a.x1 && b.y2 < a.y2) &&
-				(b.x2 < a.x2 && b.y2 < a.y2) &&	(b.x2 < a.x2 && b.y2 > a.y1)
-			) {
-				// console.log(8)
+			if ( (b.x2 > a.x1 && b.y1 > a.y1) && (b.x2 < a.x2 && b.y1 < a.y2) )
 				return false;
-			}
-			if (
-				(b.x2 > a.x1 && b.y1 > a.y1) &&	(b.x2 > a.x1 && b.y1 < a.y2) &&
-				(b.x2 < a.x2 && b.y1 < a.y2) &&	(b.x2 < a.x2 && b.y1 > a.y1)
-			) {
-				// console.log(9)
+			if ( (b.x1 > a.x1 && b.y1 > a.y1) && (b.x1 < a.x2 && b.y1 < a.y2) )
 				return false;
-			}
-			if (
-				(a.x2 >= b.x2 && a.y2 >= b.y1) && (a.x2 >= b.x2 && a.y2 <= b.y2) &&
-				(a.x1 <= b.x1 && a.y1 <= b.y2) &&	(a.x1 <= b.x1 && a.y1 >= b.y1)
-			) {
-				if (a.x1 == b.x2 || a.y1 == b.y2 || a.x2 == b.x1 || a.y2 == b.y1) {
-					// console.log(12)
-					return true;
-				}
-				// console.log(10)
+
+			// Block A dan B saling bersilangan
+			if ( (a.x1 > b.x1 && a.x2 < b.x2) && (a.y1 <= b.y1 && a.y2 >= b.y2) )
 				return false;
-			}
-			if (
-				(a.x2 >= b.x1 && a.y2 >= b.y2) &&	(a.x2 >= b.x1 && a.y1 <= b.y1) &&
-				(a.x1 <= b.x2 && a.y1 <= b.y1) &&	(a.x1 <= b.x2 && a.y2 >= b.y2)
-			) {
-				if (a.x1 == b.x2 || a.y1 == b.y2 || a.x2 == b.x1 || a.y2 == b.y1) {
-					// console.log(13)
-					return true;
-				}
-				// console.log(11)
+			if ( (a.x1 <= b.x1 && a.x2 >= b.x2) && (a.y1 > b.y1 && a.y2 < b.y2) )
 				return false;
-			}
+			if ( (b.x1 > a.x1 && b.x2 < a.x2) && (b.y1 <= a.y1 && b.y2 >= a.y2) )
+				return false;
+			if ( (b.x1 <= a.x1 && b.x2 >= a.x2) && (b.y1 > a.y1 && b.y2 < a.y2) )
+				return false;
 		}
-		// console.log(14);
 		return true;
 	},
 
