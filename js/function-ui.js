@@ -286,3 +286,9 @@ $('.header-result-decryption #download-result-image').on('click', function () {
 	document.body.removeChild(a);
 });
 // BEGIN Download Result Image
+
+// BEGIN Menu
+// $('.btn-menu-image-comparison').on('click', function () {
+
+// });
+// END Menu
