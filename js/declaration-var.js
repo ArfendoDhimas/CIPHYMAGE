@@ -42,11 +42,11 @@ function resetAll(){
 	resetImage();
 }
 function resetPanelEncrypt() {
-	$('#input-mode-encrypt').val('AES-CBC');
+	$('#input-mode-encrypt').val('AES-ECB');
 	$('#input-key-length').val('256');
 	$('#input-key-encrypt').val(btoa(getRandomString(parseInt($('#input-key-length').val())/8)));
 	$('#input-iv-encrypt').val(btoa(getRandomString(16)));
-	$('#input-iv-group').show();
+	$('#input-iv-group').hide();
 	$('#input-optional-key-encrypt').val('');
 
 	$('#input-mode-encrypt').prop('disabled',true);
@@ -61,7 +61,7 @@ function enableFormEncrypt() {
 	$('#btn-encrypt').prop('disabled',false);
 }
 function resetPanelDecrypt() {
-	$('#json-filename').html('JSON File (*.json)');
+	$('#json-filename').html('Key File (*.json)');
 	$('#import-json-file').val('');
 	$('#input-optional-key-group').hide();
 	$('#input-optional-key-decrypt').val('');

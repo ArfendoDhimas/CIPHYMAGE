@@ -42,10 +42,10 @@
 				<div class="encryption">
 					<div class="container">
 						<div class="form-group">
-							<label for="input-mode-encrypt" class="font-weight-bold">Select Encryption Mode <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+							<label for="input-mode-encrypt" class="font-weight-bold">Select Encryption Algoritm <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<select class="form-control" id="input-mode-encrypt" disabled>
-								<option value="AES-ECB">AES-ECB</option>
-								<option value="AES-CBC" selected>AES-CBC (Recomended)</option>
+								<option value="AES-ECB" selected>AES-ECB (Electronic Codebook)</option>
+								<!-- <option value="AES-CBC">AES-CBC (Cipher Block Chaining)</option> -->
 							</select>
 						</div>
 						<div class="form-group">
@@ -57,7 +57,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="input-key-encrypt" class="font-weight-bold">Generate Random Primary Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+							<label for="input-key-encrypt" class="font-weight-bold">Generate Random Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
 								<input type="text" id="input-key-encrypt" class="form-control" readonly>
 								<div class="input-group-prepend">
@@ -75,9 +75,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="input-optional-key-encrypt" class="font-weight-bold">Input Optional Key (Recomended) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
+							<label for="input-optional-key-encrypt" class="font-weight-bold">Input Password (Optional) <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
 							<div class="input-group ">
-								<input type="password" id="input-optional-key-encrypt" class="form-control" maxlength="32" disabled>
+								<input type="password" id="input-optional-key-encrypt" class="form-control" maxlength="16" disabled>
 								<div class="input-group-prepend">
 									<a href="#" class="input-group-text btn btn-primary" id="btn-optional-key-encrypt-eye">
 										<i class="fas fa-eye"></i>
@@ -95,18 +95,18 @@
 				<div class="decryption" style="display:none">
 					<div class="container">
 						<div class="form-group ">
-							<label for="import-json-file" class="font-weight-bold">Import JSON File <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
+							<label for="import-json-file" class="font-weight-bold">Import Key File <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a></label>
 							<div class="input-group">
 								<div class="custom-file" >
 									<input type="file" class="custom-file-input" id="import-json-file" accept="application/json" style="cursor: pointer;" disabled>
-									<label for="input-key-file" class="custom-file-label" id="json-filename">JSON File (*.json)</label>
+									<label for="input-key-file" class="custom-file-label" id="json-filename">Key File (*.json)</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group" id="input-optional-key-group" style="display: none;">
-							<label for="input-optional-key-decrypt" class="font-weight-bold">Input Optional Key <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
+							<label for="input-optional-key-decrypt" class="font-weight-bold">Input Password <a href="#" type="button" data-toggle="tooltip" data-html="true" title="text-tooltip"><i class="fas fa-info-circle"></i></a> </label>
 							<div class="input-group ">
-								<input type="password" id="input-optional-key-decrypt" class="form-control" maxlength="32" disabled>
+								<input type="password" id="input-optional-key-decrypt" class="form-control" maxlength="16" disabled>
 								<div class="input-group-prepend">
 									<a href="#" class="input-group-text btn btn-primary" id="btn-optional-key-decrypt-eye">
 										<i class="fas fa-eye"></i>
@@ -179,7 +179,7 @@
 							<div class="download">
 								<div class="header-result-encryption" style="display: none;">
 									<a href="#" id="download-result-image" class="btn btn-primary">Download Image</a>
-									<a href="#" id="download-json" class="btn btn-primary">Download JSON</a>
+									<a href="#" id="download-json" class="btn btn-primary">Download Key File</a>
 								</div>
 								<div class="header-result-decryption" style="display: none;">
 									<a href="#" id="download-result-image" class="btn btn-primary">Download Image</a>
